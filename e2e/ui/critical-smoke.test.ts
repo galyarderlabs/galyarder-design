@@ -78,7 +78,9 @@ test('settings dialog is reachable from home', async ({ page }) => {
   await page.getByRole('button', { name: 'Open settings' }).click();
   const settingsDialog = page.getByRole('dialog');
   await expect(settingsDialog).toBeVisible();
-  await expect(settingsDialog.getByRole('heading', { name: 'Execution mode' })).toBeVisible();
+  await expect(
+    settingsDialog.locator('#settings-dialog-title-visible').getByRole('heading', { name: 'Execution mode' }),
+  ).toBeVisible();
 });
 
 test('prototype project creation reaches the workspace shell', async ({ page }) => {

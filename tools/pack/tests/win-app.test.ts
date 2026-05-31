@@ -16,6 +16,7 @@ const PACKAGE_DIRS = [
   "packages/agui-adapter",
   "packages/plugin-runtime",
   "packages/diagnostics",
+  "packages/host",
   "apps/daemon",
   "apps/web",
   "apps/desktop",

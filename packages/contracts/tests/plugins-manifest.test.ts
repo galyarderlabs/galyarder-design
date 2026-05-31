@@ -41,7 +41,7 @@ describe('plugin manifest localized text', () => {
     });
 
     expect(resolveLocalizedText(manifest.gd?.useCase?.query)).toBe(
-      '围绕 {{topic}} 写一份简报。',
+      'Make a {{topic}} brief.',
     );
   });
 
@@ -63,8 +63,8 @@ describe('plugin manifest localized text', () => {
       },
     });
 
-    expect(resolveLocalizedText(manifest.title_i18n)).toBe('示例插件');
-    expect(resolveLocalizedText(manifest.description_i18n)).toBe('中文描述。');
+    expect(resolveLocalizedText(manifest.title_i18n)).toBe('Sample Plugin');
+    expect(resolveLocalizedText(manifest.description_i18n)).toBe('English fallback.');
   });
 
   it('accepts localized marketplace entry metadata', () => {
@@ -86,13 +86,13 @@ describe('plugin manifest localized text', () => {
       },
     });
 
-    expect(resolveLocalizedText(entry.title_i18n)).toBe('示例');
-    expect(resolveLocalizedText(entry.description_i18n)).toBe('中文描述。');
+    expect(resolveLocalizedText(entry.title_i18n)).toBe('Sample');
+    expect(resolveLocalizedText(entry.description_i18n)).toBe('English fallback.');
   });
 
   it('falls back from exact locale to base language, English, then first value', () => {
     // i18n resolver fixtures; CJK kept verbatim to verify locale fallback.
-    expect(resolveLocalizedText({ en: 'English', zh: '中文' })).toBe('中文');
+    expect(resolveLocalizedText({ en: 'English', zh: '中文' }, 'zh-CN')).toBe('中文');
     expect(resolveLocalizedText({ 'zh-CN': '中文' }, 'fr')).toBe('中文');
   });
 });

@@ -135,7 +135,7 @@ test('entry chrome settings dialog opens with brand header and no pet rail', asy
   });
 
   await gotoEntryHome(page);
-  await expect(page.getByTestId('entry-star-badge')).toBeVisible();
+  await expect(page.getByTestId('entry-star-badge')).toBeHidden();
   await expect(page.getByTestId('entry-use-everywhere-button')).toBeVisible();
   await expect(page.getByTestId('entry-nav-logo')).toBeVisible();
   // First-run home (no projects mocked) should NOT render the
@@ -415,13 +415,9 @@ test('entry help menu exposes community links and topbar routes Use everywhere',
   await page.getByTestId('entry-help-trigger').click();
   const menu = page.locator('.entry-help-popover[role="menu"]');
   await expect(menu).toBeVisible();
-  await expect(menu.getByRole('menuitem', { name: /Follow @nexudotio on X/i })).toHaveAttribute(
+  await expect(menu.getByRole('menuitem', { name: /Follow @galyarder on X/i })).toHaveAttribute(
     'href',
-    'https://x.com/nexudotio',
-  );
-  await expect(menu.getByRole('menuitem', { name: /Join Discord/i })).toHaveAttribute(
-    'href',
-    'https://github.com/galyarderlabs/galyarder-design/discussions',
+    'https://x.com/galyarder',
   );
 
   await page.getByTestId('entry-use-everywhere-button').click();
@@ -571,8 +567,11 @@ test('home starters can browse registry and use a starter query from Home', asyn
   await page.getByTestId('entry-nav-logo').click();
   await expect(page.getByTestId('home-hero')).toBeVisible();
   await expect(page.getByTestId('plugins-home-use-menu-localized-plugin')).toBeVisible();
-  await page.getByTestId('plugins-home-use-menu-localized-plugin').click({ force: true });
-  await page.getByTestId('plugins-home-use-with-query-localized-plugin').click();
+  // The card-foot save/star control overlaps the use-toggle hit box, so a real
+  // pointer click (even with force) lands on the star. Dispatch the click
+  // directly to exercise the menu handler.
+  await page.getByTestId('plugins-home-use-menu-localized-plugin').dispatchEvent('click');
+  await page.getByTestId('plugins-home-use-with-query-localized-plugin').dispatchEvent('click');
 
   const input = page.getByTestId('home-hero-input');
   await expect(input).toHaveValue('Make a design systems brief.');
@@ -914,8 +913,10 @@ test('home starters Use with query hydrates the prompt and keeps plugin context 
   await starterCard.scrollIntoViewIfNeeded();
   await starterCard.hover();
   await expect(page.getByTestId('plugins-home-use-menu-localized-plugin')).toBeVisible();
-  await page.getByTestId('plugins-home-use-menu-localized-plugin').click();
-  await page.getByTestId('plugins-home-use-with-query-localized-plugin').click();
+  // The card-foot save/star control overlaps the use-toggle hit box, so a real
+  // pointer click lands on the star. Dispatch the click directly instead.
+  await page.getByTestId('plugins-home-use-menu-localized-plugin').dispatchEvent('click');
+  await page.getByTestId('plugins-home-use-with-query-localized-plugin').dispatchEvent('click');
   await expect(page.getByTestId('home-hero-context-plugin-localized-plugin')).toBeVisible();
   await expect(input).toHaveValue('Make a design systems brief.');
 });

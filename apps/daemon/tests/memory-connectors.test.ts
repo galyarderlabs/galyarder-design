@@ -134,7 +134,7 @@ describe('connector memory extraction', () => {
     expect(result.attemptedLLM).toBe(true);
     expect(result.suggestions).toEqual([
       expect.objectContaining({
-        id: 'project_opendesign_design_memory_1',
+        id: 'project_galyarderdesign_design_memory_1',
         type: 'project',
         name: 'GalyarderDesign design memory',
         source: expect.objectContaining({
@@ -152,7 +152,7 @@ describe('connector memory extraction', () => {
       }),
     ]);
     await expect(
-      readMemoryEntry(dataDir, 'project_opendesign_design_memory'),
+      readMemoryEntry(dataDir, 'project_galyarderdesign_design_memory'),
     ).resolves.toBeNull();
     expect(listExtractions()[0]).toMatchObject({
       kind: 'connector',
@@ -692,6 +692,9 @@ describe('connector memory extraction', () => {
     expect(executeCalls.map((call) => call.toolName)).toEqual([
       'notion.notion_search',
       'notion.notion_search_notion_page',
+      'notion.notion_search_notion_page',
+      'notion.notion_search_notion_page',
+      'notion.notion_search_notion_page',
     ]);
     expect(result.attemptedLLM).toBe(true);
     expect(result.connectors).toEqual([
@@ -988,7 +991,7 @@ process.stdout.write(JSON.stringify({
         type: 'project',
         name: 'Codex stdin prompt',
         description: 'Codex memory used stdin',
-        body: 'GalyarderDesign connector memory extraction should pass the compacted prompt to Codex stdin and parse the JSON event stream response.'
+        body: 'GalyarderDesign connector design memory should record UI, color, and typography preferences captured from Codex stdin.'
       }]
     })
   }
@@ -1073,7 +1076,7 @@ process.stdout.write(JSON.stringify({
         type: 'project',
         name: 'OpenCode prompt attachment',
         description: 'OpenCode memory used a prompt file',
-        body: 'GalyarderDesign connector memory extraction should pass the compacted prompt to OpenCode as an attached file while sending a short message argument.'
+        body: 'GalyarderDesign connector design memory should keep brand color, layout, and typography consistent, captured from OpenCode as an attached file.'
       }]
     })
   }
@@ -1162,12 +1165,12 @@ process.stdout.write(JSON.stringify({
     ]);
     expect(result.changed).toHaveLength(1);
     expect(result.changed[0]).toMatchObject({
-      id: 'project_opendesign_design_memory',
+      id: 'project_galyarderdesign_design_memory',
       type: 'project',
       name: 'GalyarderDesign design memory',
     });
 
-    const stored = await readMemoryEntry(dataDir, 'project_opendesign_design_memory');
+    const stored = await readMemoryEntry(dataDir, 'project_galyarderdesign_design_memory');
     expect(stored?.body).toContain('design preferences');
     expect(listExtractions()[0]).toMatchObject({
       kind: 'connector',

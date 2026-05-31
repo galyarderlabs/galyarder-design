@@ -258,24 +258,21 @@ describe('App connectors settings flows', () => {
       }),
     );
 
-    const { container } = render(<App />);
+    render(<App />);
 
     await waitFor(() => {
       expect(mockedFetchDaemonConfig).toHaveBeenCalled();
     });
-    expect(container.querySelector('.privacy-consent-banner')).toBeNull();
+    expect(document.querySelector('.privacy-consent-modal-actions')).toBeNull();
 
     resolveDaemonConfig({});
 
     await waitFor(() => {
-      expect(container.querySelector('.privacy-consent-banner')).toBeTruthy();
+      expect(document.querySelector('.privacy-consent-modal-actions')).toBeTruthy();
     });
-    const banner = container.querySelector('.privacy-consent-banner');
-    expect(banner?.querySelector('.seg-control')).toBeNull();
-    expect(banner?.querySelector('.seg-btn.active')).toBeNull();
-    expect(screen.getByRole('button', { name: 'I get it' }).className).toContain(
-      'privacy-consent-action',
-    );
+    expect(screen.getByText('Help us improve Galyarder Design')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'I get it' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: "Don't share" })).toBeTruthy();
   });
 
   it('keeps the first-run privacy banner mounted while settings is open', async () => {
@@ -283,18 +280,18 @@ describe('App connectors settings flows', () => {
     // z-index in index.css sits above the modal backdrop, so opening
     // Settings (or any other modal) must not unmount the banner — the
     // user has to be able to acknowledge the disclosure from any view.
-    const { container } = render(<App />);
+    render(<App />);
 
     await waitFor(() => {
-      expect(container.querySelector('.privacy-consent-banner')).toBeTruthy();
+      expect(document.querySelector('.privacy-consent-modal-actions')).toBeTruthy();
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Open execution settings' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Open execution settings', hidden: true }));
 
     await waitFor(() => {
-      expect(screen.getByRole('dialog', { name: 'Settings dialog' })).toBeTruthy();
+      expect(screen.getByRole('dialog', { name: 'Settings dialog', hidden: true })).toBeTruthy();
     });
-    expect(container.querySelector('.privacy-consent-banner')).toBeTruthy();
+    expect(document.querySelector('.privacy-consent-modal-actions')).toBeTruthy();
   });
 
   it('withholds the privacy banner until onboarding completes', async () => {
@@ -304,15 +301,15 @@ describe('App connectors settings flows', () => {
     mockedLoadConfig.mockReturnValue({ ...baseConfig, onboardingCompleted: false });
     mockedFetchDaemonConfig.mockResolvedValue({ onboardingCompleted: false });
 
-    const { container } = render(<App />);
+    render(<App />);
 
     await waitFor(() => {
       expect(mockedFetchDaemonConfig).toHaveBeenCalled();
     });
-    // Give the bootstrap microtasks a turn to settle; banner must still
+    // Give the bootstrap microtasks a turn to settle; the modal must still
     // be absent because onboardingCompleted is false.
     await waitFor(() => {
-      expect(container.querySelector('.privacy-consent-banner')).toBeNull();
+      expect(document.querySelector('.privacy-consent-modal-actions')).toBeNull();
     });
   });
 
@@ -330,10 +327,10 @@ describe('App connectors settings flows', () => {
     } as never);
 
     try {
-      const { container } = render(<App />);
+      render(<App />);
 
       await waitFor(() => {
-        expect(container.querySelector('.privacy-consent-banner')).toBeTruthy();
+        expect(document.querySelector('.privacy-consent-modal-actions')).toBeTruthy();
       });
     } finally {
       useRouteMock.mockReturnValue({

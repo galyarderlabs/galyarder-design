@@ -83,8 +83,8 @@ describe('ConnectorsBrowser', () => {
 
     render(<ConnectorsBrowser composioConfigured={false} />);
 
-    await waitFor(() => expect(screen.getByTestId('connector-gate')).toBeTruthy());
-    expect(screen.getByTestId('connector-grid-wrap').className).toContain('is-masked');
+    await waitFor(() => expect(document.querySelector('.connectors-rail-gate')).toBeTruthy());
+    expect(document.querySelector('.connectors-rail-list')?.className).toContain('is-masked');
   });
 
   it('keeps discovered tools when discovery resolves before the base catalog', async () => {
@@ -113,12 +113,13 @@ describe('ConnectorsBrowser', () => {
     base.resolve([configuredComposioConnector]);
 
     await screen.findByText('GitHub');
-    await screen.findAllByText('1 tool');
     fireEvent.click(screen.getByRole('button', { name: 'Open GitHub details' }));
     await screen.findByText('List issues');
 
     await waitFor(() => expect(screen.getByText('List issues')).toBeTruthy());
-    expect(screen.getAllByText('1 tool')).toHaveLength(2);
+    // The redesigned rail rows carry a status badge, not a tool count;
+    // the "1 tool" badge only renders inside the detail drawer.
+    expect(screen.getAllByText('1 tool')).toHaveLength(1);
   });
 
   it('stops showing the drawer loading state after discovery completes with zero tools', async () => {
@@ -252,7 +253,7 @@ describe('ConnectorsBrowser', () => {
     render(<ConnectorsBrowser composioConfigured={false} />);
 
     await screen.findByText('Notion');
-    expect(screen.getByTestId('connector-grid-wrap').className).toContain('is-masked');
+    expect(document.querySelector('.connectors-rail-list')?.className).toContain('is-masked');
     expect(screen.queryByTestId('connector-drawer')).toBeNull();
     expect(fetchConnectorDetail).not.toHaveBeenCalled();
   });
@@ -362,7 +363,7 @@ describe('ConnectorsBrowser', () => {
     await waitFor(() => expect(fetchConnectorDetail).toHaveBeenCalledTimes(2));
   });
 
-  it('retries failed drawer preview hydration when reopened from a panel alert', async () => {
+  it('retries failed drawer preview hydration when reopened after a connect error', async () => {
     const previewConnector: ConnectorDetail = {
       ...configuredComposioConnector,
       id: 'notion',
@@ -391,12 +392,13 @@ describe('ConnectorsBrowser', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Connect' }));
     await waitFor(() => expect(connectConnector).toHaveBeenCalledWith('notion'));
-    const alert = await screen.findByRole('status');
-    expect(alert.textContent).toContain('Notion: Composio provider is not configured');
-    const alertRow = alert.closest('.connector-panel-alert');
-    expect(alertRow).not.toBeNull();
 
-    fireEvent.click(within(alertRow as HTMLElement).getByRole('button', { name: 'Open Notion details' }));
+    // The panel-alert pattern was removed; the connect error now surfaces
+    // inside the drawer. Reopening the drawer from the row retries the
+    // failed tool-preview hydration.
+    fireEvent.click(screen.getByRole('button', { name: 'Open Notion details' }));
+    const drawer = await screen.findByTestId('connector-drawer');
+    expect(within(drawer).getByText('Composio provider is not configured')).toBeTruthy();
 
     await waitFor(() => expect(fetchConnectorDetail).toHaveBeenCalledTimes(2));
     expect(fetchConnectorDetail).toHaveBeenNthCalledWith(2, 'notion', {
@@ -470,16 +472,13 @@ describe('ConnectorsBrowser', () => {
 
     await waitFor(() => expect(cancelConnectorAuthorization).toHaveBeenCalledWith('github'));
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeTruthy();
-    const status = screen.getByRole('status');
-    expect(status.textContent).toContain("Couldn't cancel authorization. Try again.");
-    expect(status.closest('.connector-grid')).toBeNull();
-    expect(status.closest('.connector-card')).toBeNull();
-    const alertRow = status.closest('.connector-panel-alert');
-    expect(alertRow).not.toBeNull();
-    fireEvent.click(within(alertRow as HTMLElement).getByRole('button', { name: 'Open GitHub details' }));
+    const alert = await screen.findByRole('alert');
+    expect(alert.textContent).toContain("Couldn't cancel authorization. Try again.");
+    // The failure renders inline on the connector row, not in a panel alert.
+    expect(alert.closest('.connectors-rail-row')).not.toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Open GitHub details' }));
     const drawer = await screen.findByTestId('connector-drawer');
     expect(within(drawer).getByRole('alert').textContent).toContain("Couldn't cancel authorization. Try again.");
-    expect(document.querySelector('.connector-panel-alert')).toBeNull();
     expect(
       JSON.parse(window.sessionStorage.getItem('gd-connectors-authorization-pending') ?? '{}'),
     ).toHaveProperty('github');
@@ -515,13 +514,12 @@ describe('ConnectorsBrowser', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
 
     await waitFor(() => expect(cancelConnectorAuthorization).toHaveBeenCalledWith('github'));
-    expect(screen.getByRole('status').textContent).toContain("Couldn't cancel authorization. Try again.");
+    expect((await screen.findByRole('alert')).textContent).toContain("Couldn't cancel authorization. Try again.");
 
     fireEvent.focus(window);
 
     await waitFor(() => expect(fetchConnectorStatuses).toHaveBeenCalledTimes(2));
-    await waitFor(() => expect(screen.queryByRole('status')).toBeNull());
-    expect(document.querySelector('.connector-panel-alert')).toBeNull();
+    await waitFor(() => expect(screen.queryByRole('alert')).toBeNull());
     expect(screen.getByRole('button', { name: 'Disconnect' })).toBeTruthy();
   });
 
@@ -559,7 +557,7 @@ describe('ConnectorsBrowser', () => {
     expect(screen.getByRole('button', { name: 'Disconnect' })).toBeTruthy();
   });
 
-  it('surfaces a connect error above the connector grid', async () => {
+  it('surfaces a connect error inside the connector drawer', async () => {
     const availableConnector: ConnectorDetail = {
       ...configuredComposioConnector,
       status: 'available',
@@ -579,21 +577,14 @@ describe('ConnectorsBrowser', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Connect' }));
 
     await waitFor(() => expect(connectConnector).toHaveBeenCalledWith('github'));
-    const alert = await screen.findByRole('status');
-    expect(alert.textContent).toContain('GitHub: Composio provider is not configured');
-    expect(alert.textContent).toContain('GitHub');
-    expect(alert.textContent).toContain('Composio provider is not configured');
-    expect(alert.closest('.connector-grid')).toBeNull();
-    expect(alert.closest('.connector-card')).toBeNull();
-    const alertRow = alert.closest('.connector-panel-alert');
-    expect(alertRow).not.toBeNull();
-    fireEvent.click(within(alertRow as HTMLElement).getByRole('button', { name: 'Open GitHub details' }));
+    // The connect error now surfaces inside the connector drawer rather
+    // than in a removed above-grid panel alert.
+    fireEvent.click(screen.getByRole('button', { name: 'Open GitHub details' }));
     const drawer = await screen.findByTestId('connector-drawer');
     expect(within(drawer).getByText('Composio provider is not configured')).toBeTruthy();
-    expect(document.querySelector('.connector-panel-alert')).toBeNull();
   });
 
-  it('preserves full long connect errors in the panel alert title and drawer', async () => {
+  it('preserves full long connect errors in the connector drawer', async () => {
     const availableConnector: ConnectorDetail = {
       ...configuredComposioConnector,
       name: 'GitHub Enterprise Connector With A Very Long Display Name',
@@ -619,23 +610,11 @@ describe('ConnectorsBrowser', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Connect' }));
 
     await waitFor(() => expect(connectConnector).toHaveBeenCalledWith('github'));
-    const alert = await screen.findByRole('status');
-    expect(alert.textContent).toContain(longError);
-    expect(alert.closest('.connector-grid')).toBeNull();
-    expect(alert.closest('.connector-card')).toBeNull();
-    expect(alert.querySelector('strong')?.getAttribute('title')).toBe(
-      'GitHub Enterprise Connector With A Very Long Display Name',
-    );
-    const message = alert.querySelector('span[title]');
-    expect(message?.getAttribute('title')).toBe(longError);
-    const alertRow = alert.closest('.connector-panel-alert');
-    expect(alertRow).not.toBeNull();
-    fireEvent.click(within(alertRow as HTMLElement).getByRole('button', {
+    fireEvent.click(screen.getByRole('button', {
       name: 'Open GitHub Enterprise Connector With A Very Long Display Name details',
     }));
     const drawer = await screen.findByTestId('connector-drawer');
     expect(within(drawer).getByText(longError)).toBeTruthy();
-    expect(document.querySelector('.connector-panel-alert')).toBeNull();
   });
 
   it('clears the panel connect error when the user retries and succeeds', async () => {
@@ -662,13 +641,16 @@ describe('ConnectorsBrowser', () => {
 
     await screen.findByText('GitHub');
     fireEvent.click(screen.getByRole('button', { name: 'Connect' }));
-    await waitFor(() => expect(
-      screen.getByRole('status').textContent,
-    ).toContain('Composio provider is not configured'));
+    await waitFor(() => expect(connectConnector).toHaveBeenCalledTimes(1));
 
-    fireEvent.click(screen.getByRole('button', { name: 'Connect' }));
+    // The error surfaces in the drawer; retry from there and confirm it clears.
+    fireEvent.click(screen.getByRole('button', { name: 'Open GitHub details' }));
+    const drawer = await screen.findByTestId('connector-drawer');
+    expect(within(drawer).getByText('Composio provider is not configured')).toBeTruthy();
+
+    fireEvent.click(within(drawer).getByRole('button', { name: 'Connect' }));
     await waitFor(() => expect(connectConnector).toHaveBeenCalledTimes(2));
-    await waitFor(() => expect(screen.queryByRole('status')).toBeNull());
+    await waitFor(() => expect(within(drawer).queryByText('Composio provider is not configured')).toBeNull());
   });
 
   it('does not mark failed OAuth launches as pending authorization', async () => {
@@ -821,7 +803,7 @@ describe('ConnectorsBrowser', () => {
     fireEvent(window, new Event('focus'));
 
     await waitFor(() => expect(cancelConnectorAuthorization).toHaveBeenCalledWith('github'));
-    expect(await screen.findAllByText("Couldn't cancel authorization. Try again.")).toHaveLength(2);
+    expect(await screen.findAllByText("Couldn't cancel authorization. Try again.")).toHaveLength(1);
 
     vi.useRealTimers();
   });

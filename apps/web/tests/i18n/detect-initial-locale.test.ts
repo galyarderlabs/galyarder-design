@@ -70,9 +70,9 @@ describe('detectInitialLocale priority chain', () => {
 
   it('ignores an untagged localStorage value when a fresh host locale is available', () => {
     setStoredLocale('ja', 'untagged');
-    installHostWithOsLocale('zh-CN');
+    installHostWithOsLocale('ko');
 
-    expect(detectInitialLocale()).toBe('zh-CN');
+    expect(detectInitialLocale()).toBe('ko');
   });
 
   it('falls through to navigator when an unsupported locale was stored', () => {
@@ -83,17 +83,17 @@ describe('detectInitialLocale priority chain', () => {
   });
 
   it('uses the desktop host OS locale when no localStorage pick exists', () => {
-    installHostWithOsLocale('zh-CN');
+    installHostWithOsLocale('ja');
     setNavigatorLanguages(['en-US']);
 
-    expect(detectInitialLocale()).toBe('zh-CN');
+    expect(detectInitialLocale()).toBe('ja');
   });
 
-  it('routes packaged OS locale strings through resolveSystemLocale (zh-Hant → zh-TW)', () => {
-    installHostWithOsLocale('zh-Hant-TW');
+  it('routes packaged OS locale strings through resolveSystemLocale (region tag → base language)', () => {
+    installHostWithOsLocale('fr-CA');
     setNavigatorLanguages(['en-US']);
 
-    expect(detectInitialLocale()).toBe('zh-TW');
+    expect(detectInitialLocale()).toBe('fr');
   });
 
   it('falls back to navigator when host osLocale is missing or not a string', () => {

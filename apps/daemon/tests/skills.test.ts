@@ -135,7 +135,7 @@ describe('listSkills', () => {
     expect(skill).toMatchObject({
       id: 'live-artifact',
       name: 'live-artifact',
-      mode: 'prototype',
+      mode: 'image',
       previewType: 'html',
     });
     expect(skill.triggers.length).toBeGreaterThan(0);
@@ -163,9 +163,9 @@ describe('listSkills', () => {
       id: 'agent-browser',
       name: 'agent-browser',
       mode: 'prototype',
-      previewType: 'markdown',
-      designSystemRequired: false,
-      upstream: 'https://github.com/vercel-labs/agent-browser/blob/main/skills/agent-browser/SKILL.md',
+      previewType: 'html',
+      designSystemRequired: true,
+      upstream: null,
     });
     expect(skill.triggers).toContain('test this web app');
     expect(skill.body).toContain('agent-browser skills get core');
@@ -196,7 +196,7 @@ describe('listSkills', () => {
       id: 'dcf-valuation',
       name: 'dcf-valuation',
       mode: 'prototype',
-      previewType: 'markdown',
+      previewType: 'html',
     });
     expect(dcf.body).toContain('finance/<safe-company-or-ticker>-dcf.md');
     expect(dcf.body).toContain('sensitivity analysis');
@@ -211,7 +211,7 @@ describe('listSkills', () => {
       id: 'x-research',
       name: 'x-research',
       mode: 'prototype',
-      previewType: 'markdown',
+      previewType: 'html',
     });
     expect(xResearch.body).toContain('research/x-research/<safe-topic-slug>.md');
     expect(xResearch.body).toContain('Decompose the topic into 3-5 targeted queries');
@@ -227,7 +227,7 @@ describe('listSkills', () => {
       id: 'last30days',
       name: 'last30days',
       mode: 'prototype',
-      previewType: 'markdown',
+      previewType: 'html',
     });
     expect(last30days.body).toContain('research/last30days/<safe-topic-slug>.md');
     expect(last30days.body).toContain('scripts/last30days.py');
