@@ -16,6 +16,8 @@
   Open source · Local-first · No account required · BYOK
 </p>
 
+<p align="center"><!-- README language switcher --><b>English</b></p>
+
 ---
 
 The next generation of products won't be designed in pixel-pushing click farms. They'll be built by founders and developers who describe their intent and let agent-native engines render clean, production-ready code.

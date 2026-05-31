@@ -21,6 +21,8 @@ out/
 
 # Antigravity / coding-agent local config (symlinks into ~/.gemini, etc.). Local-only.
 .antigravitycli
+# Kiro IDE local spec / steering workspace. Local-only.
+.kiro
 test-results
 playwright-report
 e2e/.od-data
