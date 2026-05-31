@@ -1,0 +1,22 @@
+{
+  "id": "vr-headset-exploded-view-poster",
+  "surface": "image",
+  "title": "VR Headset Exploded View Poster",
+  "summary": "Generates a high-tech exploded view diagram of a VR headset with detailed component callouts and promotional text.",
+  "category": "Social Media Post",
+  "tags": [
+    "fantasy",
+    "3d-render",
+    "product"
+  ],
+  "model": "gpt-image-2",
+  "aspect": "1:1",
+  "prompt": "{\n  \"type\": \"exploded view product diagram poster\",\n  \"subject\": \"VR headset\",\n  \"style\": \"clean high-tech 3D render, studio lighting, glowing accents\",\n  \"background\": \"{argument name=\\\"background color\\\" default=\\\"soft purple and blue gradient\\\"}\",\n  \"header\": {\n    \"logo\": \"∞ {argument name=\\\"product name\\\" default=\\\"Meta Quest 3\\\"}\",\n    \"subtitle\": \"{argument name=\\\"main catchphrase\\\" default=\\\"completelyNew Reality、completelyNew Structurefrom.\\\"}\"\n  },\n  \"layout\": {\n    \"centerpiece\": \"vertically stacked exploded view of a VR headset showing 9 distinct layers of internal components: outer shell, camera sensors, motherboard with chip, pancake lenses, internal frame, battery packs, side straps, top strap, and facial interface cushion.\",\n    \"callout_labels\": {\n      \"count\": 8,\n      \"left_side\": [\n        \"Snapdragon® XR2 Gen 2\\nOverwhelming Processing Powerfor real-time Experience.\",\n        \"Adjustable IPDmechanism\\nWideprovides comfortable fit for users.\",\n        \"Precision Designheadstrap\\nErgonomics pursuing comfort and stability.\"\n      ],\n      \"right_side\": [\n        \"Faceplate\\nSleek DesignandOptimal WeightBalance.\",\n        \"Tracking Camera\\nHigh precision position tracking and Environment AwarenessRealized.\",\n        \"Pancake Lens\\nSlim DesignwithWide Field of View (FOV)andProvides Vivid Visuals.\",\n        \"High PerformanceBattery\\nLong TimeoperationSupportsOptimized Power Design.\",\n        \"Soft face interface\\nLong Timeprovides comfortable wearing feelRealized.\"\n      ]\n    },\n    \"footer\": {\n      \"left_text_block\": {\n        \"headline\": \"{argument name=\\\"bottom headline\\\" default=\\\"Experience、from structural Evolutionto.\\\"}\",\n        \"body\": \"for every single part、ImmersiveExperienceSupportsCutting-edge technology and careful design.Meta Quest 3、Futuristic-feelingExperienceis generated from within.\"\n      },\n      \"right_logo\": \"∞ Meta\"\n    }\n  }\n}",
+  "previewImageUrl": "https://cms-assets.youmind.com/media/1776658772018_lukyfw_HGSUfldbIAEiMWZ.jpg",
+  "source": {
+    "repo": "YouMind-OpenLab/awesome-gpt-image-2",
+    "license": "CC-BY-4.0",
+    "author": "wory@Hopping",
+    "url": "https://x.com/wory37303852/status/2045925660401795478#reversed-0"
+  }
+}

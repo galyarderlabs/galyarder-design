@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-themes="tokyo-night,dracula,catppuccin-mocha,nord,corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presenter Mode Deck</title>
+<link rel="stylesheet" href="../../../assets/fonts.css">
+<link rel="stylesheet" href="../../../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../../../assets/themes/tokyo-night.css">
+<link rel="stylesheet" href="../../../assets/animations/animations.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-presenter-mode-reveal">
+<div class="deck">
+
+  <!-- ============ 1. COVER ============ -->
+  <section class="slide" data-title="Cover">
+    <p class="kicker">presenter-mode / demo</p>
+    <h1 class="h1 anim-fade-up" data-anim="fade-up">How to give a tech talk that<br><span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">has a speaker script</span></h1>
+    <p class="lede mt-m">Press <span class="mono">S</span> for presenter view · <span class="mono">T</span> to switch theme · <span class="mono">← →</span> to navigate</p>
+    <div class="speaker">
+      <div class="av"></div>
+      <div><b>@lewis</b><span>sharing talk · 30 min</span></div>
+    </div>
+    <div class="deck-footer">
+      <span class="mono">#presenter #speaker-script #tech-talk</span>
+      <span class="slide-number" data-current="1" data-total="6"></span>
+    </div>
+    <aside class="notes">
+      <p>Hi everyone, welcome to today's tech sharing session. I'm lewis, and today I want to dig into a topic most people overlook but that genuinely affects how a talk lands — <strong>how to give a tech talk that has both depth and flow, without ever stalling out</strong>.</p>
+      <p>Quick context on this deck itself: it's an HTML slide template with a working <em>presenter mode</em>. What you see right now is the audience view — but on my own screen, I'm looking at something completely different: current slide, next slide, full speaker script, timer, all in one window.</p>
+      <p>Why did I build this? Because in my own talks the biggest pain isn't the slides looking nice — it's <strong>hitting a slide, blanking on what to say next, or losing the transition</strong>. Today is both the content and a live demo — I'll keep presenter mode running the whole time, and you can judge how smooth the result is.</p>
+      <p>About 30 minutes, 5 parts. Interrupt any time. Let's go.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 2. AGENDA ============ -->
+  <section class="slide" data-title="Agenda">
+    <p class="kicker">agenda</p>
+    <h2 class="h2">Five things, today</h2>
+    <div class="stack mt-l">
+      <div class="agenda-row"><span class="num">01</span><span class="t">Why a polished deck still isn't enough</span><span class="d">~5min</span></div>
+      <div class="agenda-row"><span class="num">02</span><span class="t">What the presenter view should actually show</span><span class="d">~6min</span></div>
+      <div class="agenda-row"><span class="num">03</span><span class="t">How to write a script that doesn't sound read-aloud</span><span class="d">~8min</span></div>
+      <div class="agenda-row"><span class="num">04</span><span class="t">Live demo · using the html-ppt skill</span><span class="d">~8min</span></div>
+      <div class="agenda-row"><span class="num">05</span><span class="t">Takeaways + Q&amp;A</span><span class="d">~3min</span></div>
+    </div>
+    <aside class="notes">
+      <p>Quick walkthrough of the agenda.</p>
+      <p>Part one is me convincing you that <strong>"a pretty deck ≠ a good talk"</strong>. I've seen plenty of beautifully designed decks where the presenter still goes "uh… so… yeah…" the whole time.</p>
+      <p>Part two: presenter view design. Existing tools differ a lot — Keynote, PowerPoint, reveal.js all take their own shot. I'll share what I think the right design rules are.</p>
+      <p>Part three is the <em>core</em> — the speaker script. Most people think "speaker script" means "write your lines out word-for-word". Wrong. The script is supposed to let you <strong>"glance once and pick up the thread"</strong>. The way you write it is completely different.</p>
+      <p>Part four is a live demo of the html-ppt skill I use, showing how to ship a script-backed deck in 30 minutes.</p>
+      <p>Wrap and Q&amp;A at the end.</p>
+      <p>OK, into part one.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 3. PROBLEM ============ -->
+  <section class="slide" data-title="Problem">
+    <p class="kicker">// part 01 · problem</p>
+    <h2 class="h2">Building a deck and giving the talk are<br><span class="accent">two different jobs</span>.</h2>
+    <div class="grid g3 mt-l">
+      <div class="card card-accent">
+        <h4>✅ Polished deck</h4>
+        <p class="dim">Cohesive theme, clean layout, clear charts, restrained motion. Quality of the static artifact.</p>
+      </div>
+      <div class="card card-accent">
+        <h4>❌ Strong talk</h4>
+        <p class="dim">Coherent logic, steady pace, no "ums", quick on questions, good at reading the room.</p>
+      </div>
+      <div class="card card-accent">
+        <h4>💡 Where the gap is</h4>
+        <p class="dim">The first is <strong>paper craft</strong>. The second requires <strong>"glance at the slide, know the next sentence"</strong>.</p>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>I'll start with a possibly contentious claim — <strong>building a deck and giving a talk are two completely different jobs</strong>.</p>
+      <p>Look at the left card. "Polished deck" — what does that mean? Cohesive theme, clean layout, clear charts, restrained motion. These are <em>static-artifact</em> quality criteria. You can grade them offline.</p>
+      <p>The middle card is different. "Strong talk" means coherent logic, steady pace, no stalling, ready answers, reading the room and adjusting on the fly. These are <strong>live skills</strong>. They have basically nothing to do with how the deck looks.</p>
+      <p>The key sentence is on the right: people who present well are essentially <strong>"glance at the slide and know the next line"</strong>. How? Not by memorizing, not by improvising — by <em>using a well-designed teleprompter system</em>.</p>
+      <p>The next 25 minutes are exactly about that.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 4. SOLUTION ============ -->
+  <section class="slide" data-title="Presenter View">
+    <p class="kicker">// part 02 · presenter view</p>
+    <h2 class="h2">A presenter view needs <span class="accent">four pieces of information</span></h2>
+    <div class="grid g2 mt-l">
+      <div>
+        <div class="feature-row"><span class="num blue">①</span><div><b>Big current-slide preview</b><p class="dim">More than half the view. You should be able to scan it and instantly know what the audience sees.</p></div></div>
+        <div class="feature-row"><span class="num green">②</span><div><b>Next-slide preview</b><p class="dim">Lets you queue up the transition sentence in advance — no "what was on the next slide again?".</p></div></div>
+      </div>
+      <div>
+        <div class="feature-row"><span class="num orange">③</span><div><b>Speaker-script panel</b><p class="dim">Big type, high contrast, scrollable. This is what the speaker is actually reading.</p></div></div>
+        <div class="feature-row"><span class="num purple">④</span><div><b>Timer + page number</b><p class="dim">Knowing how long you've been talking and how many slides remain — that's where pacing comes from.</p></div></div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>The presenter view should give you four pieces of information. I'll rank them by importance.</p>
+      <p>First, the <strong>big current-slide preview</strong>. It has to take up more than half the window — it's your "sync anchor" with the audience. Whatever they see, you need to see in your head too.</p>
+      <p>Second, the <strong>next-slide preview</strong>. People often miss why this matters: the worst stall in a talk isn't on a slide, it's in <em>the 2 seconds after a transition</em>. If you can already see the next slide, the bridge sentence shows up on its own.</p>
+      <p>Third, the <strong>speaker-script panel</strong> — the focus of part three. The hard requirement here: the type must be big, the contrast must be high, the panel must scroll. Because while you're talking, you're <em>only glancing</em> — small text won't make it.</p>
+      <p>Fourth, the <strong>timer and page number</strong>. How long you've been going, how many slides you have left — pace lives here. Keynote nails this; reveal.js's defaults aren't loud enough.</p>
+      <p>All four, no skipping. This deck has all four — press S any time and try it out.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 5. SCRIPT ============ -->
+  <section class="slide" data-title="Script">
+    <p class="kicker">// part 03 · script</p>
+    <h2 class="h2">Three iron rules for the <span class="accent">speaker script</span></h2>
+    <div class="stack mt-l">
+      <div class="rule-row">
+        <span class="num red">01</span>
+        <div>
+          <b>It's not a verbatim script — it's <span class="accent">"prompt signals"</span></b>
+          <p class="dim">Bold the core points, break out transition sentences, list data and names — <em>so a single glance picks up the thread</em>.</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="num red">02</span>
+        <div>
+          <b><span class="accent">150–300 words</span> per slide. Not more, not less.</b>
+          <p class="dim">Under 150 words you'll stall; over 300 you can't scan in time. Tune to a 2–3 min/slide rhythm.</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="num red">03</span>
+        <div>
+          <b>Write it in <span class="accent">spoken voice</span>, not written prose</b>
+          <p class="dim">"Therefore" → "so". "The aforementioned approach" → "this approach". Read it out loud — if it doesn't sound like talking, rewrite.</p>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>Onto the most important part — how to write the speaker script. Three iron rules.</p>
+      <p><strong>Rule 1: a speaker script isn't a script to read.</strong> Lots of folks hear "speaker script" and start writing every line out word-for-word. Wrong. If you read from a script, the audience spots it instantly and the trust drops to zero.</p>
+      <p>The real job of the script is <em>"prompt signals"</em> — bold the key points, break out transitions into their own lines, list out data and proper nouns. That way, you <strong>glance and pick up the thread</strong>, but what comes out is still your own voice.</p>
+      <p><strong>Rule 2: 150–300 words per slide.</strong> This number comes from running a dozen-plus talks. Under 150, the prompts run out and you stall mid-paragraph. Over 300, your eye can't scan it in time. At 2–3 minutes per slide, this length lines up perfectly.</p>
+      <p><strong>Rule 3: write it in spoken voice.</strong> This is the one most people fail at. If you write "therefore", you'll say "so". If you write "the aforementioned approach", you'll say "this approach". <em>Read it out loud</em> — if it doesn't sound natural, rewrite.</p>
+      <p>Combine the three and presenting suddenly stops being painful.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 6. DEMO + CLOSING ============ -->
+  <section class="slide" data-title="Demo & Close">
+    <p class="kicker">// part 04-05 · demo + close</p>
+    <h2 class="h2"><span class="accent">You can do this too</span></h2>
+    <div class="code-block mt-m">
+<span class="comment"># install the html-ppt skill</span>
+<span class="cmd">npx</span> skills add <span class="flag">https://github.com/lewislulu/html-ppt-skill</span>
+
+<span class="comment"># copy the presenter-mode template</span>
+<span class="cmd">cp -r</span> templates/full-decks/presenter-mode-reveal examples/my-talk
+<span class="cmd">open</span> examples/my-talk/index.html
+
+<span class="comment"># keyboard</span>
+<span class="flag">S</span>  <span class="comment">→ presenter view</span>
+<span class="flag">T</span>  <span class="comment">→ cycle theme (5 presets)</span>
+<span class="flag">← →</span> <span class="comment">→ navigate</span>
+<span class="flag">R</span>  <span class="comment">→ reset timer</span>
+    </div>
+    <p class="lede mt-m tc">The crux: <strong>each slide carries a 150–300 word speaker script in &lt;aside class="notes"&gt;</strong>.</p>
+    <div class="deck-footer">
+      <span class="mono">#thanks · Q&amp;A</span>
+      <span class="slide-number" data-current="6" data-total="6"></span>
+    </div>
+    <aside class="notes">
+      <p>Last part — let me show how to actually use this so you don't have to figure it out from scratch.</p>
+      <p>Step one: install the html-ppt skill, single line. Step two: copy this <code>presenter-mode-reveal</code> template into your own examples directory. Step three: open the html, press S.</p>
+      <p>The keyboard map is right here. <strong>S for presenter view, T for theme, arrows to navigate, R to reset the timer.</strong> The default theme list ships with five — tokyo-night, dracula, catppuccin-mocha, nord, corporate-clean — covering the two common cases: dark tech sharing and light business reporting.</p>
+      <p>The most important step — <em>write a 150- to 300-word speaker script in every slide's <code>&lt;aside class="notes"&gt;</code></em>. That's the deliverable of the whole methodology. AI can draft for you, but you have to read it back, out loud, and check that it sounds like something you would actually say.</p>
+      <p>That's it. If next time you're prepping a talk you remember this "presenter view + speaker script" combo, and you find it goes more smoothly than before — that's the win. Thanks, everyone. Questions?</p>
+    </aside>
+  </section>
+
+</div>
+
+<div style="position:fixed;bottom:12px;left:12px;font-size:11px;color:#484f5866;z-index:100;pointer-events:none">
+  S presenter view · T theme · ← → navigate · F fullscreen · O overview · R reset timer
+</div>
+
+<script src="../../../assets/runtime.js"></script>
+</body>
+</html>

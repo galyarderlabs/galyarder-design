@@ -1,0 +1,23 @@
+apiVersion: v2
+name: galyarder-design
+description: |
+  Galyarder Design daemon Helm chart. Spec §15.5 reference deployment for
+  AWS / GCP / Azure / Aliyun / Tencent / Huawei / self-hosted Kubernetes.
+  Pairs with `tools/pack/docker-compose.yml` as the docker-only entry
+  point.
+type: application
+version: 0.1.0
+appVersion: "0.5.0"
+icon: https://galyarder-design.ai/favicon.png
+keywords:
+  - galyarder-design
+  - design-agent
+  - generative-ui
+  - plugins
+  - skills
+home: https://galyarder-design.ai
+sources:
+  - https://github.com/galyarderlabs/galyarder-design
+maintainers:
+  - name: Galyarder Design
+    url: https://galyarder-design.ai

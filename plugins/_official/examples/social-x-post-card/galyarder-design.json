@@ -1,0 +1,91 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-social-x-post-card",
+  "title": "X / Twitter Post Card",
+  "version": "0.1.0",
+  "description": "Realistic X post card with engagement metrics (likes, reposts, views), suited to video overlays or shareable image cards.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/social-x-post-card",
+  "tags": [
+    "example",
+    "first-party",
+    "prototype",
+    "marketing",
+    "web",
+    "desktop",
+    "twitter",
+    "x",
+    "social",
+    "card",
+    "overlay"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "prototype",
+    "platform": "desktop",
+    "scenario": "marketing",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the X / Twitter Post Card template to turn my content into a realistic X post card with engagement metrics for a video overlay or shareable image card. Preserve the template's visual signature, use real content and data, and avoid lorem ipsum or placeholder images."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "X / Twitter Post Card",
+          "title_i18n": {
+            "en": "X / Twitter Post Card"
+          }
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  },
+  "title_i18n": {
+    "en": "X / Twitter Post Card"
+  },
+  "description_i18n": {
+    "en": "Realistic X post card with engagement metrics (likes, reposts, views), suited to video overlays or shareable image cards."
+  }
+}

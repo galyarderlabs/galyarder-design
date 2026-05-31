@@ -1,0 +1,81 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-dir-key-nav-minimal",
+  "title": "Html Ppt Dir Key Nav Minimal",
+  "version": "0.1.0",
+  "description": "8-slide minimal arrow-key keynote — each slide gets its own monochrome background (indigo / cream / crimson / emerald / gray / purple / white / charcoal), 160px display heading + 4px short accent bar divider, mono-spaced bullet list with arrow → prefix, ←/→ kbd hints in the bottom-left and a page number in the bottom-right, and generous breathing room. Built for \"have something to say but nothing to look at\" keynotes, launches, and public talks.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-dir-key-nav-minimal",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "personal",
+    "web",
+    "minimal-keynote",
+    "untitled",
+    "mono-color",
+    "one-idea-per-slide",
+    "public-talk",
+    "launch-keynote"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "personal",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-dir-key-nav-minimal template to create an 8-page minimal keynote. Each page should use a single-color background, one 160px headline, and a few arrow-list bullets. First ask me for the talk topic, then turn the 8 core points into 8 slides with one idea per page."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Dir Key Nav Minimal"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

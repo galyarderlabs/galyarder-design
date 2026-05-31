@@ -1,0 +1,90 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-deck-open-slide-canvas",
+  "title": "Open-Slide 1920 Canvas Deck",
+  "version": "0.1.0",
+  "description": "Locked 1920x1080 canvas deck with React component-level free composition, not bound to a fixed template.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/deck-open-slide-canvas",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "design",
+    "web",
+    "canvas",
+    "open-slide",
+    "freeform",
+    "1920",
+    "react"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "design",
+    "surface": "web",
+    "featured": 0.17,
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the Open-Slide 1920 Canvas Deck template to turn my content into a locked 1920x1080 free-composition deck with React component-level layout. Preserve the template's visual signature, use real content and data, and avoid lorem ipsum or placeholder images."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Open-Slide 1920 Canvas Deck",
+          "title_i18n": {
+            "en": "Open-Slide 1920 Canvas Deck"
+          }
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  },
+  "title_i18n": {
+    "en": "Open-Slide 1920 Canvas Deck"
+  },
+  "description_i18n": {
+    "en": "Locked 1920x1080 canvas deck with React component-level free composition, not bound to a fixed template."
+  }
+}

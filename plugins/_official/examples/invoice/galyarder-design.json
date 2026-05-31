@@ -1,0 +1,84 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-invoice",
+  "title": "Invoice",
+  "version": "0.1.0",
+  "description": "A printable invoice page — sender + recipient block, line items table,\ntax breakdown, totals, and payment instructions. Use when the brief\nmentions \"invoice\", \"bill\", \"billing statement\", or \"tax invoice\".",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/invoice",
+  "tags": [
+    "example",
+    "first-party",
+    "prototype",
+    "finance",
+    "web",
+    "desktop",
+    "invoice",
+    "bill",
+    "billing-statement",
+    "untitled"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "prototype",
+    "platform": "desktop",
+    "scenario": "finance",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Create an invoice from a freelance design studio billing a client for a brand identity project — three line items, 10% retainer, 9% sales tax."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Invoice"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "designSystem": {
+        "primary": true
+      },
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

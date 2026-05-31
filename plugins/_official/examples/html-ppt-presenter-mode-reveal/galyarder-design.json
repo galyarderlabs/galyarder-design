@@ -1,0 +1,79 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-presenter-mode-reveal",
+  "title": "Html Ppt Presenter Mode Reveal",
+  "version": "0.1.0",
+  "description": "Presenter-mode-focused deck — tokyo-night default theme, 5 themes via the T key, every slide ships with a 150–300 word verbatim speaker script (<aside class=\"notes\">), press S to open the popup (CURRENT / NEXT / SCRIPT / TIMER magnetic cards). Built for tech talks, public speaking, and class lectures where you want a teleprompter or are worried about losing your line.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-presenter-mode-reveal",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "engineering",
+    "web",
+    "presenter-mode",
+    "untitled",
+    "speaker-notes",
+    "presenter-view"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "engineering",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-presenter-mode template to create a talk deck with speaker notes. First confirm the talk topic, duration (2-3 minutes per slide), and target audience. Then write 150-300 words of conversational presenter notes per slide (prompting signals, not a manuscript), with the presenter popup available via the S key."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Presenter Mode Reveal"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

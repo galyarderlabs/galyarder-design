@@ -1,0 +1,80 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-xhs-post",
+  "title": "Html Ppt Xhs Post",
+  "version": "0.1.0",
+  "description": "RedNote (xiaohongshu) / Instagram-style 9-card 3:4 portrait photo set (810×1080) — warm pastels, dashed sticker cards, dotted page indicator at the bottom. Built for RedNote photo posts, Instagram carousels, and brand-seeding content.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-xhs-post",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "marketing",
+    "web",
+    "untitled",
+    "xhs",
+    "xhs-post",
+    "xiaohongshu",
+    "instagram-carousel"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "marketing",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-xhs-post template to create a set of 9 Xiaohongshu-style vertical posts (3:4, 810x1080). First ask me for the topic, then lay out the cover, 7 content pages, and closing CTA. Each page should have one headline, one paragraph, and keyword stickers."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Xhs Post"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

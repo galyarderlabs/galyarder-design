@@ -1,0 +1,82 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "image-template-social-media-post-showa-day-retro-culture-magazine-cover",
+  "title": "Social Media Post - Showa Day Retro Culture Magazine Cover",
+  "version": "0.1.0",
+  "description": "A warm editorial-style Japanese holiday feature page combining anime character art, nostalgic Showa-era street imagery, and magazine-style informational layout for seasonal cultural promotions.",
+  "license": "CC-BY-4.0",
+  "author": {
+    "name": "Kazuch2ND@AI ART",
+    "url": "https://x.com/Kazuch75240438/status/2049292582606496252#reversed-0"
+  },
+  "homepage": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2",
+  "tags": [
+    "image-template",
+    "first-party",
+    "image",
+    "social-media-post",
+    "anime",
+    "typography",
+    "food"
+  ],
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "image",
+    "scenario": "image",
+    "surface": "image",
+    "preview": {
+      "type": "image",
+      "poster": "https://cms-assets.youmind.com/media/1777453174956_qapj6l_HGy7GDlbYAAR6Np.jpg"
+    },
+    "useCase": {
+      "query": {
+        "en": "{\"type\":\"retro Japanese lifestyle magazine cover poster\",\"theme\":\"Showa Day feature celebrating nostalgic Japanese retro culture\",\"style\":\"clean editorial layout mixed with warm anime illustration, soft natural sunlight, nostalgic yet fresh atmosphere, cream paper background, olive green accents, elegant serif and Japanese Mincho typography\",\"aspect_ratio\":\"3:4 vertical\",\"headline\":{\"top_tags\":\"LIFESTYLE / FEATURE / RETRO CULTURE\",\"date_text\":\"{argument name=\\\"event date\\\" default=\\\"4.29\\\"} EVENT\",\"main_title\":\"Showa Day Special Feature\",\"subtitle_ribbon\":\"New discoveries within nostalgia.\"},\"badge\":{\"position\":\"top right\",\"shape\":\"circular date stamp with botanical decoration\",\"text\":[\"4/29\",\"TUE.\",\"Holiday\"]},\"main_text\":{\"intro_lines\":[\"Today is Showa Day.\",\"It was established as a day to look back\",\"on the Showa era and reflect on the future ahead.\",\"Retro culture and daily life\",\"still hold many charms\",\"that feel inviting even today.\"]},\"layout\":{\"sections\":[{\"title\":\"main illustration\",\"position\":\"upper right\",\"count\":1,\"labels\":[\"full-body character in retro shopping street\"]},{\"title\":\"POINT\",\"position\":\"left lower column\",\"count\":3,\"labels\":[\"POINT 01 What is Showa Day?\",\"POINT 02 Enjoying retro culture\",\"POINT 03 Bringing it into today's life\"]},{\"title\":\"photo-style chibi panels\",\"position\":\"bottom right strip\",\"count\":3,\"labels\":[\"Taking a break at a classic kissaten cafe.\",\"Records and retro toys are lovely too.\",\"Saving memories in a notebook.\"]},{\"title\":\"footer summary\",\"position\":\"bottom center\",\"count\":1,\"labels\":[\"Summary\"]}],\"decorations\":{\"botanical_sprigs_count\":6,\"bottom_icons_count\":3,\"bottom_icons\":[\"vinyl record\",\"retro camera\",\"coffee cup\"]}},\"character\":{\"gender_presentation\":\"cute anime girl\",\"age_appearance\":\"young teen to young adult chibi proportions\",\"hair\":{\"color\":\"{argument name=\\\"hair color\\\" default=\\\"medium brown\\\"}\",\"style\":\"messy high ponytail with loose fluffy strands and a red hair tie\"},\"eyes\":\"large amber-brown anime eyes\",\"outfit\":{\"count\":5,\"pieces\":[\"white oversized T-shirt with a red box logo reading {argument name=\\\"shirt logo text\\\" default=\\\"SUPPER\\\"}\",\"olive green cargo pants\",\"black low-top sneakers with white toe caps and laces\",\"cream canvas shoulder tote bag\",\"simple necklace\"]}},\"main_scene\":{\"setting\":\"sunny narrow retro Japanese alley with wooden storefronts and vintage signs\",\"background_elements\":{\"count\":9,\"items\":[\"vertical red sign reading 'National Light Bulbs'\",\"blue salt shop sign reading 'Salt - Marushio'\",\"vertical sign reading 'Morinaga Milk'\",\"vertical sign reading 'Sakura-do Stationery'\",\"red cylindrical post box\",\"wooden shop facades\",\"overhead utility wires\",\"green tree leaves casting dappled light\",\"stacked vintage radio and tin box in lower right\"]},\"pose\":\"walking confidently toward the viewer with one hand near the pocket and tote bag hanging from the shoulder\"},\"point_cards\":[{\"icon\":\"retro television\",\"title\":\"POINT 01\",\"body\":\"A national holiday for looking back on the turbulent Showa era.\"},{\"icon\":\"coffee cup\",\"title\":\"POINT 02\",\"body\":\"Touring classic kissaten cafes and Showa-retro shops is popular.\"},{\"icon\":\"camera\",\"title\":\"POINT 03\",\"body\":\"A chance to revisit the value of caring for our belongings.\"}],\"bottom_panels\":[{\"index\":1,\"scene\":\"character seated in a retro cafe with a green cream soda and coffee on a wooden table, warm interior, slight front view\",\"caption\":\"Taking a break at a classic kissaten cafe.\"},{\"index\":2,\"scene\":\"side view of the character browsing records or retro toys in a nostalgic shop filled with colorful posters and shelves\",\"caption\":\"Records and retro toys are lovely too.\"},{\"index\":3,\"scene\":\"character sitting on a bench writing in a notebook, small camera in hand, cozy storefront backdrop\",\"caption\":\"Saving memories in a notebook.\"}],\"summary_box\":{\"title\":\"Summary\",\"text\":[\"Enjoying nostalgia while reflecting on the future.\",\"Making one day feel like that is a lovely thing.\",\"Time spent with the charm of Showa will surely enrich the present.\"]},\"footer\":{\"left_text\":\"Let seasonal events spark a richer everyday.\",\"right_text\":\"NEXT ISSUE : 5.5 Children's Day Special Feature\"},\"color_palette\":{\"count\":6,\"colors\":[\"warm cream\",\"olive green\",\"sepia brown\",\"sunlit gold\",\"brick red\",\"soft sky blue\"]}}"
+      }
+    },
+    "inputs": [
+      {
+        "name": "model",
+        "label": "Model",
+        "type": "select",
+        "options": [
+          "gpt-image-2"
+        ],
+        "default": "gpt-image-2"
+      },
+      {
+        "name": "aspect",
+        "label": "Aspect ratio",
+        "type": "select",
+        "options": [
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:5",
+          "3:2"
+        ],
+        "default": "1:1"
+      }
+    ],
+    "context": {
+      "assets": [
+        "./template.json"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "image-generate"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "media:image-generate"
+    ]
+  }
+}

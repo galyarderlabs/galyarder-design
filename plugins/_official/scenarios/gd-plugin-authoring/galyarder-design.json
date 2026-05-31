@@ -1,0 +1,96 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "gd-plugin-authoring",
+  "title": "Plugin authoring",
+  "version": "0.1.0",
+  "description": "Guided scenario for creating a local Galyarder Design plugin folder that can be added to My plugins.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/scenarios/gd-plugin-authoring",
+  "tags": [
+    "scenario",
+    "first-party",
+    "plugin-authoring",
+    "my-plugins"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "scenario": "plugin-authoring",
+    "mode": "scenario",
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "discovery",
+          "atoms": [
+            "discovery-question-form"
+          ]
+        },
+        {
+          "id": "plan",
+          "atoms": [
+            "direction-picker",
+            "todo-write"
+          ]
+        },
+        {
+          "id": "generate-plugin",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        },
+        {
+          "id": "review-plugin",
+          "atoms": [
+            "critique-theater"
+          ],
+          "repeat": true,
+          "until": "critique.score>=4 || iterations>=3"
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject"
+    ],
+    "useCase": {
+      "query": {
+        "en": "Create an Galyarder Design plugin for {{pluginGoal}}. Produce a folder named generated-plugin with SKILL.md, galyarder-design.json, and any useful examples or assets. Follow docs/plugins-spec.md and finish with a readiness summary plus next actions: Add to My plugins, Publish repo, or Galyarder Design PR."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./examples/generated-plugin/galyarder-design.json",
+          "title": "Generated plugin manifest"
+        }
+      ]
+    },
+    "inputs": [
+      {
+        "name": "pluginGoal",
+        "type": "string",
+        "required": false,
+        "default": "a reusable workflow described by the user's prompt",
+        "label": "Plugin goal",
+        "placeholder": "turn a brand brief into a launch landing page workflow"
+      }
+    ]
+  }
+}

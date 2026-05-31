@@ -1,0 +1,40 @@
+{
+  "name": "@galyarder-design/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./main": {
+      "types": "./dist/main/index.d.ts",
+      "default": "./dist/main/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run -c vitest.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
+  },
+  "dependencies": {
+    "@galyarder-design/diagnostics": "workspace:*",
+    "@galyarder-design/download": "workspace:*",
+    "@galyarder-design/host": "workspace:*",
+    "@galyarder-design/platform": "workspace:*",
+    "@galyarder-design/sidecar": "workspace:*",
+    "@galyarder-design/sidecar-proto": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.2",
+    "@types/react": "18.3.28",
+    "@types/react-dom": "18.3.7",
+    "electron": "41.3.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.6"
+  },
+  "engines": {
+    "node": "~24"
+  }
+}

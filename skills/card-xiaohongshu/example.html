@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>5 small habits that make your AI editor feel smoother</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;900&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#f3eee5; font-family:'Noto Sans',sans-serif; padding:36px 0; -webkit-font-smoothing:antialiased; }
+  .deck { display:flex; flex-direction:column; align-items:center; gap:24px; }
+  .card { width:1080px; max-width:96vw; aspect-ratio:3/4; border-radius:32px; overflow:hidden; position:relative; padding:80px 64px; display:flex; flex-direction:column; box-shadow:0 24px 60px -20px rgba(0,0,0,0.18); }
+  .c1 { background:linear-gradient(160deg,#f7d2c2 0%,#f3a98a 100%); color:#3a1d10; }
+  .c2 { background:linear-gradient(160deg,#fff7e6 0%,#ffe4b8 100%); color:#3a2e10; }
+  .c3 { background:linear-gradient(160deg,#e8f0e3 0%,#bcd6b3 100%); color:#1f3a1f; }
+  .c4 { background:linear-gradient(160deg,#e7e8f5 0%,#bec1e8 100%); color:#1d1f4a; }
+  .c5 { background:linear-gradient(160deg,#fce7f0 0%,#f5b3ce 100%); color:#4a1b34; }
+  .c6 { background:linear-gradient(160deg,#fff8e1 0%,#f7c99b 100%); color:#3a2210; }
+  .c7 { background:linear-gradient(160deg,#15140f 0%,#3a2620 100%); color:#fafaf7; }
+  .badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:999px; background:rgba(255,255,255,0.55); backdrop-filter:blur(8px); font-size:18px; font-weight:600; align-self:flex-start; }
+  .num { font-family:Georgia, serif; font-style:italic; font-size:120px; font-weight:700; line-height:0.9; opacity:0.85; margin-bottom:24px; }
+  h2 { font-size:64px; font-weight:900; line-height:1.1; letter-spacing:-0.01em; margin:0 0 32px; }
+  .body { font-size:30px; font-weight:500; line-height:1.55; opacity:0.85; max-width:24ch; }
+  .watermark { position:absolute; bottom:32px; right:36px; font-size:16px; opacity:0.55; font-weight:500; }
+  .pageno { position:absolute; top:36px; right:44px; font-family:'Inter',sans-serif; font-size:18px; font-weight:600; opacity:0.45; letter-spacing:0.08em; }
+  .hero { font-size:120px; font-weight:900; line-height:1.0; letter-spacing:-0.025em; margin:0; }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <div class="card c1">
+    <div class="pageno">01 / 07</div>
+    <div class="badge">⚡ Save this · Real talk inside</div>
+    <div style="margin:auto 0">
+      <div style="font-size:24px; font-weight:600; opacity:0.7; margin-bottom:18px">For AI tool fans · Must-read</div>
+      <h2 class="hero">5 small<br/>habits that<br/>make AI<br/><span style="color:#9c2a25">smoother</span></h2>
+    </div>
+    <div style="font-size:22px; opacity:0.65; font-weight:500">Swipe →</div>
+    <div class="watermark">@HTMLAnything · 5/11</div>
+  </div>
+
+  <div class="card c2">
+    <div class="pageno">02 / 07</div>
+    <div class="num">01</div>
+    <h2>Drop the<br/>perfect prompt</h2>
+    <p class="body">Your prompt won't be perfect on the first try. Treat it as a <strong>conversation</strong>, not SQL.</p>
+    <div class="watermark">@HTMLAnything</div>
+  </div>
+
+  <div class="card c3">
+    <div class="pageno">03 / 07</div>
+    <div class="num">02</div>
+    <h2>Show the AI<br/>your format</h2>
+    <p class="body">Before you paste Markdown or CSV, tell it <strong>"I want the output to look like X."</strong><br/><br/>One concrete reference beats 50 adjectives.</p>
+    <div class="watermark">@HTMLAnything</div>
+  </div>
+
+  <div class="card c4">
+    <div class="pageno">04 / 07</div>
+    <div class="num">03</div>
+    <h2>Use templates,<br/>don't rewrite</h2>
+    <p class="body">Save the prompts that work as templates. HTML Anything lets you pick a template directly —<br/><br/><strong>nine world-class design systems</strong>, ready to go.</p>
+    <div class="watermark">@HTMLAnything</div>
+  </div>
+
+  <div class="card c5">
+    <div class="pageno">05 / 07</div>
+    <div class="num">04</div>
+    <h2>Edit by<br/>diff, not redo</h2>
+    <p class="body">Regenerating is not starting from zero. Send <strong>just the diff</strong> and let the AI fine-tune the existing HTML —<br/><br/>save about 80% of the tokens and keep the design style.</p>
+    <div class="watermark">@HTMLAnything</div>
+  </div>
+
+  <div class="card c6">
+    <div class="pageno">06 / 07</div>
+    <div class="num">05</div>
+    <h2>Reuse your<br/>local session</h2>
+    <p class="body">No API key needed — let your local Claude, Cursor, or Codex run.<br/><br/><strong>Zero marginal cost</strong>, noticeably faster than a remote API.</p>
+    <div class="watermark">@HTMLAnything</div>
+  </div>
+
+  <div class="card c7">
+    <div class="pageno">07 / 07</div>
+    <div style="margin:auto 0">
+      <div style="font-size:24px; font-weight:600; color:#e9b94a; margin-bottom:24px">Stick around ✨</div>
+      <h2 class="hero" style="color:#fafaf7">More tools<br/>isn't better.<br/><span style="color:#e9b94a">Smooth flow</span><br/>is what feels good.</h2>
+    </div>
+    <div style="display:flex; gap:14px; font-size:22px; font-weight:600">
+      <span style="padding:10px 22px; background:#e9b94a; color:#15140f; border-radius:999px">Follow</span>
+      <span style="padding:10px 22px; background:rgba(255,255,255,0.12); color:#fafaf7; border-radius:999px; border:1px solid rgba(255,255,255,0.2)">Save</span>
+      <span style="padding:10px 22px; background:rgba(255,255,255,0.12); color:#fafaf7; border-radius:999px; border:1px solid rgba(255,255,255,0.2)">Share</span>
+    </div>
+    <div class="watermark" style="color:rgba(255,255,255,0.5)">@HTMLAnything · Weekly AI workflow tips</div>
+  </div>
+
+</div>
+</body>
+</html>

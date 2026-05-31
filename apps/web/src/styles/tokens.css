@@ -1,0 +1,506 @@
+/* ============================================================
+   Galyarder Design — Unified Design Tokens
+   ============================================================
+   Canonical token layer per Requirement 1.10. Imported once by
+   apps/web/src/index.css and re-exported to apps/landing-page
+   via the @gd/tokens alias and to apps/desktop renderer via the
+   shared web URL. Every redesigned surface resolves color,
+   spacing, radius, shadow, motion, z-index, and density through
+   custom properties declared here.
+   Light mode lives in :root; dark mode in [data-theme="dark"]
+   and html:not([data-theme]) under prefers-color-scheme: dark.
+   ============================================================ */
+
+:root {
+  /* ---------- Color: 12-step neutral ramp ----------------------
+     Indexed 0..11. Light mode: 0 is the lightest, 11 is the darkest.
+     Dark mode inverts so 0 is darkest, 11 lightest.
+     Each step ships an OKLch value plus a hex fallback (the value
+     consumed by browsers without OKLch support — declared as the
+     resolved property; OKLch is exposed via a parallel custom
+     property for surfaces that want gamut-aware mixing). */
+  --neutral-0: #ffffff;
+  --neutral-0-oklch: oklch(100% 0 0);
+  --neutral-1: #faf9f7;
+  --neutral-1-oklch: oklch(98.4% 0.0035 95);
+  --neutral-2: #f4f3f0;
+  --neutral-2-oklch: oklch(96.2% 0.005 95);
+  --neutral-3: #e9e7e2;
+  --neutral-3-oklch: oklch(92.5% 0.007 95);
+  --neutral-4: #d8d5cd;
+  --neutral-4-oklch: oklch(86.0% 0.009 95);
+  --neutral-5: #b8b5ad;
+  --neutral-5-oklch: oklch(74.8% 0.010 95);
+  --neutral-6: #8e8b82;
+  --neutral-6-oklch: oklch(60.2% 0.011 95);
+  --neutral-7: #6c6960;
+  --neutral-7-oklch: oklch(48.5% 0.011 95);
+  --neutral-8: #4a4842;
+  --neutral-8-oklch: oklch(36.5% 0.009 95);
+  --neutral-9: #2c2a25;
+  --neutral-9-oklch: oklch(23.0% 0.008 95);
+  --neutral-10: #181714;
+  --neutral-10-oklch: oklch(13.5% 0.006 95);
+  --neutral-11: #0b0a08;
+  --neutral-11-oklch: oklch(7.5% 0.005 95);
+
+  /* ---------- Color: accent (primary) — coral ------------------
+     Galyarder Design's editorial coral, kept warm to live well on
+     the warm-leaning neutral ramp. */
+  --accent-1: #fbeee5;
+  --accent-2: #f5d8cb;
+  --accent-3: #ecbba6;
+  --accent-4: #de9579;
+  --accent-5: #d07857;
+  --accent-6: #c96442;
+  --accent-7: #b45a3b;
+  --accent-8: #94462d;
+  --accent-9: #6f3220;
+  --accent-fg: #ffffff;
+
+  /* ---------- Color: accent-2 (secondary) — slate blue --------- */
+  --accent2-1: #eef1f5;
+  --accent2-2: #d8def0;
+  --accent2-3: #b8c1e0;
+  --accent2-4: #8a96cc;
+  --accent2-5: #5b6cba;
+  --accent2-6: #2348b8;
+  --accent2-7: #1d3a99;
+  --accent2-8: #15296c;
+  --accent2-9: #0d1a44;
+  --accent2-fg: #ffffff;
+
+  /* ---------- Color: status families ---------------------------
+     Each family ships -bg, -border, -fg, -fg-strong roles. */
+  --success-bg: #e8f7ee;
+  --success-border: #c6ead2;
+  --success-fg: #1f7a3a;
+  --success-fg-strong: #145c2a;
+
+  --warning-bg: #fff3e0;
+  --warning-border: #f4dca0;
+  --warning-fg: #b26200;
+  --warning-fg-strong: #874b00;
+
+  --danger-bg: #fdecea;
+  --danger-border: #f5c6c2;
+  --danger-fg: #9c2a25;
+  --danger-fg-strong: #79201c;
+
+  --info-bg: #e8efff;
+  --info-border: #c8d6ff;
+  --info-fg: #2348b8;
+  --info-fg-strong: #1d3a99;
+
+  /* ---------- Surface aliases ----------------------------------
+     Screens never reference a numeric step directly; they consume
+     these semantic surface aliases so theme switching propagates
+     consistently. */
+  --surface-0: var(--neutral-0); /* page background */
+  --surface-1: var(--neutral-1); /* panel background */
+  --surface-2: var(--neutral-2); /* subtle inset */
+  --surface-3: var(--neutral-3); /* hover / muted */
+
+  --border: var(--neutral-3);
+  --border-strong: var(--neutral-4);
+  --border-soft: var(--neutral-2);
+
+  --text: var(--neutral-10);
+  --text-strong: var(--neutral-11);
+  --text-muted: var(--neutral-7);
+  --text-faint: var(--neutral-6);
+  --text-on-accent: var(--accent-fg);
+
+  /* Selected-state color (independent of accent so a primary CTA
+     and an active option can coexist without competing). */
+  --selected: #2563eb;
+  --selected-soft: rgba(37, 99, 235, 0.16);
+
+  /* ---------- Typography ---------------------------------------
+     Font stacks fall through to system defaults if the primary
+     family is unavailable. */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-serif: 'Source Serif Pro', 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+
+  /* Type scale: each style declares font-size / line-height /
+     font-weight / letter-spacing. Family is consumed separately
+     via var(--font-sans) or var(--font-mono). */
+  --type-display-size: 36px;
+  --type-display-line: 1.1;
+  --type-display-weight: 600;
+  --type-display-tracking: -0.02em;
+
+  --type-h1-size: 28px;
+  --type-h1-line: 1.2;
+  --type-h1-weight: 600;
+  --type-h1-tracking: -0.015em;
+
+  --type-h2-size: 22px;
+  --type-h2-line: 1.25;
+  --type-h2-weight: 600;
+  --type-h2-tracking: -0.01em;
+
+  --type-h3-size: 18px;
+  --type-h3-line: 1.3;
+  --type-h3-weight: 600;
+  --type-h3-tracking: -0.005em;
+
+  --type-h4-size: 15px;
+  --type-h4-line: 1.35;
+  --type-h4-weight: 600;
+  --type-h4-tracking: 0;
+
+  --type-body-lg-size: 16px;
+  --type-body-lg-line: 1.55;
+  --type-body-lg-weight: 400;
+  --type-body-lg-tracking: 0;
+
+  --type-body-size: 14px;
+  --type-body-line: 1.5;
+  --type-body-weight: 400;
+  --type-body-tracking: 0;
+
+  --type-body-sm-size: 13px;
+  --type-body-sm-line: 1.5;
+  --type-body-sm-weight: 400;
+  --type-body-sm-tracking: 0;
+
+  --type-caption-size: 11.5px;
+  --type-caption-line: 1.4;
+  --type-caption-weight: 500;
+  --type-caption-tracking: 0.02em;
+
+  --type-code-size: 13px;
+  --type-code-line: 1.55;
+  --type-code-weight: 400;
+  --type-code-tracking: 0;
+
+  --type-mono-numeral-size: 13px;
+  --type-mono-numeral-line: 1.4;
+  --type-mono-numeral-weight: 500;
+  --type-mono-numeral-tracking: 0;
+
+  /* ---------- Spacing scale (4-base) --------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Semantic aliases — each maps to a discrete --space-* step. */
+  --gutter: var(--space-6);
+  --section-gap: var(--space-12);
+  --card-padding: var(--space-5);
+
+  /* ---------- Radius ------------------------------------------- */
+  --radius-sm: 4px; /* range 2..4px */
+  --radius-md: 6px; /* default for primitives, range 4..8px */
+  --radius-lg: 12px; /* range 8..16px */
+  --radius-full: 9999px;
+
+  /* ---------- Shadow scale ------------------------------------- */
+  --shadow-resting: 0 1px 0 rgba(20, 19, 17, 0.04);
+  --shadow-raised: 0 4px 12px rgba(20, 19, 17, 0.06), 0 1px 3px rgba(20, 19, 17, 0.04);
+  --shadow-floating: 0 24px 60px rgba(20, 19, 17, 0.16), 0 8px 16px rgba(20, 19, 17, 0.07);
+
+  /* ---------- Motion ------------------------------------------- */
+  --duration-snap: 100ms;
+  --duration-base: 180ms;
+  --duration-gentle: 240ms;
+  --duration-enter: 200ms;
+  --duration-exit: 140ms;
+  --easing-standard: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* ---------- Z-index scale ----------------------------------- */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+
+  /* ---------- Density ------------------------------------------
+     Comfortable default. Compact value lives in
+     [data-density="compact"] below. The DensityProvider clamps
+     programmatic writes to [0.75, 1.25] (Property 4). */
+  --density-multiplier: 1;
+
+  /* ---------- Breakpoints ------------------------------------- */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* ---------- Focus ring -------------------------------------- */
+  --focus-ring-width: 2px;
+  --focus-ring-color: var(--accent-6);
+  --focus-ring-offset: 2px;
+}
+
+/* ============================================================
+   Dark theme — explicit and OS-pref fallback
+   ============================================================ */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Inverted neutral ramp: 0 = darkest, 11 = lightest. Strict monochrome. */
+  --neutral-0: #0a0a0b;
+  --neutral-0-oklch: oklch(7.0% 0.002 260);
+  --neutral-1: #111113;
+  --neutral-1-oklch: oklch(10.0% 0.003 260);
+  --neutral-2: #18181b;
+  --neutral-2-oklch: oklch(13.0% 0.004 260);
+  --neutral-3: #222225;
+  --neutral-3-oklch: oklch(17.0% 0.004 260);
+  --neutral-4: #2e2e32;
+  --neutral-4-oklch: oklch(22.5% 0.005 260);
+  --neutral-5: #3f3f44;
+  --neutral-5-oklch: oklch(30.0% 0.005 260);
+  --neutral-6: #606066;
+  --neutral-6-oklch: oklch(44.0% 0.005 260);
+  --neutral-7: #808088;
+  --neutral-7-oklch: oklch(56.0% 0.005 260);
+  --neutral-8: #a8a8b0;
+  --neutral-8-oklch: oklch(70.0% 0.005 260);
+  --neutral-9: #c8c8d0;
+  --neutral-9-oklch: oklch(82.0% 0.004 260);
+  --neutral-10: #e4e4ea;
+  --neutral-10-oklch: oklch(92.0% 0.003 260);
+  --neutral-11: #f4f4f8;
+  --neutral-11-oklch: oklch(97.0% 0.002 260);
+
+  /* Accent: Galyarder Violet — brand identity touchpoints only. */
+  --accent-1: rgba(138, 0, 255, 0.06);
+  --accent-2: rgba(138, 0, 255, 0.12);
+  --accent-3: #2d0055;
+  --accent-4: #440077;
+  --accent-5: #6600aa;
+  --accent-6: #8A00FF;
+  --accent-7: #9d33ff;
+  --accent-8: #b366ff;
+  --accent-9: #d4b3ff;
+  --accent-fg: #ffffff;
+
+  --accent2-1: #0d1a44;
+  --accent2-2: #15296c;
+  --accent2-3: #1d3a99;
+  --accent2-4: #2348b8;
+  --accent2-5: #3d61c9;
+  --accent2-6: #5b7adb;
+  --accent2-7: #7d97e8;
+  --accent2-8: #a6b9f0;
+  --accent2-9: #d0dcf8;
+  --accent2-fg: #ffffff;
+
+  --success-bg: #0f2a18;
+  --success-border: #1a4028;
+  --success-fg: #4caf72;
+  --success-fg-strong: #6ec48b;
+
+  --warning-bg: #2a1a04;
+  --warning-border: #4a2f08;
+  --warning-fg: #e09a40;
+  --warning-fg-strong: #f0b46a;
+
+  --danger-bg: #2a0e0c;
+  --danger-border: #451714;
+  --danger-fg: #e06b65;
+  --danger-fg-strong: #ef8a85;
+
+  --info-bg: #0f1a38;
+  --info-border: #1a2c58;
+  --info-fg: #6b8fe8;
+  --info-fg-strong: #8ca8ef;
+
+  --surface-0: var(--neutral-0);
+  --surface-1: var(--neutral-1);
+  --surface-2: var(--neutral-2);
+  --surface-3: var(--neutral-3);
+
+  --border: var(--neutral-3);
+  --border-strong: var(--neutral-4);
+  --border-soft: var(--neutral-2);
+
+  --text: var(--neutral-10);
+  --text-strong: var(--neutral-11);
+  --text-muted: var(--neutral-7);
+  --text-faint: var(--neutral-6);
+  --text-on-accent: var(--accent-fg);
+
+  --selected: #6b8fe8;
+  --selected-soft: rgba(107, 143, 232, 0.18);
+
+  --shadow-resting: 0 1px 0 rgba(0, 0, 0, 0.3);
+  --shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-floating: 0 24px 60px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0, 0, 0, 0.35);
+
+  --focus-ring-color: var(--accent-7);
+}
+
+/* System mode — follow OS preference when no explicit data-theme is set. */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    color-scheme: dark;
+
+    --neutral-0: #0a0a0b;
+    --neutral-1: #111113;
+    --neutral-2: #18181b;
+    --neutral-3: #222225;
+    --neutral-4: #2e2e32;
+    --neutral-5: #3f3f44;
+    --neutral-6: #606066;
+    --neutral-7: #808088;
+    --neutral-8: #a8a8b0;
+    --neutral-9: #c8c8d0;
+    --neutral-10: #e4e4ea;
+    --neutral-11: #f4f4f8;
+
+    --accent-1: rgba(138, 0, 255, 0.06);
+    --accent-2: rgba(138, 0, 255, 0.12);
+    --accent-3: #2d0055;
+    --accent-4: #440077;
+    --accent-5: #6600aa;
+    --accent-6: #8A00FF;
+    --accent-7: #9d33ff;
+    --accent-8: #b366ff;
+    --accent-9: #d4b3ff;
+
+    --accent2-1: #0d1a44;
+    --accent2-2: #15296c;
+    --accent2-3: #1d3a99;
+    --accent2-4: #2348b8;
+    --accent2-5: #3d61c9;
+    --accent2-6: #5b7adb;
+    --accent2-7: #7d97e8;
+    --accent2-8: #a6b9f0;
+    --accent2-9: #d0dcf8;
+
+    --success-bg: #0f2a18;
+    --success-border: #1a4028;
+    --success-fg: #4caf72;
+    --success-fg-strong: #6ec48b;
+
+    --warning-bg: #2a1a04;
+    --warning-border: #4a2f08;
+    --warning-fg: #e09a40;
+    --warning-fg-strong: #f0b46a;
+
+    --danger-bg: #2a0e0c;
+    --danger-border: #451714;
+    --danger-fg: #e06b65;
+    --danger-fg-strong: #ef8a85;
+
+    --info-bg: #0f1a38;
+    --info-border: #1a2c58;
+    --info-fg: #6b8fe8;
+    --info-fg-strong: #8ca8ef;
+
+    --surface-0: var(--neutral-0);
+    --surface-1: var(--neutral-1);
+    --surface-2: var(--neutral-2);
+    --surface-3: var(--neutral-3);
+
+    --border: var(--neutral-3);
+    --border-strong: var(--neutral-4);
+    --border-soft: var(--neutral-2);
+
+    --text: var(--neutral-10);
+    --text-strong: var(--neutral-11);
+    --text-muted: var(--neutral-7);
+    --text-faint: var(--neutral-6);
+
+    --selected: #6b8fe8;
+    --selected-soft: rgba(107, 143, 232, 0.18);
+
+    --shadow-resting: 0 1px 0 rgba(0, 0, 0, 0.3);
+    --shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-floating: 0 24px 60px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0, 0, 0, 0.35);
+
+    --focus-ring-color: var(--accent-7);
+  }
+}
+
+/* ============================================================
+   Density modes (Req 5)
+   ============================================================ */
+
+[data-density="compact"] {
+  --density-multiplier: 0.85;
+}
+
+/* ============================================================
+   Reduced motion (Req 6.5, 8.6)
+   Collapses every motion duration to 0ms so decorative
+   transitions become instantaneous state changes while still
+   preserving the easing token for any consumer that ignores the
+   override on intentional grounds (must be commented at site).
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-snap: 0ms;
+    --duration-base: 0ms;
+    --duration-gentle: 0ms;
+    --duration-enter: 0ms;
+    --duration-exit: 0ms;
+  }
+}
+
+/* ============================================================
+   Legacy aliases (transitional)
+   The existing index.css ships --bg, --bg-panel, --accent, etc.
+   These aliases keep unredesigned surfaces alive between phases.
+   They are gradually removed as Phase 2..6 redesigns each surface.
+   ============================================================ */
+
+:root {
+  --bg: var(--surface-0);
+  --bg-app: var(--surface-0);
+  --bg-panel: var(--surface-1);
+  --bg-subtle: var(--surface-2);
+  --bg-muted: var(--surface-3);
+  --bg-elevated: var(--surface-1);
+
+  --accent: var(--accent-6);
+  --accent-strong: var(--accent-7);
+  --accent-soft: var(--accent-2);
+  --accent-tint: var(--accent-1);
+  --accent-hover: var(--accent-7);
+
+  --green: var(--success-fg);
+  --green-bg: var(--success-bg);
+  --green-border: var(--success-border);
+  --blue: var(--info-fg);
+  --blue-bg: var(--info-bg);
+  --blue-border: var(--info-border);
+  --red: var(--danger-fg);
+  --red-bg: var(--danger-bg);
+  --red-border: var(--danger-border);
+  --amber: var(--warning-fg);
+  --amber-bg: var(--warning-bg);
+
+  --shadow-xs: var(--shadow-resting);
+  --shadow-sm: var(--shadow-resting);
+  --shadow-md: var(--shadow-raised);
+  --shadow-lg: var(--shadow-floating);
+
+  /* Legacy radius aliases — older surfaces use --radius (no suffix)
+     and --radius-pill. Keep them resolving through the new scale. */
+  --radius: var(--radius-md);
+  --radius-pill: var(--radius-full);
+
+  /* Legacy font aliases. */
+  --sans: var(--font-sans);
+  --mono: var(--font-mono);
+  --serif: var(--font-serif);
+}

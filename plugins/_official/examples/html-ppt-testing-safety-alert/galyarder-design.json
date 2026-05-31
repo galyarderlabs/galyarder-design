@@ -1,0 +1,81 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-testing-safety-alert",
+  "title": "Html Ppt Testing Safety Alert",
+  "version": "0.1.0",
+  "description": "Red-amber alert deck — top/bottom 45° red-black hazard stripes, red strikethrough negation headlines, L1/L2/L3 green/amber/red tier cards, dot-status alert boxes, policy-yaml code blocks (red left border + bad-keyword highlights), red/green checklists, and Q1 incident stacked bar charts. Built for safety / risk / incident retrospectives, red-team reviews, pre-launch AI evaluations, and policy-as-code.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-testing-safety-alert",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "engineering",
+    "web",
+    "safety-alert",
+    "incident",
+    "red-team",
+    "risk-review",
+    "untitled",
+    "policy-as-code"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "engineering",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-testing-safety-alert template to create an incident review / safety review deck. Use red-black hazard stripes, red strikethroughs, L1/L2/L3 tier cards, and policy-yaml code blocks. First ask me for the incident timeline, root cause, and impact scope."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Testing Safety Alert"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

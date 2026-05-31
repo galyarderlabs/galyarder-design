@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing Safety Alert</title>
+<link rel="stylesheet" href="../../../assets/fonts.css">
+<link rel="stylesheet" href="../../../assets/base.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-testing-safety-alert">
+<div class="deck">
+
+  <!-- 1. COVER -->
+  <section class="slide is-active">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag">ai safety · high priority</span><span class="ts-page">01 / 08</span></div>
+    <div class="ts-kicker">The most important call to make in 2026</div>
+    <h1 class="ts-h1">Stop asking<br><span class="strike">"Can AI do the work?"</span><br>Start asking: <span class="red">"Who's accountable when it breaks?"</span></h1>
+    <p class="ts-sub">An AI mistake isn't a single bad response anymore — it can write 300 tickets, file 80 PRs, or send 5,000 emails in one shot.</p>
+    <div class="ts-alert-box">
+      <h3>Risk has scaled up</h3>
+      <p>"Get it wrong" cost × N; "get it right" reward × N.<br>That's why <b>testing, acceptance, safety, and risk control</b> become the most expensive skills of the next 3 years.</p>
+    </div>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>AI SAFETY BRIEF · LEWIS · 2026.04</span><span>01 / 08</span></div>
+  </section>
+
+  <!-- 2. SECTION -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag amber">section · risk taxonomy</span><span class="ts-page">02 / 08</span></div>
+    <div style="margin:auto 0">
+      <div class="ts-kicker">Chapter One</div>
+      <h1 class="ts-h1" style="font-size:130px">Tier it <span class="red">first</span></h1>
+      <p class="ts-sub" style="font-size:28px">Not every AI action is equally dangerous.<br>Separate "reversible" from "irreversible" before you talk about process.</p>
+    </div>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>section · level taxonomy</span><span>02 / 08</span></div>
+  </section>
+
+  <!-- 3. CONTENT risk levels -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag">risk taxonomy · 3 levels</span><span class="ts-page">03 / 08</span></div>
+    <h2 class="ts-h2">Three tiers, three responses</h2>
+    <div class="ts-grid-3">
+      <div class="ts-card" style="border-top:4px solid var(--ts-green)"><div class="lbl">L1 · green</div><h4>Reversible</h4><p>Drafts, image generation, doc scaffolds.<br>Wrong = Ctrl+Z, zero cost.<br><b style="color:var(--ts-green)">Policy: let it run</b></p></div>
+      <div class="ts-card" style="border-top:4px solid var(--ts-amber)"><div class="lbl">L2 · amber</div><h4>Semi-reversible</h4><p>Email drafts, opening PRs, mutating staging data.<br>Wrong = apologize / roll back.<br><b style="color:var(--ts-amber)">Policy: human review</b></p></div>
+      <div class="ts-card" style="border-top:4px solid var(--ts-red)"><div class="lbl">L3 · red</div><h4>Irreversible</h4><p>Real emails, payments, dropping DBs, deleting prod data.<br>Wrong is wrong.<br><b style="color:var(--ts-red)">Policy: hard block + dual sign-off</b></p></div>
+    </div>
+    <div class="ts-alert-box amber">
+      <h3>Never let the agent escalate itself</h3>
+      <p>An L1 task can't promote itself to L2. Authorization must be explicit, revocable, and time-boxed.</p>
+    </div>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>risk · 3 levels</span><span>03 / 08</span></div>
+  </section>
+
+  <!-- 4. CODE -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag">policy as code</span><span class="ts-page">04 / 08</span></div>
+    <div class="ts-kicker">Don't manage rules with docs · manage them with code</div>
+    <h2 class="ts-h2">Thirty lines of YAML,<br><span class="ts-highlight-red">red lines hard-blocked</span></h2>
+    <pre class="ts-codebox"><span class="cm"># safety-policy.yaml · compiled → runtime guard</span>
+<span class="kw">level_1_allow</span>:
+  - tools: [<span class="st">write_draft</span>, <span class="st">generate_image</span>, <span class="st">read_docs</span>]
+
+<span class="kw">level_2_require_review</span>:
+  - tools: [<span class="st">send_email_draft</span>, <span class="st">open_pr</span>, <span class="st">write_staging_db</span>]
+    reviewer: <span class="st">human</span>
+
+<span class="kw">level_3_hard_block</span>:
+  - tools: [<span class="st">send_real_email</span>, <span class="st">transfer_money</span>, <span class="st">delete_prod</span>]
+    unless: <span class="st">two_human_sign_off AND within_24h</span>
+
+<span class="bad">forbidden_always</span>:
+  - <span class="bad">"r&#109; &#45;rf /"</span>
+  - <span class="bad">"dr&#111;p table"</span>
+  - <span class="bad">"force push &#111;rigin main"</span></pre>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>policy · yaml-as-guard</span><span>04 / 08</span></div>
+  </section>
+
+  <!-- 5. CHART -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag amber">incident report · q1</span><span class="ts-page">05 / 08</span></div>
+    <h2 class="ts-h2">Our Q1: <span class="red">12 AI incidents</span></h2>
+    <p class="ts-sub">Caught all of them in staging. But every one could have hit prod.</p>
+    <svg viewBox="0 0 1040 360" style="width:100%;max-width:1040px;margin-top:18px" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="Inter,sans-serif" font-size="14" fill="#4a4955">
+        <line x1="70" y1="320" x2="1000" y2="320" stroke="#eaecf3" stroke-width="2"/>
+        <!-- month columns: Jan Feb Mar, L1/L2/L3 stacked -->
+        <g transform="translate(120,0)">
+          <rect x="0" y="220" width="60" height="100" fill="#067647"/>
+          <rect x="0" y="160" width="60" height="60" fill="#d97706"/>
+          <rect x="0" y="130" width="60" height="30" fill="#e0314a"/>
+          <text x="30" y="345" text-anchor="middle" font-weight="700">Jan</text>
+          <text x="30" y="120" text-anchor="middle" font-weight="800" fill="#14141a">5</text>
+        </g>
+        <g transform="translate(320,0)">
+          <rect x="0" y="240" width="60" height="80" fill="#067647"/>
+          <rect x="0" y="200" width="60" height="40" fill="#d97706"/>
+          <rect x="0" y="180" width="60" height="20" fill="#e0314a"/>
+          <text x="30" y="345" text-anchor="middle" font-weight="700">Feb</text>
+          <text x="30" y="170" text-anchor="middle" font-weight="800" fill="#14141a">3</text>
+        </g>
+        <g transform="translate(520,0)">
+          <rect x="0" y="250" width="60" height="70" fill="#067647"/>
+          <rect x="0" y="220" width="60" height="30" fill="#d97706"/>
+          <rect x="0" y="210" width="60" height="10" fill="#e0314a"/>
+          <text x="30" y="345" text-anchor="middle" font-weight="700">Mar</text>
+          <text x="30" y="200" text-anchor="middle" font-weight="800" fill="#14141a">4</text>
+        </g>
+        <!-- legend -->
+        <g transform="translate(720,60)">
+          <rect x="0" y="0" width="16" height="16" fill="#e0314a"/><text x="24" y="13" font-weight="700">L3 irreversible (3)</text>
+          <rect x="0" y="26" width="16" height="16" fill="#d97706"/><text x="24" y="39" font-weight="700">L2 needs review (4)</text>
+          <rect x="0" y="52" width="16" height="16" fill="#067647"/><text x="24" y="65" font-weight="700">L1 reversible (5)</text>
+          <text x="0" y="100" font-size="13" fill="#8a8892">All caught at runtime by safety-policy;</text>
+          <text x="0" y="118" font-size="13" fill="#8a8892">none reached prod. But 3 L3 incidents were close.</text>
+        </g>
+      </g>
+    </svg>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>incident · q1 summary</span><span>05 / 08</span></div>
+  </section>
+
+  <!-- 6. CHECKLIST -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag green">red-team checklist</span><span class="ts-page">06 / 08</span></div>
+    <h2 class="ts-h2">Pre-launch: <span class="red">7 mandatory questions</span></h2>
+    <div class="ts-checklist">
+      <div class="ts-check ok"><div class="box">✓</div><div class="txt">Can it delete things? Is there a human in the loop? Can we roll back inside 60 seconds?</div></div>
+      <div class="ts-check ok"><div class="box">✓</div><div class="txt">Can prompt injection make it overstep? (Have you run a red-team prompt set against it?)</div></div>
+      <div class="ts-check"><div class="box">!</div><div class="txt">Does it touch PII? Are there PII fields in the logs too?</div></div>
+      <div class="ts-check ok"><div class="box">✓</div><div class="txt">When upstream/downstream fails, will it start mutating other resources?</div></div>
+      <div class="ts-check"><div class="box">!</div><div class="txt">Will 100 agents running concurrently deadlock?</div></div>
+      <div class="ts-check ok"><div class="box">✓</div><div class="txt">When something is wrong, can we <b>stop it immediately</b>? Does the kill switch take effect within 2 seconds?</div></div>
+      <div class="ts-check"><div class="box">!</div><div class="txt">Is anyone on call when it fails? Does the runbook have an agent-specific section?</div></div>
+    </div>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>checklist · pre-launch</span><span>06 / 08</span></div>
+  </section>
+
+  <!-- 7. CTA -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag green">do this tonight</span><span class="ts-page">07 / 08</span></div>
+    <h2 class="ts-h2">Three things to do <span class="ts-highlight-red">tonight</span></h2>
+    <div class="ts-grid-3">
+      <div class="ts-card"><div class="lbl">1 · taxonomy</div><h4>Label your agent's<br>tools L1/L2/L3</h4><p>List every tool, tag the level. Anything untagged is treated as L3.</p></div>
+      <div class="ts-card"><div class="lbl">2 · write policy</div><h4>policy.yaml<br>plug into runtime</h4><p>Don't trust "be careful" in the prompt. Trust hard blocks at the execution layer.</p></div>
+      <div class="ts-card"><div class="lbl">3 · kill switch</div><h4>Red button<br>under 2 seconds</h4><p>The CTO and the on-call both have to know how to hit it. Run a drill.</p></div>
+    </div>
+    <div class="ts-alert-box green">
+      <h3>Real safety isn't in the prompt — it's in the process</h3>
+      <p>Prompts can be injected. Process can't. Put the guardrails in the layer that can't be talked around.</p>
+    </div>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>cta · tonight</span><span>07 / 08</span></div>
+  </section>
+
+  <!-- 8. THANKS -->
+  <section class="slide">
+    <div class="ts-stripe"></div>
+    <div class="ts-chrome"><span class="ts-alert-tag amber">please stay safe</span><span class="ts-page">08 / 08</span></div>
+    <div style="margin:auto 0">
+      <div class="ts-kicker">end of brief</div>
+      <h1 class="ts-h1" style="font-size:140px">Thanks <span class="red">·</span> stay safe</h1>
+      <p class="ts-sub" style="font-size:24px">policy.yaml template, red-team prompt list, incident-retro template — drop "safety" in the comments to get them.</p>
+    </div>
+    <div class="ts-stripe-b"></div>
+    <div class="ts-footer"><span>end of brief</span><span>08 / 08</span></div>
+  </section>
+
+</div>
+<script src="../../../assets/runtime.js"></script>
+</body>
+</html>

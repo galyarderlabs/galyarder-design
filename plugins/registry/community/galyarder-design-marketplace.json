@@ -1,0 +1,61 @@
+{
+  "$schema": "https://galyarder-design.dev/schemas/marketplace.v1.json",
+  "specVersion": "1.0.0",
+  "name": "galyarder-design-community",
+  "version": "0.1.1",
+  "owner": {
+    "name": "Galyarder Design Community",
+    "url": "https://galyarder-design.dev/marketplace/community"
+  },
+  "metadata": {
+    "description": "Default community plugin registry seed. Entries here are discoverable by default but remain restricted until the user installs and trusts them.",
+    "version": "0.1.1"
+  },
+  "plugins": [
+    {
+      "name": "community/registry-starter",
+      "title": "Community Registry Starter",
+      "version": "0.1.0",
+      "source": "github:galyarderlabs/galyarder-design@main/plugins/community/registry-starter",
+      "publisher": {
+        "id": "galyarder-design-community",
+        "github": "galyarderlabs",
+        "url": "https://github.com/galyarderlabs/galyarder-design"
+      },
+      "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/community/registry-starter",
+      "license": "MIT",
+      "capabilitiesSummary": [
+        "prompt:inject"
+      ],
+      "tags": [
+        "community",
+        "registry",
+        "starter"
+      ],
+      "description": "A minimal community plugin that exercises the default registry source and install provenance path."
+    },
+    {
+      "name": "community/import-smoke-test",
+      "title": "Community Import Smoke Test",
+      "version": "0.1.0",
+      "source": "github:galyarderlabs/galyarder-design@main/plugins/community/import-smoke-test",
+      "publisher": {
+        "id": "galyarder-design-community",
+        "github": "galyarderlabs",
+        "url": "https://github.com/galyarderlabs/galyarder-design"
+      },
+      "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/community/import-smoke-test",
+      "license": "MIT",
+      "capabilitiesSummary": [
+        "prompt:inject"
+      ],
+      "tags": [
+        "community",
+        "import",
+        "smoke-test",
+        "marketplace"
+      ],
+      "description": "A portable community plugin used to verify folder, zip, GitHub subpath, and marketplace import flows."
+    }
+  ]
+}

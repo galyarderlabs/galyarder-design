@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <title>WeRead Year in Review Video Template</title>
+  <style>
+    :root {
+      --paper: #fbfaf5;
+      --paper-warm: #f4f1e8;
+      --ink: #27394c;
+      --ink-soft: #526477;
+      --muted: #788174;
+      --line: rgba(39, 57, 76, 0.16);
+      --weread: #65b782;
+      --gold: #c4aa73;
+      --sage: #8fa58c;
+      --brick: #b97861;
+      --font-display: "Source Serif 4", "Noto Serif", "Songti SC", "Source Han Serif", serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans", sans-serif;
+      --font-mono: "SFMono-Regular", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(101, 183, 130, 0.12), transparent 30%),
+        radial-gradient(circle at 82% 12%, rgba(196, 170, 115, 0.11), transparent 28%),
+        linear-gradient(180deg, #f1f2eb, #e9ebe2);
+      color: var(--ink);
+      font-family: var(--font-body);
+    }
+
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+    }
+
+    .scene {
+      --accent: var(--weread);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: 184px minmax(0, 1fr) 230px;
+      padding: 78px 76px 82px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.38), transparent 36%),
+        repeating-linear-gradient(0deg, transparent 0 39px, rgba(39,57,76,0.026) 40px),
+        linear-gradient(90deg, transparent 0 62px, color-mix(in srgb, var(--accent), transparent 88%) 63px, transparent 64px),
+        radial-gradient(circle at 82% 8%, color-mix(in srgb, var(--accent), transparent 90%), transparent 28%),
+        var(--paper);
+      border-radius: 34px;
+      border: 1px solid rgba(39, 57, 76, 0.08);
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .scene:first-of-type {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 36px;
+      border: 1px solid rgba(39, 57, 76, 0.06);
+      border-radius: 24px;
+      pointer-events: none;
+    }
+    .scene::after {
+      content: attr(data-label);
+      position: absolute;
+      right: 74px;
+      top: 66px;
+      font: 700 18px/1 var(--font-mono);
+      color: color-mix(in srgb, var(--accent), var(--ink) 45%);
+      letter-spacing: 0.18em;
+    }
+    .scene.gold { --accent: var(--gold); }
+    .scene.sage { --accent: var(--sage); }
+    .scene.brick { --accent: var(--brick); }
+
+    .header { align-self: start; position: relative; z-index: 2; }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      color: color-mix(in srgb, var(--ink), var(--accent) 22%);
+      font: 800 22px/1 var(--font-mono);
+      letter-spacing: 0.14em;
+    }
+    .kicker::before {
+      content: "";
+      width: 48px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.46;
+    }
+    h1, h2, p { margin: 0; }
+    h1, h2, .serif, .mega, .persona {
+      font-family: var(--font-display);
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    h1 {
+      margin-top: 50px;
+      font-size: 116px;
+      line-height: 1.06;
+      max-width: 820px;
+    }
+    h2 {
+      margin-top: 42px;
+      font-size: 64px;
+      line-height: 1.18;
+      max-width: 820px;
+    }
+    .visual {
+      position: relative;
+      z-index: 1;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+    }
+    .caption {
+      align-self: end;
+      position: relative;
+      z-index: 3;
+      padding-top: 30px;
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      color: var(--muted);
+      font-size: 30px;
+      line-height: 1.62;
+      font-weight: 650;
+    }
+    .caption strong { color: var(--ink); }
+
+    .cover-stack {
+      width: 560px;
+      height: 360px;
+      border: 1px solid color-mix(in srgb, var(--weread), transparent 62%);
+      border-radius: 8px 34px 34px 8px;
+      background:
+        linear-gradient(90deg, rgba(101,183,130,0.22) 0 18px, transparent 18px),
+        linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0.08)),
+        #f8fbf4;
+      box-shadow: -30px 26px 0 rgba(101,183,130,0.10), 24px 22px 0 rgba(101,183,130,0.06);
+    }
+    .cover-stack i {
+      display: block;
+      height: 1px;
+      margin: 96px 88px 0;
+      background: rgba(39,57,76,0.13);
+    }
+    .cover-stack i + i { width: 54%; margin-top: 38px; }
+    .cover-number {
+      margin-top: 88px;
+      text-align: center;
+      color: rgba(39,57,76,0.34);
+      font: 500 68px/1 var(--font-display);
+    }
+    .cover-number small {
+      display: block;
+      margin-top: 16px;
+      font: 700 22px/1 var(--font-body);
+      letter-spacing: 0.1em;
+    }
+    .badge {
+      position: absolute;
+      left: 0;
+      bottom: 88px;
+      color: var(--weread);
+      font: 800 24px/1 var(--font-mono);
+      letter-spacing: 0.12em;
+    }
+
+    .mega {
+      color: var(--ink);
+      font-size: 220px;
+      line-height: 0.88;
+      text-align: center;
+    }
+    .mega .unit {
+      display: block;
+      margin-top: 34px;
+      color: var(--ink-soft);
+      font: 800 44px/1.25 var(--font-body);
+      letter-spacing: 0.04em;
+    }
+    .orbit {
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      border-radius: 50%;
+      border: 2px solid rgba(101,183,130,0.24);
+    }
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      inset: 78px;
+      border: 2px solid rgba(196,170,115,0.24);
+      border-radius: inherit;
+    }
+    .orbit::after { inset: 160px; border-color: rgba(39,57,76,0.12); }
+
+    .path-card {
+      width: 620px;
+      height: 620px;
+      position: relative;
+    }
+    .path-card svg { width: 100%; height: 100%; overflow: visible; }
+    .path-card .mega {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 190px;
+    }
+
+    .kpi-grid {
+      width: 850px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 32px;
+      align-items: end;
+    }
+    .kpi-main {
+      grid-row: span 2;
+      padding-right: 30px;
+      border-right: 1px solid var(--line);
+    }
+    .kpi-main span,
+    .kpi em {
+      display: block;
+      color: var(--muted);
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+    }
+    .kpi-main b {
+      display: block;
+      margin-top: 34px;
+      color: var(--ink);
+      font: 500 92px/0.96 var(--font-display);
+    }
+    .kpi {
+      min-height: 142px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kpi strong {
+      display: block;
+      margin-top: 18px;
+      color: var(--ink);
+      font: 500 62px/1 var(--font-display);
+    }
+
+    .rhythm {
+      width: 820px;
+      display: grid;
+      gap: 28px;
+      position: relative;
+      padding-left: 72px;
+    }
+    .month {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font: 800 22px/1 var(--font-mono);
+    }
+    .month i {
+      display: block;
+      width: calc(var(--v) * 1%);
+      height: 8px;
+      border-radius: 999px;
+      background: var(--c);
+      transform-origin: left center;
+    }
+    .curve {
+      position: absolute;
+      left: 110px;
+      right: 20px;
+      top: 210px;
+      height: 280px;
+      pointer-events: none;
+    }
+
+    .book-card {
+      width: 640px;
+      height: 430px;
+      position: relative;
+      border: 1px solid rgba(196,170,115,0.52);
+      border-radius: 8px 34px 34px 8px;
+      background: linear-gradient(90deg, rgba(185,120,97,0.18) 0 22px, rgba(255,255,255,0.26) 22px);
+    }
+    .book-card::before {
+      content: "Positioning";
+      position: absolute;
+      left: 82px;
+      top: 132px;
+      color: var(--ink);
+      font: 500 86px/1 var(--font-display);
+      letter-spacing: 0.06em;
+    }
+    .book-card::after {
+      content: "";
+      position: absolute;
+      left: 82px;
+      right: 110px;
+      bottom: 110px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold) 0 78%, rgba(196,170,115,0.18) 78% 100%);
+      transform-origin: left center;
+    }
+    .bookmark {
+      position: absolute;
+      right: 74px;
+      top: 0;
+      width: 56px;
+      height: 170px;
+      background: var(--weread);
+      clip-path: polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);
+    }
+
+    .map {
+      width: 780px;
+      height: 600px;
+      position: relative;
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 86px 86px;
+      mask-image: radial-gradient(circle, #000 0 58%, transparent 78%);
+    }
+    .topic {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      color: var(--c);
+      font: 500 var(--s)/1 var(--font-display);
+      white-space: nowrap;
+    }
+    .topic::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--d);
+      height: var(--d);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid color-mix(in srgb, currentColor, transparent 60%);
+      z-index: -1;
+    }
+
+    .margin-notes {
+      width: 760px;
+      height: 620px;
+      position: relative;
+    }
+    .margin-notes::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      bottom: 20px;
+      width: 1px;
+      background: var(--line);
+    }
+    .note {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--w);
+      padding-top: 18px;
+      border-top: 2px solid color-mix(in srgb, var(--c), transparent 30%);
+      color: var(--c);
+      font: 800 26px/1.35 var(--font-body);
+    }
+    .note b {
+      display: block;
+      margin-top: 12px;
+      font: 500 54px/1 var(--font-display);
+    }
+
+    .shelves {
+      width: 800px;
+      display: grid;
+      gap: 70px;
+    }
+    .asset-number {
+      position: absolute;
+      right: 106px;
+      top: 260px;
+      text-align: right;
+      color: var(--ink);
+      font: 500 120px/0.9 var(--font-display);
+    }
+    .asset-number small {
+      display: block;
+      margin-top: 24px;
+      color: var(--muted);
+      font: 800 24px/1 var(--font-body);
+    }
+    .shelf-row {
+      position: relative;
+      min-height: 118px;
+      padding-top: 38px;
+      border-bottom: 1px solid var(--line);
+    }
+    .shelf-row i {
+      display: block;
+      width: max(var(--w), var(--min, 0px));
+      height: var(--h);
+      border-radius: 999px;
+      background: var(--c);
+      opacity: var(--o, 0.78);
+    }
+    .shelf-row span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--muted);
+      font-size: 26px;
+      font-weight: 800;
+    }
+    .shelf-row b {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: var(--ink);
+      font: 500 48px/1 var(--font-display);
+    }
+
+    .pages {
+      width: 690px;
+      height: 650px;
+      position: relative;
+    }
+    .page-stack i {
+      position: absolute;
+      left: calc(var(--n) * 24px);
+      top: calc(var(--n) * 16px);
+      width: 430px;
+      height: 560px;
+      border-radius: 8px 34px 34px 8px;
+      border: 1px solid color-mix(in srgb, var(--c), transparent 32%);
+      background: color-mix(in srgb, var(--c), white 88%);
+    }
+    .progress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(39,57,76,0.12);
+    }
+    .progress i {
+      display: block;
+      width: 70.52%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--weread);
+      transform-origin: left center;
+    }
+    .legend {
+      position: absolute;
+      right: 0;
+      top: 88px;
+      display: grid;
+      gap: 30px;
+      color: var(--muted);
+      font-size: 26px;
+      font-weight: 800;
+    }
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 14px;
+      border-radius: 50%;
+      background: var(--c);
+    }
+
+    .notes-scene {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 54px;
+      width: 860px;
+      height: 880px;
+    }
+    .notes-scene .mega { font-size: 190px; }
+    .word-cloud {
+      position: relative;
+      min-height: 360px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .word-cloud span {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%) rotate(var(--r));
+      color: var(--c);
+      font-family: var(--font-display);
+      font-size: var(--s);
+      white-space: nowrap;
+    }
+    .annotation {
+      display: grid;
+      gap: 16px;
+      border-left: 2px solid rgba(185,120,97,0.46);
+      padding-left: 22px;
+    }
+    .annotation div {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      align-items: center;
+      min-height: 70px;
+      padding: 0 22px;
+      border: 1px solid color-mix(in srgb, var(--c), transparent 48%);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 24px;
+      font-weight: 750;
+    }
+    .annotation b {
+      color: var(--c);
+      font: 500 44px/1 var(--font-display);
+    }
+
+    .persona-card {
+      width: 760px;
+      min-height: 650px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(101,183,130,0.52);
+      border-radius: 90px 90px 34px 34px;
+      background: radial-gradient(circle at 50% 18%, rgba(101,183,130,0.11), transparent 36%);
+    }
+    .persona {
+      font-size: 126px;
+      line-height: 1.08;
+    }
+    .chips {
+      margin: 56px auto 0;
+      max-width: 660px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+    .chips span {
+      border: 1px solid rgba(101,183,130,0.50);
+      border-radius: 999px;
+      padding: 14px 22px;
+      color: var(--ink-soft);
+      font-size: 24px;
+      font-weight: 800;
+      background: rgba(255,255,255,0.24);
+    }
+    .share {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+      color: var(--ink);
+      font-size: 22px;
+      text-align: center;
+    }
+    .share b {
+      display: block;
+      font: 500 40px/1 var(--font-display);
+    }
+
+    @keyframes gentleFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+  <main id="root" data-composition-id="main" data-start="0" data-duration="40.8" data-width="1080" data-height="1920">
+    <section class="scene clip" id="scene-01" data-label="01" data-start="0" data-duration="3.8" data-track-index="10">
+      <div class="header"><div class="kicker">Year opener</div><h1>My WeRead<br />year in review</h1></div>
+      <div class="visual"><div class="cover-stack"><i></i><i></i><div class="cover-number">1693<small>hours 30 minutes</small></div></div><div class="badge">2024-2026 reading report</div></div>
+      <p class="caption">Over the past two years, I spent <strong>1,693 hours and 30 minutes</strong> inside books.</p>
+    </section>
+
+    <section class="scene clip" id="scene-02" data-label="02" data-start="3.8" data-duration="3.3" data-track-index="10">
+      <div class="header"><div class="kicker">Time spent</div></div>
+      <div class="visual"><div class="orbit"></div><div class="mega">1693<span class="unit">hours 30 minutes</span></div></div>
+      <p class="caption">Some hours weren't spent — they were saved, page by page.</p>
+    </section>
+
+    <section class="scene clip" id="scene-03" data-label="03" data-start="7.1" data-duration="3.3" data-track-index="10">
+      <div class="header"><div class="kicker">Coming back to books</div><h2>439 days,<br />returning to the page again and again</h2></div>
+      <div class="visual"><div class="path-card"><svg viewBox="0 0 620 620" aria-hidden="true"><path d="M308 48 C148 164 150 270 292 320 C468 382 472 496 322 558" fill="none" stroke="rgba(101,183,130,.45)" stroke-width="4"/><g fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="3"><circle cx="308" cy="48" r="9"/><circle cx="220" cy="212" r="9"/><circle cx="292" cy="320" r="9"/><circle cx="448" cy="420" r="9"/><circle cx="322" cy="558" r="9"/></g></svg><div class="mega">439<span class="unit">days</span></div></div></div>
+      <p class="caption">Not always many pages, but every reopening pulled my life a little closer in.</p>
+    </section>
+
+    <section class="scene clip gold" id="scene-04" data-label="04" data-start="10.4" data-duration="3.3" data-track-index="10">
+      <div class="header"><div class="kicker">Year overview</div><h2>This year, reading became<br />a record I can revisit.</h2></div>
+      <div class="visual"><div class="kpi-grid"><div class="kpi-main"><span>Reading time</span><b>1,693h<br />30m</b></div><div class="kpi"><em>Active days</em><strong>439</strong></div><div class="kpi"><em>Shelf items</em><strong>771</strong></div><div class="kpi"><em>Total notes</em><strong>10,950</strong></div><div class="kpi"><em>Books with notes</em><strong>42</strong></div><div class="kpi"><em>Highlighted lines</em><strong>9,900</strong></div></div></div>
+      <p class="caption">The numbers are not the conclusion — they remind me how much thinking has quietly stayed.</p>
+    </section>
+
+    <section class="scene clip gold" id="scene-05" data-label="05" data-start="13.7" data-duration="3.2" data-track-index="10">
+      <div class="header"><div class="kicker">Reading rhythm</div><h2>My reading rhythm</h2></div>
+      <div class="visual"><div class="rhythm"><div class="month"><span>01</span><i style="--v:38;--c:var(--sage)"></i></div><div class="month"><span>02</span><i style="--v:72;--c:var(--gold)"></i></div><div class="month"><span>03</span><i style="--v:66;--c:var(--ink)"></i></div><div class="month"><span>04</span><i style="--v:78;--c:var(--weread)"></i></div><div class="month"><span>05</span><i style="--v:70;--c:var(--sage)"></i></div><div class="month"><span>06</span><i style="--v:68;--c:var(--ink)"></i></div><div class="month"><span>07</span><i style="--v:58;--c:var(--gold)"></i></div><div class="month"><span>08</span><i style="--v:74;--c:var(--weread)"></i></div><div class="month"><span>09</span><i style="--v:80;--c:var(--ink)"></i></div><div class="month"><span>10</span><i style="--v:84;--c:var(--gold)"></i></div><div class="month"><span>11</span><i style="--v:70;--c:var(--sage)"></i></div><div class="month"><span>12</span><i style="--v:46;--c:var(--weread)"></i></div><svg class="curve" viewBox="0 0 700 280"><path d="M10 210 C72 92 134 160 190 118 S315 74 368 148 S500 220 558 92 S646 120 690 58" fill="none" stroke="var(--ink)" stroke-width="4"/></svg></div></div>
+      <p class="caption">Peaks and valleys both exist, but the page never left my life.</p>
+    </section>
+
+    <section class="scene clip gold" id="scene-06" data-label="06" data-start="16.9" data-duration="3.1" data-track-index="10">
+      <div class="header"><div class="kicker">Longest read</div><h2>The book I stayed with the longest</h2></div>
+      <div class="visual"><div class="book-card"><div class="bookmark"></div></div></div>
+      <p class="caption">"Positioning" stayed with me the longest — and made the question of "how to be remembered" come up again and again.</p>
+    </section>
+
+    <section class="scene clip sage" id="scene-07" data-label="07" data-start="20" data-duration="3.3" data-track-index="10">
+      <div class="header"><div class="kicker">Interest map</div><h2>My reading interest map</h2></div>
+      <div class="visual"><div class="map"><span class="topic" style="--x:50%;--y:43%;--s:72px;--d:230px;--c:var(--ink)">AI tech</span><span class="topic" style="--x:24%;--y:66%;--s:48px;--d:140px;--c:var(--gold)">Startups</span><span class="topic" style="--x:76%;--y:66%;--s:44px;--d:160px;--c:var(--weread)">Product growth</span><span class="topic" style="--x:58%;--y:78%;--s:38px;--d:112px;--c:var(--brick)">Monetization</span><span class="topic" style="--x:76%;--y:28%;--s:36px;--d:106px;--c:var(--sage)">Systems thinking</span><span class="topic" style="--x:26%;--y:28%;--s:34px;--d:100px;--c:var(--muted)">Org &amp; management</span></div></div>
+      <p class="caption">I'm mostly looking for answers between technology, business, and systems.</p>
+    </section>
+
+    <section class="scene clip sage" id="scene-08" data-label="08" data-start="23.3" data-duration="3.2" data-track-index="10">
+      <div class="header"><div class="kicker">Reading preferences</div><h2>My reading preferences</h2></div>
+      <div class="visual"><div class="margin-notes"><div class="note" style="--x:0%;--y:40px;--w:350px;--c:var(--ink)">Highest peak<b>AI tech</b></div><div class="note" style="--x:54%;--y:145px;--w:330px;--c:var(--gold)">A second thread<b>Startups &amp; mgmt</b></div><div class="note" style="--x:10%;--y:320px;--w:320px;--c:var(--weread)">Always growing<b>Product growth</b></div><div class="note" style="--x:56%;--y:440px;--w:330px;--c:var(--sage)">Underlying method<b>Systems thinking</b></div></div></div>
+      <p class="caption">Preferences aren't labels — they're the paths I keep retracing toward the same questions.</p>
+    </section>
+
+    <section class="scene clip sage" id="scene-09" data-label="09" data-start="26.5" data-duration="3.2" data-track-index="10">
+      <div class="header"><div class="kicker">Shelf assets</div><h2>My shelf assets</h2></div>
+      <div class="visual"><div class="asset-number">771<small>shelf items</small></div><div class="shelves"><div class="shelf-row"><span>E-books</span><b>94.03%</b><i style="--h:54px;--w:94.03%;--c:var(--ink)"></i></div><div class="shelf-row"><span>Audio / albums</span><b>5.84%</b><i style="--h:24px;--w:5.84%;--min:42px;--c:var(--gold);--o:.72"></i></div><div class="shelf-row"><span>Saved articles</span><b>0.13%</b><i style="--h:10px;--w:.13%;--min:12px;--c:var(--weread);--o:.9"></i></div></div></div>
+      <p class="caption">The shelf isn't a warehouse — it's an index of long-running questions.</p>
+    </section>
+
+    <section class="scene clip sage" id="scene-10" data-label="10" data-start="29.7" data-duration="3.2" data-track-index="10">
+      <div class="header"><div class="kicker">Reading progress</div><h2>How far I've gone with these books</h2></div>
+      <div class="visual"><div class="pages"><div class="page-stack"><i style="--n:0;--c:var(--weread)"></i><i style="--n:1;--c:var(--gold)"></i><i style="--n:2;--c:var(--sage)"></i><i style="--n:3;--c:var(--ink)"></i><i style="--n:4;--c:var(--brick)"></i></div><div class="legend"><span style="--c:var(--weread)">Finished 70.52%</span><span style="--c:var(--ink)">Unfinished 23.64%</span><span style="--c:var(--sage)">In progress 1.95%</span><span style="--c:var(--gold)">Completed albums 3.89%</span></div><div class="progress"><i></i></div></div></div>
+      <p class="caption">Some books are closed, others still hold a bookmark waiting for the next opening.</p>
+    </section>
+
+    <section class="scene clip brick" id="scene-11" data-label="11" data-start="32.9" data-duration="3.7" data-track-index="10">
+      <div class="header"><div class="kicker">Traces of thought</div></div>
+      <div class="visual"><div class="notes-scene"><div class="mega">10950<span class="unit">notes</span></div><div class="word-cloud"><span style="--x:50%;--y:46%;--r:-4deg;--s:62px;--c:var(--ink)">Agents</span><span style="--x:22%;--y:34%;--r:7deg;--s:40px;--c:var(--gold)">Monetization</span><span style="--x:76%;--y:34%;--r:-7deg;--s:38px;--c:var(--weread)">Systems thinking</span><span style="--x:36%;--y:76%;--r:5deg;--s:34px;--c:var(--brick)">Product growth</span><span style="--x:74%;--y:76%;--r:4deg;--s:31px;--c:var(--muted)">Startups</span></div><div class="annotation"><div style="--c:var(--ink)"><b>68.08%</b><span>Highlights — keeping the sentences that mattered</span></div><div style="--c:var(--brick)"><b>22.33%</b><span>Thoughts — pausing to sit beside the author</span></div><div style="--c:var(--weread)"><b>9.59%</b><span>Bookmarks — saved for the next opening</span></div></div></div></div>
+      <p class="caption">What truly stays isn't "I read it" — it's the moments I stopped to mark.</p>
+    </section>
+
+    <section class="scene clip brick" id="scene-12" data-label="12" data-start="36.6" data-duration="4.2" data-track-index="10">
+      <div class="header"><div class="kicker">Reading persona</div><h2>My reading persona</h2></div>
+      <div class="visual"><div class="persona-card"><div><div class="persona">Tech-business<br />builder</div><div class="chips"><span>AI tech</span><span>Startups</span><span>Product growth</span><span>Monetization</span><span>Systems thinking</span><span>Agents</span></div></div></div></div>
+      <div><p class="caption">I tend to look for answers in the loop between technology, products, and business systems.</p><div class="share"><span><b>1,693h</b> reading</span><span><b>10,950</b> notes</span><span><b>42</b> deeply marked books</span></div></div>
+    </section>
+  </main>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    var scenes = Array.from(document.querySelectorAll(".scene"));
+    function showScene(index) {
+      scenes.forEach(function (scene, i) {
+        scene.style.visibility = i === index ? "visible" : "hidden";
+        scene.style.opacity = i === index ? "1" : "0";
+      });
+    }
+
+    var tl = gsap.timeline({ paused: true });
+    scenes.forEach(function (scene, index) {
+      var start = Number(scene.dataset.start);
+      var duration = Number(scene.dataset.duration);
+      tl.set(scene, { autoAlpha: 1 }, start);
+      tl.fromTo(scene, { y: 26 }, { y: 0, duration: 0.55, ease: "power3.out", immediateRender: false }, start);
+      tl.from(scene.querySelectorAll(".kicker, h1, h2"), { autoAlpha: 0, y: 28, duration: 0.6, stagger: 0.08, ease: "power3.out", immediateRender: false }, start + 0.08);
+      tl.from(scene.querySelectorAll(".visual > *"), { autoAlpha: 0, y: 34, duration: 0.72, stagger: 0.08, ease: "power3.out", immediateRender: false }, start + 0.35);
+      tl.from(scene.querySelectorAll(".mega, .persona"), { autoAlpha: 0, y: 18, duration: 0.65, ease: "power3.out", immediateRender: false }, start + 0.45);
+      tl.from(scene.querySelectorAll(".month i, .progress i, .shelf-row i"), { scaleX: 0, duration: 0.85, stagger: 0.04, ease: "power3.out", immediateRender: false }, start + 0.75);
+      tl.from(scene.querySelectorAll(".topic, .note, .word-cloud span, .annotation div, .chips span, .kpi, .legend span"), { autoAlpha: 0, y: 14, duration: 0.48, stagger: 0.07, ease: "power2.out", immediateRender: false }, start + 0.68);
+      tl.from(scene.querySelectorAll(".caption, .share, .badge"), { autoAlpha: 0, y: 16, duration: 0.55, ease: "power2.out", immediateRender: false }, start + Math.min(1.2, duration - 1.2));
+      tl.to(scene, { y: -18, autoAlpha: 0, duration: 0.45, ease: "power2.inOut" }, start + duration - 0.46);
+      tl.set(scene, { autoAlpha: 0 }, start + duration);
+    });
+    window.__timelines.main = tl;
+    showScene(0);
+
+    var jumpTimes = [0, 3.8, 7.1, 10.4, 13.7, 16.9, 20, 23.3, 26.5, 29.7, 32.9, 36.6];
+    window.addEventListener("keydown", function (event) {
+      var keys = ["1","2","3","4","5","6","7","8","9","0","-","="];
+      var index = keys.indexOf(event.key);
+      if (index >= 0) {
+        showScene(index);
+        tl.pause(jumpTimes[index] + 0.8);
+      }
+      if (event.key.toLowerCase() === "r") {
+        showScene(0);
+        tl.restart();
+      }
+    });
+  </script>
+</body>
+</html>

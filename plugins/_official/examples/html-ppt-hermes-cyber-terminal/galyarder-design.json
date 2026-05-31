@@ -1,0 +1,81 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-hermes-cyber-terminal",
+  "title": "Html Ppt Hermes Cyber Terminal",
+  "version": "0.1.0",
+  "description": "Dark-terminal honest-review deck — #0a0c10 black background + 56px cyber grid + CRT vignette + scanlines, traffic-light window chrome, `$ prompt` command-line headings, mint-green #7ed3a4 display type, JetBrains Mono throughout, stroke-only bar charts, blinking cursor, amber/green/red tag tiers, and dark code blocks. Tuned for CLI / agent / dev-tool reviews (with traces, diffs, benchmarks).",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-hermes-cyber-terminal",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "engineering",
+    "web",
+    "terminal-review",
+    "cli-review",
+    "agent-review",
+    "honest-review",
+    "dev-tool-review",
+    "untitled"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "engineering",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-hermes-cyber-terminal template to create a CLI / agent evaluation deck. Use a dark terminal style with scanlines, command-line titles, and benchmark bar charts. First confirm the evaluated objects, 3-5 comparison dimensions, and benchmark data."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Hermes Cyber Terminal"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

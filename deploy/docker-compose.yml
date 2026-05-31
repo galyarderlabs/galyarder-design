@@ -1,0 +1,43 @@
+name: galyarder-design
+
+services:
+  galyarder-design:
+    container_name: galyarder-design
+    image: ${GALYARDER_DESIGN_IMAGE:-ghcr.io/galyarderlabs/galyarder-design:latest}
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: always
+    environment:
+      NODE_ENV: production
+      NODE_OPTIONS: ${NODE_OPTIONS:---max-old-space-size=192}
+      GD_BIND_HOST: 0.0.0.0
+      GD_ALLOWED_ORIGINS: ${GALYARDER_DESIGN_ALLOWED_ORIGINS:-}
+      GD_PORT: 7456
+      GD_WEB_PORT: ${GALYARDER_DESIGN_PORT:-7456}
+    ports:
+      - "127.0.0.1:${GALYARDER_DESIGN_PORT:-7456}:7456"
+    volumes:
+      - galyarder_design_data:/app/.od
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: ${GALYARDER_DESIGN_MEM_LIMIT:-384m}
+    pids_limit: 256
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:7456/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  galyarder_design_data:

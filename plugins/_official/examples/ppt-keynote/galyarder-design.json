@@ -1,0 +1,87 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-ppt-keynote",
+  "title": "Keynote-style Slides",
+  "version": "0.1.0",
+  "description": "Apple Keynote-quality slides, one card per screen, with keyboard left/right navigation.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/ppt-keynote",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "marketing",
+    "web",
+    "slides",
+    "presentation",
+    "untitled"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "marketing",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the Keynote-style Slides template to turn my content into Apple Keynote-quality slides with one card per screen and keyboard left/right navigation. Preserve the template's visual signature, use real content and data, and avoid lorem ipsum or placeholder images."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Keynote-style Slides",
+          "title_i18n": {
+            "en": "Keynote-style Slides"
+          }
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  },
+  "title_i18n": {
+    "en": "Keynote-style Slides"
+  },
+  "description_i18n": {
+    "en": "Apple Keynote-quality slides, one card per screen, with keyboard left/right navigation."
+  }
+}

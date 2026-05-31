@@ -1,0 +1,34 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "direction-picker",
+  "title": "Direction picker",
+  "version": "0.1.0",
+  "description": "3-5 direction picker that lets the user choose before final generation.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/atoms/direction-picker",
+  "tags": [
+    "atom",
+    "first-party",
+    "planning"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "atom",
+    "scenario": "general",
+    "mode": "planning",
+    "capabilities": [
+      "prompt:inject"
+    ]
+  }
+}

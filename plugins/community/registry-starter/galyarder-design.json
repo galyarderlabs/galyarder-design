@@ -1,0 +1,36 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "community-registry-starter",
+  "title": "Community Registry Starter",
+  "version": "0.1.0",
+  "description": "A minimal community plugin that exercises the default registry source and install provenance path.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design Community",
+    "url": "https://galyarder-design.ai/marketplace/community"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/community/registry-starter",
+  "plugin": {
+    "repo": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/community/registry-starter"
+  },
+  "tags": [
+    "community",
+    "registry",
+    "starter"
+  ],
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "prototype",
+    "useCase": {
+      "query": {
+        "en": "Create a compact status card that explains how a community Galyarder Design plugin flows from Available to Installed."
+      }
+    },
+    "capabilities": [
+      "prompt:inject"
+    ]
+  }
+}
+

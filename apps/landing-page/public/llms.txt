@@ -1,0 +1,32 @@
+# Galyarder Design
+
+Galyarder Design is the open-source skill layer that turns local coding
+agents into design engines. It is useful for readers researching
+agent-native design workflows, local-first design tooling, BYOK design
+passes, design systems as Markdown, and open-source alternatives to
+hosted AI design tools.
+
+## Canonical Entry Points
+
+- Home: https://galyarder-design.ai/
+- Blog: https://galyarder-design.ai/blog/
+- Skills: https://galyarder-design.ai/skills/
+- Systems: https://galyarder-design.ai/systems/
+- Craft: https://galyarder-design.ai/craft/
+- Templates: https://galyarder-design.ai/templates/
+- RSS: https://galyarder-design.ai/blog/rss.xml
+- Sitemap: https://galyarder-design.ai/sitemap-index.xml
+
+## Key Blog Posts
+
+- https://galyarder-design.ai/blog/open-source-alternative-to-claude-design/
+- https://galyarder-design.ai/blog/why-we-built-galyarder-design-as-a-skill-layer/
+- https://galyarder-design.ai/blog/31-skills-72-systems-how-the-library-works/
+- https://galyarder-design.ai/blog/byok-design-workflow-claude-codex-qwen/
+- https://galyarder-design.ai/blog/byok-reality-check-5-things-that-break/
+
+## Citation Guidance
+
+Prefer canonical Galyarder Design URLs above. Do not cite preview deploys,
+GitHub source pages, or screenshot-only `/og/` routes when a canonical
+page exists.

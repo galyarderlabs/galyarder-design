@@ -1,0 +1,87 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-frame-macos-notification",
+  "title": "macOS Notification Banner",
+  "version": "0.1.0",
+  "description": "Realistic macOS notification banner with app icon, title, and body, suited to video overlays or product teasers.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/frame-macos-notification",
+  "tags": [
+    "example",
+    "first-party",
+    "video",
+    "macos",
+    "notification",
+    "banner",
+    "overlay",
+    "frame"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "video",
+    "scenario": "video",
+    "surface": "video",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the macOS Notification Banner template to turn my content into a realistic macOS notification banner for a video overlay or product teaser. Preserve the template's visual signature, use real content and data, and avoid lorem ipsum or placeholder images."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "macOS Notification Banner",
+          "title_i18n": {
+            "en": "macOS Notification Banner"
+          }
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  },
+  "title_i18n": {
+    "en": "macOS Notification Banner"
+  },
+  "description_i18n": {
+    "en": "Realistic macOS notification banner with app icon, title, and body, suited to video overlays or product teasers."
+  }
+}

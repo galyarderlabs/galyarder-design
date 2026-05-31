@@ -1,0 +1,84 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-guizang-ppt",
+  "title": "Guizang Ppt",
+  "version": "0.1.0",
+  "description": "Generate \"editorial-magazine × e-ink\" style horizontal-swipe HTML decks (single HTML file) with WebGL fluid background, serif headlines + sans body, chapter dividers, big-numerals data spreads, image grids, and other ready-made templates. Use when the user needs a sharing / talk / launch-style web deck, or when they mention \"magazine-style PPT\", \"horizontal swipe deck\", \"editorial magazine\", or \"e-ink presentation\".",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/guizang-ppt",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "marketing",
+    "web",
+    "ppt",
+    "slides",
+    "presentation",
+    "magazine",
+    "untitled",
+    "horizontal-swipe",
+    "horizontal-swipe-deck",
+    "editorial-magazine",
+    "e-ink-presentation"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "marketing",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./index.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Create a magazine-style PPT about 'One-person companies: organizations folded by AI' for a 25-minute talk aimed at designers and founders. First recommend one direction for me to choose from: Monocle, WIRED, Kinfolk, Domus, or Lab."
+      }
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./assets/example-slides.html",
+        "./assets/template.html",
+        "./references/checklist.md",
+        "./references/components.md",
+        "./references/layouts.md",
+        "./references/styles.md",
+        "./references/themes.md"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

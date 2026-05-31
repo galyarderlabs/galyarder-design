@@ -1,0 +1,81 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-knowledge-arch-blueprint",
+  "title": "Html Ppt Knowledge Arch Blueprint",
+  "version": "0.1.0",
+  "description": "Cream blueprint architecture deck — cream paper #F0EAE0 background + a single rust-red #B5392A accent, 48px blueprint grid mask, hard cards with a 2px black border, pipeline step boxes (one lifted), rust-red insight callout on the right, large Playfair serif type, and SVG dashed feedback loops. Zero gradients, zero soft shadows — earnest and print-friendly.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-knowledge-arch-blueprint",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "engineering",
+    "web",
+    "architecture",
+    "blueprint",
+    "system-design",
+    "untitled",
+    "data-flow",
+    "engineering-whitepaper"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "engineering",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-knowledge-arch-blueprint template to create a system architecture introduction deck. Use a cream paper base, rust-red highlights, blueprint grid, raised pipeline blocks, and serif display type. First ask me for the system name, 5-7 core modules, and data-flow direction, then write 8-10 slides."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Knowledge Arch Blueprint"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

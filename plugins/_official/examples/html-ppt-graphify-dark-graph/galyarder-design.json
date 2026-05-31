@@ -1,0 +1,81 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-graphify-dark-graph",
+  "title": "Html Ppt Graphify Dark Graph",
+  "version": "0.1.0",
+  "description": "Dark knowledge-graph deck — #06060c→#0e1020 late-night gradient + floating blur orbs, SVG force-directed graph cover, rainbow gradient headline, JetBrains Mono command-line styling, and glass-morphism cards. Built for dev-tool / CLI / knowledge-graph / data-viz launches with an \"AI-native + sci-fi + warm accent\" feel.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-graphify-dark-graph",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "engineering",
+    "web",
+    "untitled",
+    "graph-deck",
+    "dark-graph",
+    "dev-tool-launch",
+    "cli-launch",
+    "data-viz-launch"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "engineering",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-graphify-dark-graph template to create a dev-tool launch deck. Use a late-night gradient background, force-directed graph cover, rainbow headline, and JetBrains Mono command-line styling. First confirm the tool name, core capabilities, demo steps, and whether the CLI should be typed live."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Graphify Dark Graph"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

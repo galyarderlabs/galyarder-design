@@ -1,0 +1,88 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-frame-liquid-bg-hero",
+  "title": "Liquid Background Hero",
+  "version": "0.1.0",
+  "description": "WebGL-style fluid displacement background with a quote overlay, suited to video intros, landing heroes, or posters.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/frame-liquid-bg-hero",
+  "tags": [
+    "example",
+    "first-party",
+    "video",
+    "liquid",
+    "fluid",
+    "background",
+    "hero",
+    "html-in-canvas",
+    "vfx"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "video",
+    "scenario": "video",
+    "surface": "video",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the Liquid Background Hero template to turn my content into a WebGL-style fluid displacement background with a quote overlay for a video intro, landing hero, or poster. Preserve the template's visual signature, use real content and data, and avoid lorem ipsum or placeholder images."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Liquid Background Hero",
+          "title_i18n": {
+            "en": "Liquid Background Hero"
+          }
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  },
+  "title_i18n": {
+    "en": "Liquid Background Hero"
+  },
+  "description_i18n": {
+    "en": "WebGL-style fluid displacement background with a quote overlay, suited to video intros, landing heroes, or posters."
+  }
+}

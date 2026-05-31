@@ -1,0 +1,191 @@
+/* ============================================================
+   Galyarder Design — Motion classes
+   ============================================================
+   Canonical motion class library for redesigned surfaces.
+   Consumes the motion tokens declared in tokens.css.
+   Per AGENTS.md and Requirement 6, every UI transition uses
+   --easing-standard (cubic-bezier(0.23, 1, 0.32, 1)) with
+   asymmetric durations: enter 200ms, exit 140ms.
+   Disclosure UI uses the grid-template-rows 0fr → 1fr pattern
+   paired with opacity fade. Reduced-motion collapses every
+   --duration-* to 0ms via the override in tokens.css.
+   ============================================================ */
+
+/* ---------- Disclosure (grid-row accordion) -------------------
+   The shared collapsible pattern. Wrap any conditional content in
+   <div class="ds-accordion" data-state="open|closed">
+     <div class="ds-accordion-inner">…</div>
+   </div>
+   The grid-row 0fr → 1fr trick lets the height auto-resolve
+   from the inner content without measuring. Opacity fade adds
+   the perceived weight. */
+.ds-accordion {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--duration-exit) var(--easing-standard),
+    opacity calc(var(--duration-exit) / 1.4) var(--easing-standard);
+}
+
+.ds-accordion[data-state="open"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows var(--duration-enter) var(--easing-standard),
+    opacity var(--duration-enter) var(--easing-standard);
+}
+
+.ds-accordion-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Fade in / out -------------------------------------
+   Use for popovers, tooltips, and ephemeral confirms. Always
+   pair with mounting via a CSS class toggle (per AGENTS.md
+   philosophy) — React unmounts skip the exit transition.
+*/
+.ds-fade {
+  opacity: 0;
+  transition: opacity var(--duration-exit) var(--easing-standard);
+}
+
+.ds-fade[data-state="open"],
+.ds-fade.ds-fade-in {
+  opacity: 1;
+  transition: opacity var(--duration-enter) var(--easing-standard);
+}
+
+/* ---------- Scale-and-fade entrance ---------------------------
+   Floor at scale(0.94). Never animate from scale(0).
+   Used by dialogs and sheets. */
+.ds-pop {
+  opacity: 0;
+  transform: scale(0.94);
+  transform-origin: center;
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+
+.ds-pop[data-state="open"] {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+/* ---------- Slide variants ------------------------------------
+   For Sheet / Drawer side variants. Translate from the relevant
+   edge by 8px so the panel reads as "coming from" that edge
+   without an exaggerated swing. */
+.ds-slide-right {
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+
+.ds-slide-right[data-state="open"] {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+.ds-slide-left {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+
+.ds-slide-left[data-state="open"] {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+.ds-slide-up {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+
+.ds-slide-up[data-state="open"] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+.ds-slide-down {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+
+.ds-slide-down[data-state="open"] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+/* ---------- Skeleton shimmer ----------------------------------
+   Disabled under reduced motion via the duration token
+   collapsing to 0 plus the prefers-reduced-motion override
+   below for the keyframe itself. */
+@keyframes ds-skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.ds-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 0%,
+    var(--surface-3) 50%,
+    var(--surface-2) 100%
+  );
+  background-size: 200% 100%;
+  animation: ds-skeleton-shimmer 1400ms var(--easing-standard) infinite;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-skeleton {
+    animation: none;
+  }
+}
+
+/* ---------- Theme switch transitions --------------------------
+   Smooth the swap between [data-theme="light"] and
+   [data-theme="dark"] on body-level surfaces (Req 4.3 / 4.4 / 4.5:
+   ≤500ms). 240ms with --easing-standard sits well inside that
+   ceiling and matches the "Theme switching" section of the design
+   doc. We deliberately animate only color / background-color /
+   border-color so the swap reads as paint-only — no layout shifts
+   or transform jitter while the attribute flips. The reduced-motion
+   override in tokens.css collapses --duration-gentle to 0ms, which
+   makes the swap instantaneous for that audience.
+*/
+html[data-theme] body {
+  transition:
+    background-color var(--duration-gentle) var(--easing-standard),
+    color var(--duration-gentle) var(--easing-standard),
+    border-color var(--duration-gentle) var(--easing-standard);
+}

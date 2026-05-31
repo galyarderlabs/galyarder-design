@@ -1,0 +1,79 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-html-ppt-xhs-white-editorial",
+  "title": "Html Ppt Xhs White Editorial",
+  "version": "0.1.0",
+  "description": "White-paper editorial deck — pure-white background + a 10-color rainbow bar at the top, 80–110px display headlines, gradient text (purple→blue→green→orange→pink), macaron soft-card stack (pink/purple/blue/green/orange), black-on-white .focus pills, and large pull quotes. Doubles as a RedNote photo set and a wide-format slide deck.",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/html-ppt-xhs-white-editorial",
+  "tags": [
+    "example",
+    "first-party",
+    "deck",
+    "marketing",
+    "web",
+    "untitled",
+    "xhs-editorial",
+    "white-editorial",
+    "editorial-deck"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "deck",
+    "scenario": "marketing",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Use the html-ppt-xhs-white-editorial template to create a white-background magazine-style PPT. Key points: 80-110px display headlines, rainbow top bar, soft macaron cards, and black-background white-text .focus pills. First ask me for the topic and audience, then write 8-12 slides."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Html Ppt Xhs White Editorial"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

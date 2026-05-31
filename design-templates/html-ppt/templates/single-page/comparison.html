@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Comparison</title>
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../../assets/themes/minimal-white.css">
+<link rel="stylesheet" href="../../assets/animations/animations.css">
+<style>
+.vs{display:grid;grid-template-columns:1fr 90px 1fr;gap:28px;align-items:stretch;margin-top:30px}
+.vs .side{padding:30px}
+.vs .mid{font-size:56px;font-weight:800;color:var(--text-3);display:flex;align-items:center;justify-content:center}
+.vs .bad-side{border-top:3px solid var(--bad)}
+.vs .good-side{border-top:3px solid var(--good)}
+.vs h3{font-size:24px}
+.vs ul{padding-left:20px;font-size:15px;line-height:1.8;color:var(--text-2)}
+.vs li::marker{color:var(--bad)}
+.vs .good-side li::marker{color:var(--good)}
+</style>
+</head><body class="single">
+<div class="deck"><section class="slide is-active" data-title="Comparison">
+  <p class="kicker">Before vs After</p>
+  <h2 class="h2">From "rebuild every time" to "one-click first draft"</h2>
+  <div class="vs">
+    <div class="card bad-side side anim-fade-left" data-anim="fade-left">
+      <h3>📉 Before</h3>
+      <ul>
+        <li>Rebuilt cover, table of contents, and closing every time</li>
+        <li>Colors and font sizes drifted across slides</li>
+        <li>Want a new theme? Edit every page by hand</li>
+        <li>Animations hand-written with raw transitions</li>
+        <li>Screenshots exported one slide at a time</li>
+      </ul>
+    </div>
+    <div class="mid">→</div>
+    <div class="card good-side side anim-fade-right" data-anim="fade-right">
+      <h3>📈 After</h3>
+      <ul>
+        <li>Copy the template, swap the data, done</li>
+        <li>Every page shares the same tokens</li>
+        <li>Press <b>T</b> to cycle through themes</li>
+        <li>25 named animations to pick from</li>
+        <li>One render.sh exports the whole deck</li>
+      </ul>
+    </div>
+  </div>
+</section></div>
+<script src="../../assets/runtime.js"></script>
+</body></html>

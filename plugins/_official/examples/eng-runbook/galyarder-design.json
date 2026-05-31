@@ -1,0 +1,86 @@
+{
+  "$schema": "https://galyarder-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "example-eng-runbook",
+  "title": "Eng Runbook",
+  "version": "0.1.0",
+  "description": "An engineering runbook — service overview, alerts table, dashboards\nlinks, common procedures with copy-pasteable commands, on-call rotation,\nand an incident-response checklist. Use when the brief mentions\n\"runbook\", \"ops doc\", \"on-call guide\", \"SRE doc\", or \"operations manual\".",
+  "license": "MIT",
+  "author": {
+    "name": "Galyarder Design",
+    "url": "https://github.com/galyarderlabs"
+  },
+  "homepage": "https://github.com/galyarderlabs/galyarder-design/tree/main/plugins/_official/examples/eng-runbook",
+  "tags": [
+    "example",
+    "first-party",
+    "prototype",
+    "engineering",
+    "web",
+    "desktop",
+    "runbook",
+    "ops-doc",
+    "on-call",
+    "sre-doc",
+    "service-runbook",
+    "untitled"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "gd": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "prototype",
+    "platform": "desktop",
+    "scenario": "engineering",
+    "surface": "web",
+    "preview": {
+      "type": "html",
+      "entry": "./example.html"
+    },
+    "useCase": {
+      "query": {
+        "en": "Write a runbook for our auth service — alerts, dashboards, common procedures, on-call rotation."
+      },
+      "exampleOutputs": [
+        {
+          "path": "./example.html",
+          "title": "Eng Runbook"
+        }
+      ]
+    },
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ],
+      "designSystem": {
+        "primary": true
+      },
+      "assets": [
+        "./example.html"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

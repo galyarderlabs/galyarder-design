@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obsidian × Claude Gradient</title>
+<link rel="stylesheet" href="../../../assets/fonts.css">
+<link rel="stylesheet" href="../../../assets/base.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-obsidian-claude-gradient">
+<div class="deck">
+
+  <!-- 1. COVER -->
+  <section class="slide is-active">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">01 / 08</div>
+    <div class="oc-tag">● OBSIDIAN × CLAUDE · second brain</div>
+    <h1 class="oc-h1">Wire Obsidian and Claude<br><span class="oc-g">into one nervous system</span></h1>
+    <p class="oc-sub">Not another AI notes plugin — make Claude actually understand the structure, links, and bidirectional references in your vault,<br>so it has the source material lined up before you start writing.</p>
+    <div style="margin-top:32px">
+      <span class="oc-pill">🧠 Markdown-native</span>
+      <span class="oc-pill">⚡ MCP-ready</span>
+      <span class="oc-pill">🔗 Bidirectional links</span>
+    </div>
+  </section>
+
+  <!-- 2. SECTION -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">02 / 08</div>
+    <div class="oc-tag">● CHAPTER 01</div>
+    <h1 class="oc-h1" style="font-size:110px">Why <span class="oc-g">not</span> Notion?</h1>
+    <p class="oc-sub">When your knowledge gets dense enough that everything cross-references everything,<br>"folders" don't cut it — and "databases" aren't the answer either.</p>
+  </section>
+
+  <!-- 3. CONTENT — compare cards -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">03 / 08</div>
+    <div class="oc-tag">● COMPARE</div>
+    <h2 class="oc-h2">Notion vs <span class="oc-g">Obsidian</span> · how AI-friendly</h2>
+    <div class="oc-grid-2">
+      <div class="oc-card">
+        <span class="oc-badge oc-bb">NOTION</span>
+        <h4 style="font-size:20px;margin-bottom:10px">Database-native</h4>
+        <p style="color:var(--oc-dim);font-size:14px;line-height:1.65">Great for structured tasks and team collaboration, but —<br>• AI must go through the API; can't read live full text<br>• Nested-block structure is complex, token costs are high<br>• Weak local-first story; doesn't work as long-term memory</p>
+      </div>
+      <div class="oc-card" style="border-color:rgba(168,85,247,.35);background:rgba(124,58,237,.05)">
+        <span class="oc-badge oc-bp">OBSIDIAN</span>
+        <h4 style="font-size:20px;margin-bottom:10px">Pure Markdown + bidirectional links</h4>
+        <p style="color:var(--oc-dim);font-size:14px;line-height:1.65">Naturally AI-friendly —<br>• Everything is just files; Claude reads them directly<br>• Bidirectional links = a graph for free; entity extraction is nearly zero-cost<br>• Offline, gittable, diffable, revertable</p>
+      </div>
+    </div>
+    <div class="oc-hl" style="margin-top:26px">💡 <b>Key insight:</b> AI doesn't need a "smarter database" — it needs a file system it can read on its own.</div>
+  </section>
+
+  <!-- 4. STEPS -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">04 / 08</div>
+    <div class="oc-tag">● SETUP · 4 STEPS</div>
+    <h2 class="oc-h2">From zero to "AI writes a note" in four steps</h2>
+    <div class="oc-steps">
+      <div class="oc-step"><div class="oc-sn">1</div><div class="oc-sc"><h4>Install Obsidian + enable the Local REST API plugin</h4><p>A community plugin, one toggle. It lets external processes read/write your vault.</p></div></div>
+      <div class="oc-step"><div class="oc-sn">2</div><div class="oc-sc"><h4>Connect Claude Desktop + the obsidian-mcp server</h4><p>One MCP config file. Set the token to your vault's API key.</p></div></div>
+      <div class="oc-step"><div class="oc-sn">3</div><div class="oc-sc"><h4>Install five obsidian-skills</h4><p>markdown / bases / canvas / cli / defuddle — so Claude knows how to use Obsidian correctly.</p></div></div>
+      <div class="oc-step"><div class="oc-sn">4</div><div class="oc-sc"><h4>Let Claude do one cleanup pass on its own</h4><p>"Merge duplicate concepts across my last 10 notes and spin up a new MOC" — 90 seconds, done.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 5. CODE -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">05 / 08</div>
+    <div class="oc-tag">● MCP CONFIG</div>
+    <h2 class="oc-h2">claude_desktop_config.json</h2>
+    <pre class="oc-code"><span class="cm">// ~/Library/Application Support/Claude/claude_desktop_config.json</span>
+{
+  <span class="cc">"mcpServers"</span>: {
+    <span class="cc">"obsidian"</span>: {
+      <span class="cc">"command"</span>: <span class="cs">"npx"</span>,
+      <span class="cc">"args"</span>: [<span class="cs">"-y"</span>, <span class="cs">"@modelcontextprotocol/server-obsidian"</span>],
+      <span class="cc">"env"</span>: {
+        <span class="cc">"OBSIDIAN_API_KEY"</span>: <span class="cs">"xxxxxxxxxxxxxxxx"</span>,
+        <span class="cc">"OBSIDIAN_HOST"</span>: <span class="cs">"http://127.0.0.1:27123"</span>
+      }
+    }
+  }
+}</pre>
+    <p class="oc-sub" style="margin-top:18px">Restart Claude Desktop, type <b style="color:var(--oc-accent3)">/mcp</b>, and you'll see obsidian connected.</p>
+  </section>
+
+  <!-- 6. STATS -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">06 / 08</div>
+    <div class="oc-tag">● 3 MONTHS IN</div>
+    <h2 class="oc-h2">90 days in — my <span class="oc-g">vault numbers</span></h2>
+    <div class="oc-grid-3" style="margin-top:28px">
+      <div class="oc-card" style="text-align:center"><div class="oc-big oc-g" style="font-size:80px">1,842</div><p style="color:var(--oc-dim);margin-top:8px;font-size:13px">notes in vault</p></div>
+      <div class="oc-card" style="text-align:center"><div class="oc-big oc-g" style="font-size:80px">6.3k</div><p style="color:var(--oc-dim);margin-top:8px;font-size:13px">backlinks (auto-added by AI)</p></div>
+      <div class="oc-card" style="text-align:center"><div class="oc-big oc-g" style="font-size:80px">-74%</div><p style="color:var(--oc-dim);margin-top:8px;font-size:13px">average time to find anything</p></div>
+    </div>
+    <div class="oc-hl" style="margin-top:26px">The biggest win isn't "AI writes my notes" — it's "AI re-connects my old notes". Thirty minutes a week, and the vault grows on its own.</div>
+  </section>
+
+  <!-- 7. QUOTE / CTA -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">07 / 08</div>
+    <div class="oc-tag">● CTA · do tonight</div>
+    <div class="oc-quote">
+      <blockquote>Stop hunting for the "AI notes app".<br>What you want is a <span class="oc-g">folder + a single nerve</span>.</blockquote>
+      <div class="attr">— me, after 90 days</div>
+    </div>
+    <div style="margin-top:36px">
+      <span class="oc-pill">⬇ obsidian.md</span>
+      <span class="oc-pill">⬇ Claude Desktop</span>
+      <span class="oc-pill">⬇ obsidian-mcp</span>
+      <span class="oc-pill">⬇ obsidian-skills × 5</span>
+    </div>
+  </section>
+
+  <!-- 8. THANKS -->
+  <section class="slide">
+    <div class="oc-cbg"></div>
+    <div class="oc-cgrid"></div>
+    <div class="oc-snum">08 / 08</div>
+    <div class="oc-big oc-g">Thanks.</div>
+    <p class="oc-sub" style="margin-top:26px">Config templates, the skill manifest, and my vault layout all live at <b style="color:var(--oc-accent3)">github.com/lewis/obsidian-claude</b></p>
+  </section>
+
+</div>
+<script src="../../../assets/runtime.js"></script>
+</body>
+</html>

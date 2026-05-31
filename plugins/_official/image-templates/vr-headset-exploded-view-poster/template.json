@@ -1,0 +1,22 @@
+{
+  "id": "vr-headset-exploded-view-poster",
+  "surface": "image",
+  "title": "VR Headset Exploded View Poster",
+  "summary": "Generates a high-tech exploded view diagram of a VR headset with detailed component callouts and promotional text.",
+  "category": "Social Media Post",
+  "tags": [
+    "fantasy",
+    "3d-render",
+    "product"
+  ],
+  "model": "gpt-image-2",
+  "aspect": "1:1",
+  "prompt": "{\"type\":\"exploded view product diagram poster\",\"subject\":\"VR headset\",\"style\":\"clean high-tech 3D render, studio lighting, glowing accents\",\"background\":\"{argument name=\\\"background color\\\" default=\\\"soft purple and blue gradient\\\"}\",\"header\":{\"logo\":\"∞ {argument name=\\\"product name\\\" default=\\\"Meta Quest 3\\\"}\",\"subtitle\":\"{argument name=\\\"main catchphrase\\\" default=\\\"An entirely new reality, born from an entirely new structure.\\\"}\"},\"layout\":{\"centerpiece\":\"vertically stacked exploded view of a VR headset showing 9 distinct layers of internal components: outer shell, camera sensors, motherboard with chip, pancake lenses, internal frame, battery packs, side straps, top strap, and facial interface cushion.\",\"callout_labels\":{\"count\":8,\"left_side\":[\"Snapdragon® XR2 Gen 2\\nOverwhelming processing power for real-time experiences.\",\"Adjustable IPD mechanism\\nA comfortable fit for a wide range of users.\",\"Precision-engineered head strap\\nErgonomics tuned for comfort and stability.\"],\"right_side\":[\"Faceplate\\nRefined design with optimized weight balance.\",\"Tracking cameras\\nHigh-precision positional tracking and environment awareness.\",\"Pancake lenses\\nA slim design delivering a wide field of view and crisp visuals.\",\"High-performance battery\\nAn optimized power system that supports long sessions.\",\"Soft facial interface\\nA comfortable fit even during extended use.\"]},\"footer\":{\"left_text_block\":{\"headline\":\"{argument name=\\\"bottom headline\\\" default=\\\"The experience evolves from the structure within.\\\"}\",\"body\":\"Every component is built around cutting-edge technology and meticulous design that powers true immersion. The Meta Quest 3 brings a future-feeling experience to life from the inside out.\"},\"right_logo\":\"∞ Meta\"}}}",
+  "previewImageUrl": "https://cms-assets.youmind.com/media/1776658772018_lukyfw_HGSUfldbIAEiMWZ.jpg",
+  "source": {
+    "repo": "YouMind-OpenLab/awesome-gpt-image-2",
+    "license": "CC-BY-4.0",
+    "author": "wory @ Hopping",
+    "url": "https://x.com/wory37303852/status/2045925660401795478#reversed-0"
+  }
+}

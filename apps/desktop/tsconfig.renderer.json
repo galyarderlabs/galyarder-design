@@ -1,0 +1,35 @@
+{
+  // Renderer-side TypeScript config for the desktop-private React surface
+  // (title bar, UpdaterPopup, future Phase 6 chrome). The Electron main
+  // process keeps its own NodeNext config in `tsconfig.json`; this file
+  // is the bundler-resolution view used when those renderer sources are
+  // compiled or typechecked.
+  //
+  // The `paths` aliases below are the canonical contract from
+  // tasks.md 9.2 (Requirements 1.10, 2.8): the desktop renderer resolves
+  // `@gd/ds` to `apps/web/src/components/ds/index.ts` and `@gd/tokens`
+  // to `apps/web/src/styles/tokens.css` so the desktop chrome consumes
+  // the single shared source instead of duplicating primitives.
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@gd/ds": ["../web/src/components/ds/index.ts"],
+      "@gd/tokens": ["../web/src/styles/tokens.css"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2024",
+    "types": ["node", "react", "react-dom"]
+  },
+  "include": ["src/renderer/**/*.ts", "src/renderer/**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
+}

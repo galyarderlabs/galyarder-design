@@ -1,0 +1,1896 @@
+/* ============================================================
+   Galyarder Design — DS primitive styles
+   ============================================================
+   All design-system primitives live here in one stylesheet so
+   the cascade order is predictable and the bundle stays small.
+   Every value resolves through tokens.css custom properties; no
+   hardcoded colors / pixels / shadows / radii (Property 7).
+   Density-aware spacing uses calc(--space-N * --density-multiplier).
+   ============================================================ */
+
+/* ---------- Focus ring (shared) ----------------------------- */
+.ds-focus-ring:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ---------- Button ------------------------------------------- */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) * var(--density-multiplier)) calc(var(--space-4) * var(--density-multiplier));
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--type-body-sm-size);
+  line-height: 1;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard),
+    color var(--duration-snap) var(--easing-standard);
+}
+.ds-btn:disabled,
+.ds-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-btn-sm { padding: calc(var(--space-1) * var(--density-multiplier)) calc(var(--space-3) * var(--density-multiplier)); font-size: var(--type-caption-size); }
+.ds-btn-md { padding: calc(var(--space-2) * var(--density-multiplier)) calc(var(--space-4) * var(--density-multiplier)); font-size: var(--type-body-sm-size); }
+.ds-btn-lg { padding: calc(var(--space-3) * var(--density-multiplier)) calc(var(--space-5) * var(--density-multiplier)); font-size: var(--type-body-size); }
+
+.ds-btn-primary {
+  background: var(--accent-6);
+  border-color: var(--accent-6);
+  color: var(--accent-fg);
+}
+.ds-btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--accent-7);
+  border-color: var(--accent-7);
+}
+
+.ds-btn-secondary {
+  background: var(--surface-1);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.ds-btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--surface-2);
+}
+
+.ds-btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text);
+}
+.ds-btn-ghost:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--surface-2);
+}
+
+.ds-btn-danger {
+  background: var(--danger-fg);
+  border-color: var(--danger-fg);
+  color: var(--accent-fg);
+}
+.ds-btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--danger-fg-strong);
+  border-color: var(--danger-fg-strong);
+}
+
+.ds-btn-loading { position: relative; pointer-events: none; }
+.ds-btn-loading > * { opacity: 0; }
+.ds-btn-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 14px; height: 14px;
+  border-radius: var(--radius-full);
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: ds-spin 700ms linear infinite;
+}
+
+@keyframes ds-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .ds-btn-loading::after { animation-duration: 0ms; }
+}
+
+/* ---------- IconButton --------------------------------------- */
+.ds-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(28px * var(--density-multiplier));
+  height: calc(28px * var(--density-multiplier));
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    color var(--duration-snap) var(--easing-standard);
+}
+.ds-icon-btn:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.ds-icon-btn:disabled,
+.ds-icon-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-icon-btn-sm { width: calc(24px * var(--density-multiplier)); height: calc(24px * var(--density-multiplier)); }
+.ds-icon-btn-md { width: calc(28px * var(--density-multiplier)); height: calc(28px * var(--density-multiplier)); }
+.ds-icon-btn-lg { width: calc(36px * var(--density-multiplier)); height: calc(36px * var(--density-multiplier)); }
+
+.ds-icon-btn-primary { background: var(--accent-6); color: var(--accent-fg); border-color: var(--accent-6); }
+.ds-icon-btn-primary:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--accent-7); border-color: var(--accent-7); }
+.ds-icon-btn-danger { color: var(--danger-fg); }
+.ds-icon-btn-danger:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--danger-bg); }
+
+/* ---------- Card --------------------------------------------- */
+.ds-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding);
+  overflow-wrap: anywhere;
+}
+.ds-card-flat { box-shadow: none; }
+.ds-card-resting { box-shadow: var(--shadow-resting); }
+.ds-card-raised { box-shadow: var(--shadow-raised); }
+
+.ds-card-padding-sm { padding: var(--space-3); }
+.ds-card-padding-md { padding: var(--card-padding); }
+.ds-card-padding-lg { padding: var(--space-6); }
+.ds-card-padding-none { padding: 0; }
+
+/* ---------- Banner ------------------------------------------- */
+.ds-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  color: var(--text);
+}
+.ds-banner-info { background: var(--info-bg); border-color: var(--info-border); color: var(--info-fg-strong); }
+.ds-banner-success { background: var(--success-bg); border-color: var(--success-border); color: var(--success-fg-strong); }
+.ds-banner-warning { background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-fg-strong); }
+.ds-banner-danger { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger-fg-strong); }
+
+.ds-banner-icon { display: inline-flex; flex: 0 0 auto; padding-top: 2px; }
+.ds-banner-content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.ds-banner-title { font: 600 var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans); color: inherit; }
+.ds-banner-description { font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans); color: inherit; opacity: 0.9; }
+.ds-banner-actions { display: inline-flex; gap: var(--space-2); flex: 0 0 auto; }
+.ds-banner-dismiss { flex: 0 0 auto; }
+
+/* ---------- EmptyState --------------------------------------- */
+.ds-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-12) var(--space-6);
+  color: var(--text);
+}
+.ds-empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+.ds-empty-state-title { font: 600 var(--type-h3-size)/var(--type-h3-line) var(--font-sans); color: var(--text-strong); margin: 0; }
+.ds-empty-state-description { font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans); color: var(--text-muted); margin: 0; max-width: 44ch; }
+.ds-empty-state-actions { display: inline-flex; gap: var(--space-2); margin-top: var(--space-2); flex-wrap: wrap; justify-content: center; }
+
+/* ---------- Spinner ------------------------------------------ */
+.ds-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: ds-spin 700ms linear infinite;
+  color: var(--text-muted);
+}
+.ds-spinner-sm { width: 12px; height: 12px; border-width: 2px; }
+.ds-spinner-md { width: 16px; height: 16px; border-width: 2px; }
+.ds-spinner-lg { width: 24px; height: 24px; border-width: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .ds-spinner { animation-duration: 0ms; }
+}
+
+/* ---------- Badge -------------------------------------------- */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: calc(var(--space-1) - 1px) var(--space-2);
+  border-radius: var(--radius-full);
+  font: 500 var(--type-caption-size)/1 var(--font-sans);
+  letter-spacing: var(--type-caption-tracking);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+}
+.ds-badge-neutral { background: var(--surface-2); color: var(--text-muted); }
+.ds-badge-accent { background: var(--accent-1); color: var(--accent-7); }
+.ds-badge-success { background: var(--success-bg); color: var(--success-fg-strong); }
+.ds-badge-warning { background: var(--warning-bg); color: var(--warning-fg-strong); }
+.ds-badge-danger { background: var(--danger-bg); color: var(--danger-fg-strong); }
+.ds-badge-info { background: var(--info-bg); color: var(--info-fg-strong); }
+.ds-badge-sm { font-size: 10.5px; padding: 1px var(--space-2); }
+.ds-badge-md { font-size: var(--type-caption-size); padding: 2px var(--space-2); }
+.ds-badge-lg { font-size: var(--type-body-sm-size); padding: 3px var(--space-3); }
+
+/* ---------- Tag ---------------------------------------------- */
+.ds-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font: 500 var(--type-caption-size)/1.2 var(--font-sans);
+}
+.ds-tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-left: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+.ds-tag-remove:hover { color: var(--text); background: var(--surface-3); }
+
+/* ---------- Chip --------------------------------------------- */
+.ds-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text);
+  font: 500 var(--type-body-sm-size)/1.2 var(--font-sans);
+  cursor: pointer;
+  transition: background var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard),
+    color var(--duration-snap) var(--easing-standard);
+}
+.ds-chip:hover:not([aria-disabled="true"]) {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+}
+.ds-chip[aria-pressed="true"] {
+  background: var(--accent-1);
+  border-color: var(--accent-6);
+  color: var(--accent-7);
+}
+.ds-chip[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- Kbd ---------------------------------------------- */
+.ds-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  padding: 0 var(--space-1);
+  height: 18px;
+  font: 500 11px/1 var(--font-mono);
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.ds-kbd-md { height: 20px; font-size: 11.5px; }
+.ds-kbd-lg { height: 22px; font-size: 12.5px; }
+
+/* ---------- Skeleton ----------------------------------------- */
+/* Defined in motion.css as .ds-skeleton; here we add size variants. */
+.ds-skeleton-text { height: 14px; width: 100%; border-radius: var(--radius-sm); }
+.ds-skeleton-block { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-md); }
+.ds-skeleton-circle { width: 32px; height: 32px; border-radius: var(--radius-full); }
+
+/* ---------- Avatar ------------------------------------------- */
+.ds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font: 600 var(--type-body-sm-size)/1 var(--font-sans);
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+.ds-avatar-circle { border-radius: var(--radius-full); }
+.ds-avatar-square { border-radius: var(--radius-md); }
+.ds-avatar-sm { width: 24px; height: 24px; font-size: 11px; }
+.ds-avatar-md { width: 32px; height: 32px; font-size: var(--type-body-sm-size); }
+.ds-avatar-lg { width: 40px; height: 40px; font-size: var(--type-body-size); }
+.ds-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- TextInput / Textarea ----------------------------- */
+.ds-input {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  transition: border-color var(--duration-snap) var(--easing-standard),
+    box-shadow var(--duration-snap) var(--easing-standard);
+}
+.ds-input:focus-within {
+  border-color: var(--selected);
+  box-shadow: 0 0 0 3px var(--selected-soft);
+}
+.ds-input[data-invalid="true"],
+.ds-input[aria-invalid="true"] {
+  border-color: var(--danger-fg);
+}
+.ds-input input,
+.ds-input textarea {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+}
+.ds-input input::placeholder,
+.ds-input textarea::placeholder {
+  color: var(--text-faint);
+}
+.ds-input-leading,
+.ds-input-trailing {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+.ds-textarea-shell {
+  align-items: flex-start;
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+}
+.ds-textarea-shell textarea {
+  resize: vertical;
+  min-height: 72px;
+  line-height: var(--type-body-sm-line);
+}
+
+/* ---------- Pagination --------------------------------------- */
+.ds-pagination { display: inline-flex; align-items: center; gap: var(--space-1); }
+.ds-pagination-page {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font: 500 var(--type-body-sm-size)/1 var(--font-sans);
+  cursor: pointer;
+}
+.ds-pagination-page:hover:not(:disabled):not([aria-current="page"]) {
+  background: var(--surface-2);
+}
+.ds-pagination-page[aria-current="page"] {
+  background: var(--accent-1);
+  border-color: var(--accent-6);
+  color: var(--accent-7);
+}
+
+/* ---------- Breadcrumbs -------------------------------------- */
+.ds-breadcrumbs { display: inline-flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); font: var(--type-body-sm-weight) var(--type-body-sm-size)/1.4 var(--font-sans); }
+.ds-breadcrumbs-item { color: var(--text-muted); }
+.ds-breadcrumbs-item-current { color: var(--text); font-weight: 500; }
+.ds-breadcrumbs-separator { color: var(--text-faint); flex: 0 0 auto; }
+.ds-breadcrumbs a { color: inherit; text-decoration: none; }
+.ds-breadcrumbs a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------- ScrollArea --------------------------------------- */
+/* Phase 1.5: backed by @radix-ui/react-scroll-area.
+   Root keeps the ds-scroll-area class so existing callers that
+   target it via CSS selectors continue to work. */
+.ds-scroll-area {
+  position: relative;
+  overflow: hidden; /* Radix Root must not scroll itself */
+}
+.ds-scroll-area-viewport {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  /* Radix sets overflow:scroll on the viewport; we let it manage that */
+}
+.ds-scroll-area-scrollbar {
+  display: flex;
+  user-select: none;
+  touch-action: none;
+  padding: 2px;
+  background: transparent;
+  transition: background var(--duration-snap) var(--easing-standard);
+}
+.ds-scroll-area-scrollbar[data-orientation="vertical"] {
+  width: 8px;
+}
+.ds-scroll-area-scrollbar[data-orientation="horizontal"] {
+  flex-direction: column;
+  height: 8px;
+}
+.ds-scroll-area-scrollbar:hover {
+  background: var(--surface-2);
+}
+.ds-scroll-area-thumb {
+  flex: 1;
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+  position: relative;
+}
+.ds-scroll-area-thumb::before {
+  /* Expand the hit area without changing the visual size */
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-1) * -1);
+}
+.ds-scroll-area-corner {
+  background: transparent;
+}
+
+/* ---------- NavRail / NavItem -------------------------------- */
+.ds-nav-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background: var(--surface-1);
+  border-right: 1px solid var(--border);
+}
+.ds-nav-rail[data-collapsed="true"] {
+  width: 56px;
+  align-items: center;
+}
+.ds-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font: 500 var(--type-body-sm-size)/1.2 var(--font-sans);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+}
+.ds-nav-item:hover { background: var(--surface-2); color: var(--text); }
+.ds-nav-item[aria-current="page"] { background: var(--accent-1); color: var(--accent-7); }
+.ds-nav-rail[data-collapsed="true"] .ds-nav-item { justify-content: center; padding: var(--space-2); }
+.ds-nav-rail[data-collapsed="true"] .ds-nav-item-label { display: none; }
+.ds-nav-item-icon { display: inline-flex; flex: 0 0 auto; }
+.ds-nav-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Progress ----------------------------------------- */
+.ds-progress {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: var(--surface-3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.ds-progress-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  background: var(--accent-6);
+  border-radius: var(--radius-full);
+  transition: width var(--duration-base) var(--easing-standard);
+}
+.ds-progress[data-indeterminate="true"] .ds-progress-bar {
+  width: 30%;
+  animation: ds-progress-indeterminate 1400ms var(--easing-standard) infinite;
+}
+@keyframes ds-progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-progress[data-indeterminate="true"] .ds-progress-bar { animation-duration: 0ms; }
+}
+
+/* ---------- Tabs --------------------------------------------- */
+.ds-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.ds-tabs[data-orientation="vertical"] {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.ds-tabs-list {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.ds-tabs-list[data-orientation="vertical"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ds-tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-1) * var(--density-multiplier)) calc(var(--space-3) * var(--density-multiplier));
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font: 500 var(--type-body-sm-size)/1.2 var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard);
+}
+.ds-tabs-trigger:hover:not([data-disabled]):not([data-state="active"]) {
+  color: var(--text);
+  background: var(--surface-1);
+}
+.ds-tabs-trigger[data-state="active"] {
+  background: var(--surface-1);
+  color: var(--text-strong);
+  border-color: var(--border);
+}
+.ds-tabs-trigger[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-tabs-content {
+  outline: none;
+}
+.ds-tabs-content[data-state="inactive"] {
+  display: none;
+}
+
+/* ---------- Visually hidden ---------------------------------- */
+.ds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- ToggleGroup -------------------------------------- */
+.ds-toggle-group {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--space-1);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.ds-toggle-group[data-orientation="vertical"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+.ds-toggle-group-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-1) * var(--density-multiplier)) calc(var(--space-3) * var(--density-multiplier));
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font: 500 var(--type-body-sm-size)/1 var(--font-sans);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard);
+}
+.ds-toggle-group-item[data-size="sm"] {
+  padding: calc(var(--space-1) * var(--density-multiplier)) calc(var(--space-2) * var(--density-multiplier));
+  font-size: var(--type-caption-size);
+}
+.ds-toggle-group-item[data-size="lg"] {
+  padding: calc(var(--space-2) * var(--density-multiplier)) calc(var(--space-4) * var(--density-multiplier));
+  font-size: var(--type-body-size);
+}
+/* When the caller pins density="compact" on the group, scope a
+   local --density-multiplier override so spacing tightens even
+   when the page-level cascade is "comfortable". */
+.ds-toggle-group[data-density="compact"] .ds-toggle-group-item {
+  --density-multiplier: 0.85;
+}
+.ds-toggle-group-item:hover:not(:disabled):not([data-state="on"]) {
+  background: var(--surface-1);
+  color: var(--text);
+}
+.ds-toggle-group-item[data-state="on"] {
+  background: var(--surface-0);
+  border-color: var(--border-strong);
+  color: var(--text-strong);
+}
+.ds-toggle-group-item:disabled,
+.ds-toggle-group-item[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Radio (group + item) ----------------------------- */
+.ds-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.ds-radio-group[data-orientation="horizontal"] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.ds-radio-item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  color: var(--text);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+}
+.ds-radio-item label.ds-radio-text { cursor: pointer; }
+
+.ds-radio-control {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  background: var(--surface-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard);
+}
+.ds-radio-control:hover:not([data-disabled]) {
+  border-color: var(--text-muted);
+}
+.ds-radio-control[data-state="checked"] {
+  background: var(--surface-1);
+  border-color: var(--selected);
+}
+.ds-radio-control[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-radio-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--selected);
+}
+
+.ds-radio-group-sm .ds-radio-control { width: 14px; height: 14px; }
+.ds-radio-group-sm .ds-radio-indicator { width: 6px; height: 6px; }
+.ds-radio-group-md .ds-radio-control { width: 16px; height: 16px; }
+.ds-radio-group-md .ds-radio-indicator { width: 8px; height: 8px; }
+.ds-radio-group-lg .ds-radio-control { width: 20px; height: 20px; }
+.ds-radio-group-lg .ds-radio-indicator { width: 10px; height: 10px; }
+
+.ds-radio-text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.ds-radio-label { color: var(--text); }
+.ds-radio-description {
+  color: var(--text-muted);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+/* ---------- Checkbox ----------------------------------------- */
+.ds-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  background: var(--surface-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--accent-fg);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard),
+    box-shadow var(--duration-snap) var(--easing-standard);
+}
+.ds-checkbox:hover:not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--accent-6);
+}
+.ds-checkbox:disabled,
+.ds-checkbox[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-checkbox[data-state="checked"],
+.ds-checkbox[data-state="indeterminate"] {
+  background: var(--accent-6);
+  border-color: var(--accent-6);
+}
+.ds-checkbox[data-invalid="true"],
+.ds-checkbox[aria-invalid="true"] {
+  border-color: var(--danger-fg);
+}
+.ds-checkbox-sm { width: 14px; height: 14px; }
+.ds-checkbox-md { width: 16px; height: 16px; }
+.ds-checkbox-lg { width: 20px; height: 20px; }
+
+.ds-checkbox-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+.ds-checkbox-glyph {
+  width: 100%;
+  height: 100%;
+}
+.ds-checkbox-glyph-checked { display: none; }
+.ds-checkbox-glyph-indeterminate { display: none; }
+.ds-checkbox-indicator[data-state="checked"] .ds-checkbox-glyph-checked { display: block; }
+.ds-checkbox-indicator[data-state="indeterminate"] .ds-checkbox-glyph-indeterminate { display: block; }
+
+/* ---------- MenuList (Phase 1.5) ----------------------------- */
+/* Backed by @radix-ui/react-dropdown-menu. The Trigger inherits
+   neutral chrome from .ds-focus-ring; consumers usually compose
+   it with `asChild` over a Button or IconButton, so we keep it
+   token-only and add no opinionated paint here. */
+.ds-menu-trigger {
+  /* No additional styling beyond the focus ring; consumers slot
+     their own button via `asChild`. */
+}
+
+.ds-menu-content {
+  z-index: var(--z-dropdown);
+  min-width: calc(var(--space-20) * 2);
+  padding: var(--space-1);
+  background: var(--surface-1);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-floating);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  outline: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ds-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  outline: 0;
+  white-space: nowrap;
+}
+.ds-menu-item[data-highlighted] {
+  background: var(--surface-2);
+  color: var(--text-strong);
+}
+.ds-menu-item[data-disabled] {
+  color: var(--text-faint);
+  cursor: not-allowed;
+}
+.ds-menu-item[data-variant="danger"] {
+  color: var(--danger-fg);
+}
+.ds-menu-item[data-variant="danger"][data-highlighted] {
+  background: var(--danger-bg);
+  color: var(--danger-fg-strong);
+}
+
+.ds-menu-separator {
+  height: 1px;
+  margin: var(--space-1) calc(-1 * var(--space-1));
+  background: var(--border);
+}
+
+.ds-menu-label {
+  padding: var(--space-2) var(--space-3);
+  font: 500 var(--type-caption-size)/1 var(--font-sans);
+  letter-spacing: var(--type-caption-tracking);
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+.ds-menu-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* ---------- Switch ------------------------------------------- */
+/* `@radix-ui/react-switch` renders a native `<button role="switch">`
+   plus a `<span>` thumb. Track width/height are intrinsic sizing
+   (px is allowed); thumb travel is computed in `transform`, which
+   the DS literal guard does not classify as a spacing property. */
+.ds-switch {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: 32px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--surface-3);
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard);
+}
+.ds-switch:hover:not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--text-muted);
+}
+.ds-switch:disabled,
+.ds-switch[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-switch[data-state="checked"] {
+  background: var(--accent-6);
+  border-color: var(--accent-6);
+}
+.ds-switch[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-switch-thumb {
+  display: block;
+  width: 14px;
+  height: 14px;
+  background: var(--surface-0);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-resting);
+  transform: translateX(1px);
+  transition:
+    transform var(--duration-snap) var(--easing-standard),
+    background-color var(--duration-snap) var(--easing-standard);
+  will-change: transform;
+}
+.ds-switch[data-state="checked"] .ds-switch-thumb {
+  transform: translateX(15px);
+}
+
+.ds-switch[data-size="sm"] { width: 28px; height: 16px; }
+.ds-switch[data-size="sm"] .ds-switch-thumb { width: 12px; height: 12px; transform: translateX(1px); }
+.ds-switch[data-size="sm"][data-state="checked"] .ds-switch-thumb { transform: translateX(13px); }
+
+.ds-switch[data-size="md"] { width: 32px; height: 18px; }
+.ds-switch[data-size="md"] .ds-switch-thumb { width: 14px; height: 14px; transform: translateX(1px); }
+.ds-switch[data-size="md"][data-state="checked"] .ds-switch-thumb { transform: translateX(15px); }
+
+.ds-switch[data-size="lg"] { width: 40px; height: 22px; }
+.ds-switch[data-size="lg"] .ds-switch-thumb { width: 18px; height: 18px; transform: translateX(1px); }
+.ds-switch[data-size="lg"][data-state="checked"] .ds-switch-thumb { transform: translateX(19px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-switch-thumb { transition-duration: 0ms; }
+}
+
+/* ---------- Combobox (cmdk-backed) -------------------------- */
+.ds-combobox {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.ds-combobox[data-disabled="true"] { opacity: 0.6; pointer-events: none; }
+
+.ds-combobox-input-shell {
+  display: flex;
+  align-items: center;
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+}
+.ds-combobox-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  padding: 0;
+}
+.ds-combobox-input::placeholder { color: var(--text-faint); }
+
+.ds-combobox-sm .ds-combobox-input { font-size: var(--type-caption-size); }
+.ds-combobox-lg .ds-combobox-input { font-size: var(--type-body-size); }
+
+.ds-combobox-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: var(--space-1) 0;
+}
+
+.ds-combobox-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  color: var(--text);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  cursor: pointer;
+  user-select: none;
+}
+.ds-combobox-item[aria-disabled="true"],
+.ds-combobox-item[data-disabled="true"] { color: var(--text-faint); cursor: not-allowed; }
+.ds-combobox-item[data-selected="true"] { background: var(--surface-2); }
+.ds-combobox-item[aria-selected="true"] { background: var(--accent-1); color: var(--accent-7); }
+
+.ds-combobox-empty {
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  color: var(--text-muted);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+}
+
+/* ---------- Tooltip ------------------------------------------ */
+.ds-tooltip {
+  z-index: var(--z-overlay);
+  max-width: 280px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--text-strong);
+  color: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-resting);
+  font: var(--type-caption-weight) var(--type-caption-size)/var(--type-caption-line) var(--font-sans);
+  letter-spacing: var(--type-caption-tracking);
+  overflow-wrap: anywhere;
+  user-select: none;
+  pointer-events: none;
+  animation: ds-tooltip-in var(--duration-snap) var(--easing-standard);
+}
+.ds-tooltip[data-state="closed"] {
+  animation: ds-tooltip-out var(--duration-snap) var(--easing-standard);
+}
+.ds-tooltip-arrow {
+  fill: var(--text-strong);
+}
+@keyframes ds-tooltip-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ds-tooltip-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-tooltip,
+  .ds-tooltip[data-state="closed"] {
+    animation-duration: 0ms;
+  }
+}
+
+/* ---------- Select ------------------------------------------- */
+.ds-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard),
+    box-shadow var(--duration-snap) var(--easing-standard);
+}
+.ds-select-trigger:hover:not(:disabled):not([data-disabled]) {
+  border-color: var(--border-strong);
+}
+.ds-select-trigger[data-state="open"] {
+  border-color: var(--selected);
+  box-shadow: 0 0 0 3px var(--selected-soft);
+}
+.ds-select-trigger[data-placeholder] {
+  color: var(--text-faint);
+}
+.ds-select-trigger:disabled,
+.ds-select-trigger[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-select-trigger-sm {
+  padding: calc(var(--space-1) * var(--density-multiplier)) var(--space-2);
+  font-size: var(--type-caption-size);
+}
+.ds-select-trigger-md {
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  font-size: var(--type-body-sm-size);
+}
+.ds-select-trigger-lg {
+  padding: calc(var(--space-3) * var(--density-multiplier)) var(--space-4);
+  font-size: var(--type-body-size);
+}
+.ds-select-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+
+/* Portal content — z-index resolves through the overlay token,
+   per Property 2 / Req 1.9. No numeric z-index literal here. */
+.ds-select-content {
+  z-index: var(--z-overlay);
+  min-width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-floating);
+  overflow: hidden;
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  color: var(--text);
+}
+.ds-select-viewport {
+  padding: var(--space-1);
+}
+.ds-select-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) * var(--density-multiplier)) var(--space-3);
+  padding-right: var(--space-8);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  outline: 0;
+}
+.ds-select-item[data-highlighted],
+.ds-select-item:focus-visible {
+  background: var(--surface-2);
+  color: var(--text-strong);
+}
+.ds-select-item[data-state="checked"] {
+  color: var(--text-strong);
+  font-weight: 500;
+}
+.ds-select-item[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-select-item-trailing {
+  margin-left: auto;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+.ds-select-item-indicator {
+  position: absolute;
+  right: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-6);
+}
+
+/* ---------- Dialog ------------------------------------------- */
+/* Modal shell composed on `@radix-ui/react-dialog`. The overlay
+   sits at `--z-overlay` and the content panel at `--z-modal` so
+   the cascade matches Req 18.1's "single backdrop overlay above
+   all page content" expectation. Both layers consume the shared
+   motion tokens (200ms enter / 140ms exit, --easing-standard) and
+   collapse to instant under reduced motion via the
+   tokens.css duration override. Page scroll lock and focus trap
+   are handled by Radix; the `dismissable` prop on the React layer
+   is what suppresses Esc + outside-click for the privacy modal
+   (Req 18.4). */
+.ds-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: color-mix(in srgb, var(--neutral-0) 70%, transparent);
+  /* Enter / exit fade keyed off Radix' `data-state`. */
+  opacity: 0;
+  transition: opacity var(--duration-exit) var(--easing-standard);
+}
+.ds-dialog-overlay[data-state="open"] {
+  opacity: 1;
+  transition: opacity var(--duration-enter) var(--easing-standard);
+}
+
+.ds-dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* Translate is the canonical centering trick for portal'd panels;
+     transform also drives the scale-and-fade entrance below. */
+  transform: translate(-50%, -50%) scale(0.94);
+  opacity: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: calc(100vw - var(--space-8));
+  max-height: calc(100vh - var(--space-8));
+  overflow: auto;
+  padding: var(--card-padding);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-floating);
+  color: var(--text);
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+.ds-dialog-content[data-state="open"] {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+.ds-dialog-content-sm { max-width: 384px; }
+.ds-dialog-content-md { max-width: 512px; }
+.ds-dialog-content-lg { max-width: 720px; }
+
+.ds-dialog-title {
+  margin: 0;
+  font: 600 var(--type-h3-size)/var(--type-h3-line) var(--font-sans);
+  color: var(--text-strong);
+  letter-spacing: var(--type-h3-tracking);
+}
+
+.ds-dialog-description {
+  margin: 0;
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  color: var(--text-muted);
+}
+
+/* ---------- Privacy consent modal layout -------------------- */
+/* Action row for PrivacyConsentModal: Accept and Decline side-by-side.
+   Uses token-based gap so --density-multiplier propagates through. */
+.privacy-consent-modal-actions {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--space-2) * var(--density-multiplier));
+}
+
+/* Privacy policy external link — third in tab order (Req 18.2).
+   Inherits text color from the dialog surface; underline signals
+   it is a link without needing a separate color token. */
+.privacy-consent-modal-policy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  color: var(--accent-6);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+  border-radius: var(--radius-sm);
+  align-self: flex-start;
+}
+.privacy-consent-modal-policy-link:hover {
+  color: var(--accent-7);
+}
+
+/* ---------- Toast (sonner) ----------------------------------- */
+/* The sonner Toaster mounts a <section aria-live="polite"> with a
+   <ol data-sonner-toaster> child. Sonner's own bundled stylesheet
+   sets `z-index: 999999999` on the toaster ol. We re-pin it to
+   var(--z-toast) so the stacking order stays inside the documented
+   token scale, and theme each toast via tokens. The selectors use
+   `:where()` to keep specificity at zero so caller overrides keep
+   working without `!important`. */
+:where([data-sonner-toaster]) {
+  z-index: var(--z-toast);
+  font-family: var(--font-sans);
+}
+
+:where([data-sonner-toast][data-styled='true']) {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-floating);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+}
+
+:where([data-sonner-toast]) :where([data-title]) {
+  color: var(--text-strong);
+  font: 600 var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+}
+
+:where([data-sonner-toast]) :where([data-description]) {
+  color: var(--text-muted);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+}
+
+/* Variant-specific styling. Sonner remaps the `danger` public
+   variant onto its internal `error` type, so we key off the type
+   attribute it writes onto the rendered toast. */
+:where([data-sonner-toast][data-type='info']) {
+  background: var(--info-bg);
+  border-color: var(--info-border);
+  color: var(--info-fg-strong);
+}
+:where([data-sonner-toast][data-type='success']) {
+  background: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-fg-strong);
+}
+:where([data-sonner-toast][data-type='warning']) {
+  background: var(--warning-bg);
+  border-color: var(--warning-border);
+  color: var(--warning-fg-strong);
+}
+:where([data-sonner-toast][data-type='error']) {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger-fg-strong);
+}
+
+:where([data-sonner-toast]) :where([data-button]) {
+  border-radius: var(--radius-sm);
+  font: 500 var(--type-caption-size)/1 var(--font-sans);
+  background: var(--text);
+  color: var(--surface-1);
+}
+:where([data-sonner-toast]) :where([data-cancel]) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+:where([data-sonner-toast]) :where([data-close-button]) {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+}
+
+/* ---------- Sheet -------------------------------------------- */
+/* Side-mounted dialog wrapping @radix-ui/react-dialog. Radix
+   handles focus trap, Esc close, and scroll lock; styling here
+   resolves entirely through tokens.css custom properties. The
+   scrim and panel both sit at var(--z-modal) so the trap is
+   above any popover / dropdown layer. */
+.ds-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: var(--surface-3);
+  opacity: 0;
+  transition: opacity var(--duration-exit) var(--easing-standard);
+}
+.ds-sheet-overlay[data-state="open"] {
+  opacity: 0.6;
+  transition: opacity var(--duration-enter) var(--easing-standard);
+}
+
+.ds-sheet-content {
+  position: fixed;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--surface-1);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-floating);
+  outline: 0;
+  overflow: auto;
+  transition:
+    transform var(--duration-exit) var(--easing-standard),
+    opacity var(--duration-exit) var(--easing-standard);
+}
+.ds-sheet-content[data-state="open"] {
+  transition:
+    transform var(--duration-enter) var(--easing-standard),
+    opacity var(--duration-enter) var(--easing-standard);
+}
+
+/* Side: right --------------------------------------------------- */
+.ds-sheet-side-right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-left-width: 1px;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+.ds-sheet-side-right.ds-sheet-size-sm { width: min(360px, 100vw); }
+.ds-sheet-side-right.ds-sheet-size-md { width: min(480px, 100vw); }
+.ds-sheet-side-right.ds-sheet-size-lg { width: min(640px, 100vw); }
+.ds-sheet-side-right[data-state="closed"] {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.ds-sheet-side-right[data-state="open"] {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Side: left ---------------------------------------------------- */
+.ds-sheet-side-left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-right-width: 1px;
+  border-left-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+.ds-sheet-side-left.ds-sheet-size-sm { width: min(360px, 100vw); }
+.ds-sheet-side-left.ds-sheet-size-md { width: min(480px, 100vw); }
+.ds-sheet-side-left.ds-sheet-size-lg { width: min(640px, 100vw); }
+.ds-sheet-side-left[data-state="closed"] {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.ds-sheet-side-left[data-state="open"] {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Side: top ----------------------------------------------------- */
+.ds-sheet-side-top {
+  top: 0;
+  right: 0;
+  left: 0;
+  border-bottom-width: 1px;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+.ds-sheet-side-top.ds-sheet-size-sm { height: min(240px, 100vh); }
+.ds-sheet-side-top.ds-sheet-size-md { height: min(360px, 100vh); }
+.ds-sheet-side-top.ds-sheet-size-lg { height: min(480px, 100vh); }
+.ds-sheet-side-top[data-state="closed"] {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.ds-sheet-side-top[data-state="open"] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Side: bottom -------------------------------------------------- */
+.ds-sheet-side-bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-top-width: 1px;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+.ds-sheet-side-bottom.ds-sheet-size-sm { height: min(240px, 100vh); }
+.ds-sheet-side-bottom.ds-sheet-size-md { height: min(360px, 100vh); }
+.ds-sheet-side-bottom.ds-sheet-size-lg { height: min(480px, 100vh); }
+.ds-sheet-side-bottom[data-state="closed"] {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.ds-sheet-side-bottom[data-state="open"] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---------- Popover ----------------------------------------- */
+/* Floating layer wrapping `@radix-ui/react-popover`. The portal-
+   mounted content sits at `var(--z-overlay)` so the named z-index
+   scale (Property 2 / Req 1.9) covers it; no numeric z-index
+   literal appears here. Enter / exit consume the shared motion
+   tokens; reduced-motion falls back to instant via the global
+   `prefers-reduced-motion` override declared in tokens.css. */
+.ds-popover-trigger {
+  /* No additional paint — consumers use `asChild` to compose around
+     a Button / IconButton, so the trigger inherits visuals from the
+     slotted control. The shared `.ds-focus-ring` keeps the focus
+     ring on the rendered button. */
+}
+
+.ds-popover-content {
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: calc(var(--space-20) * 2);
+  max-width: calc(100vw - var(--space-8));
+  padding: var(--space-3);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-floating);
+  color: var(--text);
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  outline: 0;
+  /* Enter / exit fade keyed off Radix' `data-state`. */
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity var(--duration-exit) var(--easing-standard),
+    transform var(--duration-exit) var(--easing-standard);
+}
+.ds-popover-content[data-state="open"] {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity var(--duration-enter) var(--easing-standard),
+    transform var(--duration-enter) var(--easing-standard);
+}
+
+.ds-popover-close {
+  /* Sits inside `.ds-popover-content` — typically composed via
+     `asChild` over a Button / IconButton so it inherits the host
+     control's chrome. Ships with `.ds-focus-ring` only. */
+}
+
+.ds-popover-anchor {
+  /* Rendered as an inline span by Radix when present; no painted
+     surface, so we don't override its display. */
+}
+
+/* ---------- Segmented --------------------------------------- */
+/* Visual sugar over ToggleGroup with type="single" locked in.
+   Uses a pill/segmented appearance (ds-segmented vs ds-toggle-group)
+   to communicate "one active choice at a time" more clearly. */
+.ds-segmented {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--space-1);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+}
+
+.ds-segmented-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-1) * var(--density-multiplier)) calc(var(--space-3) * var(--density-multiplier));
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font: 500 var(--type-body-sm-size)/1 var(--font-sans);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-snap) var(--easing-standard),
+    color var(--duration-snap) var(--easing-standard),
+    border-color var(--duration-snap) var(--easing-standard);
+}
+
+.ds-segmented-item[data-size="sm"] {
+  padding: calc(var(--space-1) * var(--density-multiplier)) calc(var(--space-2) * var(--density-multiplier));
+  font-size: var(--type-caption-size);
+}
+
+.ds-segmented-item[data-size="lg"] {
+  padding: calc(var(--space-2) * var(--density-multiplier)) calc(var(--space-4) * var(--density-multiplier));
+  font-size: var(--type-body-size);
+}
+
+/* When the caller pins density="compact" on the group, scope a
+   local --density-multiplier override so spacing tightens even
+   when the page-level cascade is "comfortable". */
+.ds-segmented[data-density="compact"] .ds-segmented-item {
+  --density-multiplier: 0.85;
+}
+
+.ds-segmented-item:hover:not(:disabled):not([data-state="on"]) {
+  background: var(--surface-1);
+  color: var(--text);
+}
+
+.ds-segmented-item[data-state="on"] {
+  background: var(--surface-0);
+  border-color: var(--border-strong);
+  color: var(--text-strong);
+}
+
+.ds-segmented-item:disabled,
+.ds-segmented-item[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Slider ------------------------------------------- */
+/* Backed by `@radix-ui/react-slider`. The wrapper div holds both
+   the Radix root and the optional marks row so they share the same
+   horizontal coordinate space. Track height and thumb dimensions
+   are intrinsic sizing (px is allowed for structural geometry per
+   the DS literal guard allowlist); all color / shadow / radius
+   values resolve through tokens.css custom properties. */
+.ds-slider-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.ds-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+}
+.ds-slider[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-slider-track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  background: var(--surface-3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.ds-slider-range {
+  position: absolute;
+  height: 100%;
+  background: var(--accent-6);
+  border-radius: var(--radius-full);
+}
+
+.ds-slider-thumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: var(--surface-0);
+  border: 2px solid var(--accent-6);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-resting);
+  transition:
+    border-color var(--duration-snap) var(--easing-standard),
+    box-shadow var(--duration-snap) var(--easing-standard);
+  /* Prevent the thumb from being clipped by the track overflow:hidden */
+  position: relative;
+  z-index: var(--z-base);
+}
+.ds-slider-thumb:hover {
+  border-color: var(--accent-7);
+  box-shadow: var(--shadow-raised);
+}
+.ds-slider[data-disabled] .ds-slider-thumb {
+  cursor: not-allowed;
+}
+
+/* ---------- Slider marks ------------------------------------ */
+/* The marks row is absolutely positioned relative to the wrapper
+   so tick positions align with the track. `pointer-events: none`
+   keeps it from intercepting drag events on the Radix root. */
+.ds-slider-marks {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  pointer-events: none;
+}
+
+.ds-slider-mark {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+}
+
+.ds-slider-mark-tick {
+  display: block;
+  width: 2px;
+  height: 6px;
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+
+.ds-slider-mark-label {
+  margin-top: var(--space-1);
+  font: var(--type-caption-weight) var(--type-caption-size)/1 var(--font-sans);
+  letter-spacing: var(--type-caption-tracking);
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+/* ---------- Drawer (vaul) ------------------------------------ */
+/* Mobile-first sheet with drag-to-dismiss backed by `vaul`.
+   Vaul manages the drag gesture, snap points, and focus trap;
+   styling here resolves entirely through tokens.css custom
+   properties — no hardcoded color, spacing, radius, or shadow
+   literals (Req 2.3, Req 2.4).
+
+   Motion tokens drive the entrance / exit animation. Under
+   `prefers-reduced-motion: reduce` the tokens.css media query
+   collapses all --duration-* to 0ms, so transitions become
+   instant without any component-level branching (Req 2.5, 6.5).
+
+   Z-index resolves through var(--z-modal) (Req 1.8, 1.9). */
+
+.ds-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: color-mix(in srgb, var(--neutral-0) 70%, transparent);
+  /* vaul sets data-state="open" / "closed" on the overlay */
+  opacity: 0;
+  transition: opacity var(--duration-exit) var(--easing-standard);
+}
+.ds-drawer-overlay[data-state="open"] {
+  opacity: 1;
+  transition: opacity var(--duration-enter) var(--easing-standard);
+}
+
+.ds-drawer-content {
+  position: fixed;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface-1);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-floating);
+  outline: 0;
+  overflow: auto;
+  /* vaul sets data-vaul-drawer-direction on the root; we key
+     entrance / exit off the direction modifier classes below. */
+  transition:
+    transform var(--duration-exit) var(--easing-standard),
+    opacity var(--duration-exit) var(--easing-standard);
+}
+.ds-drawer-content[data-state="open"] {
+  transition:
+    transform var(--duration-enter) var(--easing-standard),
+    opacity var(--duration-enter) var(--easing-standard);
+}
+
+/* Direction: bottom (default — mobile-first sheet) ------------ */
+.ds-drawer-direction-bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height: 96dvh;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+/* vaul drives the translate via its own inline style during drag;
+   we set the closed-state baseline so the CSS transition fires on
+   open/close when no drag is in progress. */
+.ds-drawer-direction-bottom[data-state="closed"] {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.ds-drawer-direction-bottom[data-state="open"] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Direction: top ---------------------------------------------- */
+.ds-drawer-direction-top {
+  top: 0;
+  right: 0;
+  left: 0;
+  max-height: 96dvh;
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+.ds-drawer-direction-top[data-state="closed"] {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.ds-drawer-direction-top[data-state="open"] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Direction: right -------------------------------------------- */
+.ds-drawer-direction-right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 96dvw;
+  border-top-left-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-lg);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+.ds-drawer-direction-right[data-state="closed"] {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.ds-drawer-direction-right[data-state="open"] {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Direction: left --------------------------------------------- */
+.ds-drawer-direction-left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  max-width: 96dvw;
+  border-top-right-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+.ds-drawer-direction-left[data-state="closed"] {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.ds-drawer-direction-left[data-state="open"] {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Drag handle ------------------------------------------------- */
+/* vaul renders a <div data-vaul-handle> inside the content; we
+   style it as a pill affordance that communicates draggability. */
+.ds-drawer-handle {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 40px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+  margin-bottom: var(--space-2);
+  cursor: grab;
+}
+.ds-drawer-handle:active {
+  cursor: grabbing;
+}
+
+/* Title / description ----------------------------------------- */
+.ds-drawer-title {
+  margin: 0;
+  font: 600 var(--type-h3-size)/var(--type-h3-line) var(--font-sans);
+  color: var(--text-strong);
+  letter-spacing: var(--type-h3-tracking);
+}
+
+.ds-drawer-description {
+  margin: 0;
+  font: var(--type-body-sm-weight) var(--type-body-sm-size)/var(--type-body-sm-line) var(--font-sans);
+  color: var(--text-muted);
+}

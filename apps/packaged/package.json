@@ -1,0 +1,44 @@
+{
+  "name": "@galyarder-design/packaged",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./headless": {
+      "default": "./dist/headless.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node ./esbuild.config.mjs && tsc -p tsconfig.json --emitDeclarationOnly",
+    "test": "vitest run -c vitest.config.ts",
+    "typecheck": "pnpm --filter @galyarder-design/desktop build && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
+  },
+  "dependencies": {
+    "@galyarder-design/daemon": "workspace:*",
+    "@galyarder-design/desktop": "workspace:*",
+    "@galyarder-design/platform": "workspace:*",
+    "@galyarder-design/sidecar": "workspace:*",
+    "@galyarder-design/sidecar-proto": "workspace:*",
+    "@galyarder-design/web": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.2",
+    "electron": "41.3.0",
+    "esbuild": "0.28.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.6"
+  },
+  "engines": {
+    "node": "~24"
+  }
+}

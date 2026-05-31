@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inside Rust's async runtime · Tech Sharing</title>
+<link rel="stylesheet" href="../../../assets/fonts.css">
+<link rel="stylesheet" href="../../../assets/base.css">
+<link rel="stylesheet" href="../../../assets/animations/animations.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-tech-sharing">
+<div class="deck">
+
+  <!-- 1. Cover -->
+  <section class="slide" data-title="Cover">
+    <p class="kicker">tech-sharing / 2026-04-15</p>
+    <h1 class="h1 anim-fade-up" data-anim="fade-up">What is Rust's async<br>runtime really <span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">scheduling</span>?</h1>
+    <p class="lede mt-m">From <span class="mono">Future::poll</span> to tokio's work-stealing — explained end-to-end.</p>
+    <div class="speaker"><div class="av"></div><div><b>@lewis</b><span>platform infra · 45 min + Q&amp;A</span></div></div>
+    <div class="deck-footer"><span class="mono">#async #rust #tokio</span><span class="slide-number" data-current="1" data-total="8"></span></div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide" data-title="Agenda">
+    <p class="kicker">agenda.toml</p>
+    <h2 class="h2">Today's roadmap</h2>
+    <div class="stack mt-l">
+      <div class="agenda-row"><span class="num">01</span><span class="t">Context: why we need async</span><span class="d">~5min</span></div>
+      <div class="agenda-row"><span class="num">02</span><span class="t">Deep dive 1: Future &amp; Waker</span><span class="d">~12min</span></div>
+      <div class="agenda-row"><span class="num">03</span><span class="t">Deep dive 2: Tokio scheduler</span><span class="d">~15min</span></div>
+      <div class="agenda-row"><span class="num">04</span><span class="t">Code: a hand-rolled mini-runtime</span><span class="d">~8min</span></div>
+      <div class="agenda-row"><span class="num">05</span><span class="t">Takeaways + Q&amp;A</span><span class="d">~5min</span></div>
+    </div>
+  </section>
+
+  <!-- 3. Context -->
+  <section class="slide" data-title="Context">
+    <p class="kicker">// context</p>
+    <h2 class="h2">Problem: one thread per connection<br>can't carry 100k concurrency.</h2>
+    <div class="grid g3 mt-l">
+      <div class="card card-accent"><h4>Thread-per-conn</h4><p class="dim">One OS thread per connection, 2–8 MB stack. 100k connections = hundreds of GB of RAM.</p><span class="tag mt-s">❌ Not realistic</span></div>
+      <div class="card card-accent"><h4>Event loop (C)</h4><p class="dim">epoll/kqueue + callback hell. Fast — but painful to write and bug-prone.</p><span class="tag mt-s">😩 callback hell</span></div>
+      <div class="card card-accent"><h4>Async / await</h4><p class="dim">Reads like sync code, compiles to a state machine. One thread runs thousands of tasks.</p><span class="tag mt-s">✅ what Rust picked</span></div>
+    </div>
+  </section>
+
+  <!-- 4. Deep dive 1 -->
+  <section class="slide" data-title="Deep Dive 1">
+    <p class="kicker">deep-dive · 1 / 2</p>
+    <h2 class="h2">Future has exactly one method.</h2>
+    <div class="grid g2 mt-l" style="align-items:start">
+      <div>
+        <p class="lede">The compiler turns <span class="mono">async fn</span> into an anonymous state machine that implements the <span class="mono">Future</span> trait. The runtime does just one thing: <span class="mono">poll</span> it repeatedly until it returns <span class="mono">Ready</span>.</p>
+        <div class="mt-l">
+          <span class="tag">Pending</span> <span class="tag">Ready(T)</span> <span class="tag">Waker.wake()</span>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>future.rs</span></div>
+<pre><span class="kw">pub trait</span> <span class="fn">Future</span> {
+    <span class="kw">type</span> Output;
+    <span class="kw">fn</span> <span class="fn">poll</span>(
+        <span class="kw">self</span>: Pin&lt;&amp;<span class="kw">mut Self</span>&gt;,
+        cx: &amp;<span class="kw">mut</span> Context&lt;<span class="str">'_</span>&gt;,
+    ) -&gt; Poll&lt;<span class="kw">Self</span>::Output&gt;;
+}
+
+<span class="cmt">// Poll::Pending   → suspend, wait for waker</span>
+<span class="cmt">// Poll::Ready(v)  → done, yields v</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Deep dive 2 -->
+  <section class="slide" data-title="Deep Dive 2">
+    <p class="kicker">deep-dive · 2 / 2</p>
+    <h2 class="h2">Tokio is a thieving little worker.</h2>
+    <div class="grid g2 mt-l" style="align-items:start">
+      <div>
+        <p class="lede">The multi-thread runtime is N workers, each with its own local queue. Idle workers go "steal" tasks from someone else's queue.</p>
+        <div class="stack mt-m">
+          <div class="tag">✦ local queue · 256 slots</div>
+          <div class="tag">✦ global injection queue</div>
+          <div class="tag">✦ work-stealing @ 50% steal ratio</div>
+          <div class="tag">✦ LIFO slot for cache locality</div>
+        </div>
+      </div>
+      <div class="card" style="padding:32px">
+        <h4 class="mono" style="color:var(--accent-2)">scheduler tick loop</h4>
+        <div class="stack mt-m" style="font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.9;color:var(--text-2)">
+          <div><span style="color:var(--accent)">1.</span> pop from LIFO slot</div>
+          <div><span style="color:var(--accent)">2.</span> else pop from local queue</div>
+          <div><span style="color:var(--accent)">3.</span> else drain global queue (every 61 ticks)</div>
+          <div><span style="color:var(--accent)">4.</span> else steal from random victim</div>
+          <div><span style="color:var(--accent)">5.</span> else park the thread</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Code example -->
+  <section class="slide" data-title="Code">
+    <p class="kicker">mini-runtime.rs · ~40 LOC</p>
+    <h2 class="h2">A tiny runtime, by hand.</h2>
+    <div class="terminal mt-m">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>src/main.rs</span></div>
+<pre><span class="kw">use</span> std::collections::VecDeque;
+<span class="kw">use</span> std::sync::{Arc, Mutex};
+<span class="kw">use</span> std::task::{Context, Poll, Wake, Waker};
+
+<span class="kw">struct</span> Task(Mutex&lt;Pin&lt;Box&lt;<span class="kw">dyn</span> Future&lt;Output = ()&gt; + Send&gt;&gt;&gt;);
+
+<span class="kw">impl</span> Wake <span class="kw">for</span> Task {
+    <span class="kw">fn</span> <span class="fn">wake</span>(<span class="kw">self</span>: Arc&lt;<span class="kw">Self</span>&gt;) { QUEUE.lock().unwrap().push_back(<span class="kw">self</span>); }
+}
+
+<span class="kw">fn</span> <span class="fn">block_on</span>&lt;F: Future&lt;Output = ()&gt; + Send + <span class="str">'static</span>&gt;(fut: F) {
+    <span class="fn">spawn</span>(fut);
+    <span class="kw">while let Some</span>(task) = QUEUE.lock().unwrap().pop_front() {
+        <span class="kw">let</span> waker = Waker::from(task.clone());
+        <span class="kw">let mut</span> cx = Context::from_waker(&amp;waker);
+        <span class="kw">let mut</span> fut = task.<span class="num">0</span>.lock().unwrap();
+        <span class="kw">let</span> _ = fut.as_mut().<span class="fn">poll</span>(&amp;<span class="kw">mut</span> cx); <span class="cmt">// this single line is the engine</span>
+    }
+}</pre>
+    </div>
+  </section>
+
+  <!-- 7. Takeaways -->
+  <section class="slide" data-title="Takeaways">
+    <p class="kicker">// takeaways</p>
+    <h2 class="h2">Three things to take home.</h2>
+    <div class="grid g3 mt-l">
+      <div class="card card-accent"><h4>1 · async is a zero-cost abstraction</h4><p class="dim">Compiles to a state machine. No runtime vtable, no GC.</p></div>
+      <div class="card card-accent"><h4>2 · The Waker is the heartbeat</h4><p class="dim">A Future never acts on its own; the runtime relies on the waker to know "when to poll again".</p></div>
+      <div class="card card-accent"><h4>3 · Don't block inside async</h4><p class="dim">A single <span class="mono">std::fs::read</span> can stall an entire worker. Use <span class="mono">spawn_blocking</span>.</p></div>
+    </div>
+    <p class="lede mt-l">Further reading: <span class="mono">tokio.rs/blog/2019-10-scheduler</span> · <span class="mono">rust-lang.github.io/async-book</span></p>
+  </section>
+
+  <!-- 8. Q&A -->
+  <section class="slide center tc" data-title="Q and A">
+    <div>
+      <div class="mono" style="font-size:120px;color:var(--accent);font-weight:800;letter-spacing:-.04em">?</div>
+      <h2 class="h2">Questions?</h2>
+      <p class="lede" style="margin:14px auto">github.com/lewis · @lewis on slack</p>
+      <div class="row mt-l" style="justify-content:center">
+        <span class="tag">slides: git.co/rt-deck</span>
+        <span class="tag">code: git.co/mini-rt</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script src="../../../assets/runtime.js"></script>
+</body></html>
