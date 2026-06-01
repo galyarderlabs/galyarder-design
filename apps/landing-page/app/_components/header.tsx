@@ -286,16 +286,7 @@ export function Header({
                 {copy.navCraft}<span className='num'>{counts.craft}</span>
               </a>
             </li>
-            <li>
-              <a href={href('/tutorials/')} className={linkClass('tutorials')}>
-                Tutorials
-              </a>
-            </li>
-            <li>
-              <a href={href('/blog/')} className={linkClass('blog')}>
-                {copy.navBlog}
-              </a>
-            </li>
+
             <li>
               <a href={contactHref}>
                 {copy.navContact}
