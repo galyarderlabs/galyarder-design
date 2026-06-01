@@ -271,7 +271,7 @@ describe('MemorySection', () => {
     expect(within(treeDetails).getByText('/project')).toBeTruthy();
     expect(within(treeDetails).getByText('project_design_agent_goal')).toBeTruthy();
 
-    fireEvent.click(within(treeDetails).getByTitle('Edit'));
+    fireEvent.click(within(treeDetails).getByLabelText('Edit'));
 
     await waitFor(() => {
       expect((screen.getByPlaceholderText('e.g. UI preferences') as HTMLInputElement).value).toBe(
@@ -379,8 +379,8 @@ describe('MemorySection', () => {
 
     renderMemorySection();
 
-    const entryCard = (await screen.findByText('UI preferences')).closest('.library-card') as HTMLElement;
-    fireEvent.click(within(entryCard).getByTitle('Edit'));
+    const entryCard = (await screen.findByText('UI preferences')).closest('.memory-fact-card') as HTMLElement;
+    fireEvent.click(within(entryCard).getByLabelText('Edit'));
 
     const nameInput = await screen.findByDisplayValue('UI preferences');
     expect(scrollIntoView).toHaveBeenCalledWith({ block: 'start', behavior: 'smooth' });
@@ -450,12 +450,10 @@ describe('MemorySection', () => {
     const indexSummary = screen.getByText('MEMORY.md (index)')
       .closest('summary') as HTMLElement;
 
-    expect(savedRow.closest('.library-card')).toBeTruthy();
+    expect(savedRow.closest('.memory-fact-card')).toBeTruthy();
     expect(savedRow.closest('.memory-records-section')).toBeTruthy();
     expect(screen.getByRole('tab', { name: 'Add manually' }).closest('.memory-records-section')).toBeNull();
-    expect(extractionRow.closest('.library-card')?.className).toContain(
-      'memory-extraction-card',
-    );
+    expect(extractionRow.closest('.memory-extraction-card')).toBeTruthy();
     expect(indexSummary.closest('.memory-advanced-section')).toBeTruthy();
     expect(indexSummary.closest('.memory-records-section')).toBeNull();
 	    expect(screen.queryByText('Extraction history')).toBeNull();
@@ -1180,12 +1178,12 @@ describe('MemorySection', () => {
     renderMemorySection();
 
     const card = await screen.findByText('UI preferences');
-    const row = card.closest('.library-card') as HTMLElement;
+    const row = card.closest('.memory-fact-card') as HTMLElement;
 
-    fireEvent.click(within(row).getByTitle('Preview'));
+    fireEvent.click(within(row).getByLabelText('Preview'));
     expect(await screen.findByText('Prefer compact cards')).toBeTruthy();
 
-    fireEvent.click(within(row).getByTitle('Edit'));
+    fireEvent.click(within(row).getByLabelText('Edit'));
     fireEvent.change(await screen.findByDisplayValue('Initial preference'), {
       target: { value: 'Updated preference' },
     });
@@ -1254,9 +1252,9 @@ describe('MemorySection', () => {
 
     renderMemorySection();
 
-    const card = (await screen.findByText('Project scope')).closest('.library-card') as HTMLElement;
-    const previewButton = within(card).getByTitle('Preview');
-    const deleteButton = within(card).getByTitle('Delete');
+    const card = (await screen.findByText('Project scope')).closest('.memory-fact-card') as HTMLElement;
+    const previewButton = within(card).getByLabelText('Preview');
+    const deleteButton = within(card).getByLabelText('Delete');
     fireEvent.click(previewButton);
 
     await screen.findByText('Keep memory actions clear');
@@ -1314,8 +1312,8 @@ describe('MemorySection', () => {
 
     renderMemorySection();
 
-    const card = (await screen.findByText('UI preferences')).closest('.library-card') as HTMLElement;
-    fireEvent.click(within(card).getByTitle('Delete'));
+    const card = (await screen.findByText('UI preferences')).closest('.memory-fact-card') as HTMLElement;
+    fireEvent.click(within(card).getByLabelText('Delete'));
 
     await waitFor(() => {
       expect(screen.getByText('✓ Memory deleted')).toBeTruthy();
@@ -1475,7 +1473,7 @@ describe('MemorySection', () => {
     expect(screen.getByText('No durable memory in this turn')).toBeTruthy();
 
     const row = screen.getByText('Remember I prefer dark mode')
-      .closest('.library-card') as HTMLElement;
+      .closest('.memory-extraction-card') as HTMLElement;
     fireEvent.click(within(row).getByRole('button', { name: 'Delete' }));
 
     await waitFor(() => {
@@ -1776,7 +1774,7 @@ describe('MemorySection', () => {
 
     renderMemorySection();
 
-    const toggle = await screen.findByRole('checkbox', { name: 'Enable memory injection' }) as HTMLInputElement;
+    const toggle = await screen.findByRole('switch', { name: 'Enable memory injection' }) as HTMLButtonElement;
 
     fireEvent.click(toggle);
 
@@ -1825,14 +1823,14 @@ describe('MemorySection', () => {
     renderMemorySection();
 
     fireEvent.click(await screen.findByRole('tab', { name: 'Learn from chats' }));
-    const toggle = screen.getByRole('checkbox', {
+    const toggle = screen.getByRole('switch', {
       name: 'Learn from chat conversations',
-    }) as HTMLInputElement;
+    }) as HTMLButtonElement;
 
-    expect(toggle.checked).toBe(true);
+    expect(toggle.getAttribute('aria-checked')).toBe('true');
     fireEvent.click(toggle);
 
-    await waitFor(() => expect(toggle.checked).toBe(false));
+    await waitFor(() => expect(toggle.getAttribute('aria-checked')).toBe('false'));
     expect(screen.getByText('Off')).toBeTruthy();
     expect(patchBodies).toEqual([{ chatExtractionEnabled: false }]);
   });
