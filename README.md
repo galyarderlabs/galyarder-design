@@ -65,6 +65,9 @@ Ready-to-use skills in prototype mode (landings, dashboards, SaaS layouts, iPhon
 **Media & motion generation**  
 Generate images, cinematic text-to-video, and HTML-to-MP4 kinetic typography using GPT-Image-2, Seedance, and HyperFrames.
 
+**Headless & scriptable CLI**  
+A robust and scriptable command-line interface (`gd`) exposing every capability. Power custom automated workflows, CI pipelines, or chat bots (Slack, Discord, Lark) by driving the design engine completely headless.
+
 **Local first & self-contained**  
 Embedded SQLite database, local directory serving, and POSIX IPC sockets. All project code is stored privately in your workspace.
 

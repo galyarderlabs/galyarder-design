@@ -65,6 +65,9 @@ Skill siap pakai dalam mode prototipe (landing page, dasbor, tata letak SaaS, pr
 **Pembuatan Media & Animasi**  
 Buat gambar, video teks-ke-sinematik, dan tipografi kinetik HTML-ke-MP4 menggunakan GPT-Image-2, Seedance, dan HyperFrames.
 
+**CLI Tanpa Kepala (Headless) & Dapat Diskrip**  
+Antarmuka baris perintah (`gd`) yang andal dan dapat diskrip yang mengekspos setiap kemampuan berorientasi pengguna. Jalankan alur kerja otomatis kustom, alur CI, atau bot obrolan (Slack, Discord, Lark) dengan mengendalikan mesin desain sepenuhnya tanpa kepala.
+
 **Lokal-Utama & Mandiri**  
 Database SQLite bawaan, penyajian direktori lokal, dan soket IPC POSIX. Semua kode proyek disimpan secara pribadi di ruang kerja Anda.
 
