@@ -16,7 +16,9 @@
   Open source · Local-first · No account required · BYOK
 </p>
 
-<p align="center"><!-- README language switcher --><b>English</b></p>
+<p align="center"><!-- README language switcher --><b>English</b> | <a href="README.id.md">Bahasa Indonesia</a></p>
+
+<p align="center">🇮🇩 <b><a href="README.id.md">Baca dokumentasi dalam Bahasa Indonesia</a></b></p>
 
 ---
 
