@@ -215,12 +215,52 @@ export function Header({
                 <li role='none'>
                   <a
                     role='menuitem'
-                    href='/html-anything/'
-                    className={linkClass('html-anything')}
+                    href='https://ledger.galyarderlabs.app'
+                    target='_blank'
+                    rel='noopener noreferrer'
                   >
-                    <span className='dropdown-name'>HTML Anything</span>
+                    <span className='dropdown-name'>Galyarder Ledger</span>
                     <span className='dropdown-blurb'>
-                      Markdown / data → ship-ready HTML, by your local agent.
+                      Autonomous financial workspace. Scale operational inputs with G-Agent workforce.
+                    </span>
+                  </a>
+                </li>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href='https://hq.galyarderlabs.app'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <span className='dropdown-name'>Galyarder HQ</span>
+                    <span className='dropdown-blurb'>
+                      Strategic command interface. Orchestrate complex agentic missions.
+                    </span>
+                  </a>
+                </li>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href='https://agent.galyarderlabs.app'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <span className='dropdown-name'>Galyarder Agent</span>
+                    <span className='dropdown-blurb'>
+                      Persistent digital identity. Build and deploy sandboxed workers.
+                    </span>
+                  </a>
+                </li>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href='https://os.galyarderlabs.app'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <span className='dropdown-name'>Galyarder OS</span>
+                    <span className='dropdown-blurb'>
+                      Operational excellence system. Peak performance command center.
                     </span>
                   </a>
                 </li>
