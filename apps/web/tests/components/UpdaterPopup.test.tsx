@@ -121,19 +121,19 @@ describe('UpdaterPopup', () => {
     });
 
     render(
-      <I18nProvider initial={'zh-CN' as Locale}>
+      <I18nProvider initial={'id' as Locale}>
         <UpdaterPopup />
       </I18nProvider>,
     );
 
     fireEvent.click(await screen.findByTestId('entry-nav-updater'));
 
-    // CJK fixtures; the strings below are the zh-CN locale dictionary
+    // Indonesian fixtures; the strings below are the id locale dictionary
     // values for the updater popup. The test verifies they render
-    // correctly when the I18nProvider is initialised with `zh-CN`.
-    expect(await screen.findByRole('dialog', { name: '更新已就绪' })).toBeTruthy();
-    expect(screen.getByTestId('updater-install-button').textContent).toBe('安装更新');
-    expect(screen.getByText('Galyarder Design 1.2.3-beta.4 已就绪。Galyarder Design 会关闭并打开安装器。')).toBeTruthy();
+    // correctly when the I18nProvider is initialised with `id`.
+    expect(await screen.findByRole('dialog', { name: 'Update siap' })).toBeTruthy();
+    expect(screen.getByTestId('updater-install-button').textContent).toBe('Instal pembaruan');
+    expect(screen.getByText('Galyarder Design 1.2.3-beta.4 siap. Galyarder Design akan ditutup dan membuka installer.')).toBeTruthy();
   });
 
   it('dismisses the confirmation prompt before installation starts', async () => {
@@ -149,7 +149,7 @@ describe('UpdaterPopup', () => {
 
     fireEvent.click(await screen.findByTestId('entry-nav-updater'));
     expect(await screen.findByRole('dialog', { name: 'Update ready' })).toBeTruthy();
-    fireEvent.mouseDown(document.body);
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape', code: 'Escape' });
     expect(screen.queryByTestId('updater-popup')).toBeNull();
 
     fireEvent.click(screen.getByTestId('entry-nav-updater'));

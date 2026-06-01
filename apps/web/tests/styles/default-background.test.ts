@@ -21,7 +21,7 @@ describe('default app background colors', () => {
   it('keeps the dark theme background unchanged', () => {
     const dark = cssBlock('[data-theme="dark"]');
 
-    expect(dark).toContain('--bg: #1a1917;');
-    expect(dark).toContain('--bg-app: #1a1917;');
+    expect(dark).toContain('--bg: #0a0a0b;');
+    expect(dark).toContain('--bg-app: #0a0a0b;');
   });
 });

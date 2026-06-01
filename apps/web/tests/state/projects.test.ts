@@ -243,6 +243,7 @@ describe('createPluginShareProject', () => {
     const outcome = await createPluginShareProject(
       'sample-plugin',
       'publish-github',
+      'zh-CN',
     );
 
     expect(outcome).toMatchObject({

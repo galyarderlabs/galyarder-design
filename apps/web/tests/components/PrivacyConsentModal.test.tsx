@@ -21,14 +21,10 @@ function renderModal(overrides?: { onAccept?: () => void }) {
 describe('PrivacyConsentModal', () => {
   afterEach(cleanup);
 
-  it('renders a single "I get it" acknowledgement button (no decline)', () => {
+  it('renders both the Accept and Decline buttons', () => {
     renderModal();
     expect(screen.getByRole('button', { name: 'I get it' })).toBeTruthy();
-    // Single-button banner: previous double-button labels must be gone so
-    // the surface reads as informed-disclosure-plus-acknowledgement, not a
-    // forced binary choice.
-    expect(screen.queryByRole('button', { name: 'Share usage data' })).toBeNull();
-    expect(screen.queryByRole('button', { name: "Don't share" })).toBeNull();
+    expect(screen.getByRole('button', { name: "Don't share" })).toBeTruthy();
   });
 
   it('tells the user data sharing is on by default and toggleable in Settings', () => {

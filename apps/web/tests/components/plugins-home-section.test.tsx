@@ -79,7 +79,7 @@ function renderSectionInChinese(
   props: Partial<ComponentProps<typeof PluginsHomeSection>> = {},
 ) {
   return render(
-    <I18nProvider initial={'zh-CN' as Locale}>
+    <I18nProvider initial={'id' as Locale}>
       <PluginsHomeSection
         plugins={plugins}
         loading={false}
@@ -223,27 +223,24 @@ describe('PluginsHomeSection (category bar)', () => {
       makePlugin({
         id: 'localized-deck',
         title: 'Swiss International Deck',
-        // CJK fixture; '瑞士国际主义 Deck' is the zh-CN locale value used
-        // to verify that title_i18n localized rendering wins over the
-        // base `title` field when the active locale is Chinese.
-        titleI18n: { en: 'Swiss International Deck', 'zh-CN': '瑞士国际主义 Deck' },
+        titleI18n: { en: 'Swiss International Deck', 'id': 'Deck Internasional Swiss' },
         description: '16-column grid.',
-        descriptionI18n: { en: '16-column grid.', 'zh-CN': '16 列网格。' },
+        descriptionI18n: { en: '16-column grid.', 'id': 'Grid 16 kolom.' },
         mode: 'deck',
         tags: ['grid'],
       }),
     ], { preferDefaultFacet: false });
 
-    expect(screen.getAllByText('瑞士国际主义 Deck').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Deck Internasional Swiss').length).toBeGreaterThan(0);
     expect(screen.queryByText('Swiss International Deck')).toBeNull();
 
-    fireEvent.change(screen.getByPlaceholderText('搜索插件…'), {
-      target: { value: '瑞士' },
+    fireEvent.change(screen.getByPlaceholderText('Search plugins…'), {
+      target: { value: 'Swiss' },
     });
     expect(pluginIds()).toEqual(['localized-deck']);
 
     fireEvent.click(screen.getByTestId('plugins-home-save-localized-deck'));
-    expect(screen.getByRole('status').textContent).toContain('Saved 瑞士国际主义 Deck.');
+    expect(screen.getByRole('status').textContent).toContain('Saved Deck Internasional Swiss.');
   });
 
   it('shows the normal empty-filter state for planned empty buckets', () => {

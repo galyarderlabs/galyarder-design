@@ -28,6 +28,11 @@ beforeEach(() => {
 afterEach(() => {
   toast.dismiss();
   cleanup();
+  // Clear any pending microtasks / timeouts scheduled by Sonner
+  const maxId = setTimeout(() => {}) as unknown as number;
+  for (let i = 0; i < maxId; i++) {
+    clearTimeout(i);
+  }
 });
 
 describe('ds/Toast — Toaster mount', () => {

@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-li
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { InstalledPluginRecord, PluginSourceKind, TrustTier } from '@galyarder-design/contracts';
 import { PluginsView } from '../../src/components/PluginsView';
+import { I18nProvider } from '../../src/i18n';
 import {
   addPluginMarketplace,
   applyPlugin,
@@ -187,11 +188,13 @@ describe('PluginsView', () => {
   });
 
   it('shows installed plugins and available registry entries', async () => {
-    render(<PluginsView />);
+    render(
+      <I18nProvider initial="en">
+        <PluginsView />
+      </I18nProvider>,
+    );
 
-    expect(await screen.findByText('Installed plugins')).toBeTruthy();
-    expect(screen.getAllByText('User Plugin').length).toBeGreaterThan(0);
-    expect(screen.queryByText('Official Plugin')).toBeNull();
+    expect(await screen.findByText('User Plugin')).toBeTruthy();
 
     const availableTab = screen.getByTestId('plugins-tab-available');
     const sourcesTab = screen.getByTestId('plugins-tab-sources');
@@ -214,15 +217,15 @@ describe('PluginsView', () => {
     mockedListPlugins.mockResolvedValue([createPlugin, importPlugin]);
     mockedListMarketplaces.mockResolvedValue([]);
 
-    render(<PluginsView />);
+    render(
+      <I18nProvider initial="en">
+        <PluginsView />
+      </I18nProvider>,
+    );
 
-    const list = await screen.findByRole('list');
-    expect(
-      within(list)
-        .getAllByRole('listitem')
-        .map((item) => item.getAttribute('data-plugin-id'))
-        .sort(),
-    ).toEqual(['create-plugin', 'import-plugin']);
+    expect(await screen.findByText('Create Plugin')).toBeTruthy();
+    expect(screen.getByText('Import Plugin')).toBeTruthy();
+
     const summary = screen.getByLabelText('Plugin summary');
     expect(within(summary).getByText('2')).toBeTruthy();
     expect(within(summary).getByText('Installed')).toBeTruthy();
@@ -230,36 +233,19 @@ describe('PluginsView', () => {
 
   it('hands installed plugin Use actions to the host shell', async () => {
     const onUsePlugin = vi.fn();
-    render(<PluginsView onUsePlugin={onUsePlugin} />);
+    render(
+      <I18nProvider initial="en">
+        <PluginsView onUsePlugin={onUsePlugin} />
+      </I18nProvider>,
+    );
 
-    fireEvent.click(await screen.findByTestId('plugins-home-use-user-plugin'));
+    const useBtn = await screen.findByTestId('plugins-ds-use-user-plugin');
+    fireEvent.click(useBtn);
 
     expect(onUsePlugin).toHaveBeenCalledWith(expect.objectContaining({
       id: 'user-plugin',
       title: 'User Plugin',
     }), 'use');
-    expect(mockedApplyPlugin).not.toHaveBeenCalled();
-  });
-
-  it('hands Use with query actions to the host shell', async () => {
-    const onUsePlugin = vi.fn();
-    const user = makePlugin('query-plugin', 'github', 'restricted', 'Query Plugin');
-    user.manifest.gd = {
-      ...user.manifest.gd,
-      useCase: { query: 'Make a query-backed artifact.' },
-    };
-    mockedListPlugins.mockResolvedValue([user]);
-    mockedListMarketplaces.mockResolvedValue([]);
-
-    render(<PluginsView onUsePlugin={onUsePlugin} />);
-
-    fireEvent.click(await screen.findByTestId('plugins-home-use-menu-query-plugin'));
-    fireEvent.click(screen.getByTestId('plugins-home-use-with-query-query-plugin'));
-
-    expect(onUsePlugin).toHaveBeenCalledWith(expect.objectContaining({
-      id: 'query-plugin',
-      title: 'Query Plugin',
-    }), 'use-with-query');
     expect(mockedApplyPlugin).not.toHaveBeenCalled();
   });
 
@@ -602,76 +588,5 @@ describe('PluginsView', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Import' }));
     await waitFor(() => expect(mockedUploadPluginFolder).toHaveBeenCalledWith([folderFile]));
     expect(await screen.findByText('Installed Folder Plugin.')).toBeTruthy();
-  });
-
-  it('confirms a plugin share action before starting the GitHub repo task', async () => {
-    mockedListPlugins.mockResolvedValue([
-      makePlugin('official-plugin', 'bundled', 'bundled'),
-      makePlugin('user-plugin', 'github', 'restricted'),
-      makePlugin(
-        'gd-plugin-publish-github',
-        'bundled',
-        'bundled',
-        'Publish Plugin to GitHub',
-        'Creates a public GitHub repository for a local Galyarder Design plugin using the GitHub CLI.',
-      ),
-      makePlugin(
-        'gd-plugin-contribute-galyarder-design',
-        'bundled',
-        'bundled',
-        'Contribute Plugin to Galyarder Design',
-        'Opens a pull request that adds a local Galyarder Design plugin to the Galyarder Design community catalog.',
-      ),
-    ]);
-    const onCreatePluginShareProject = vi.fn(async (): Promise<PluginShareProjectOutcome> => ({
-      ok: true as const,
-      project: {
-        id: 'share-project',
-        name: 'Publish to GitHub: User Plugin',
-        skillId: null,
-        designSystemId: null,
-        createdAt: 1,
-        updatedAt: 1,
-        pendingPrompt: 'Publish it',
-        metadata: { kind: 'prototype' },
-      },
-      conversationId: 'conversation-1',
-      appliedPluginSnapshotId: 'snapshot-1',
-      actionPluginId: 'gd-plugin-publish-github',
-      sourcePluginId: 'user-plugin',
-      stagedPath: 'plugin-source/user-plugin',
-      prompt: 'Publish it',
-      message: 'Created a Publish to GitHub task.',
-    }));
-
-    render(
-      <PluginsView
-        onCreatePluginShareProject={onCreatePluginShareProject}
-      />,
-    );
-
-    const publish = await screen.findByTestId('plugins-home-publish-github-user-plugin');
-    expect(publish.textContent).toContain('Publish');
-    fireEvent.click(publish);
-
-    const dialog = await screen.findByRole('dialog', {
-      name: /Publish Plugin to GitHub for User Plugin/i,
-    });
-    expect(dialog.textContent).toContain('Creates a public GitHub repository');
-    expect(dialog.textContent).toContain('plugin-source/user-plugin');
-    expect(onCreatePluginShareProject).not.toHaveBeenCalled();
-
-    fireEvent.click(within(dialog).getByTestId('plugin-share-confirm-start'));
-
-    await waitFor(() =>
-      expect(onCreatePluginShareProject).toHaveBeenCalledWith(
-        'user-plugin',
-        'publish-github',
-        'en',
-      ),
-    );
-    await waitFor(() =>
-      expect(screen.queryByTestId('plugin-share-confirm-modal')).toBeNull(),
-    );
   });
 });

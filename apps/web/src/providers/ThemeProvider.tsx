@@ -129,7 +129,7 @@ export function ThemeProvider({ initial, children }: ProviderProps) {
   // the first paint, so this read only catches up the React tree.
   const [mode, setModeState] = useState<ThemeMode>(() => {
     if (initial) return initial;
-    return readPersistedTheme() ?? 'dark';
+    return readPersistedTheme() ?? 'system';
   });
 
   const [systemPref, setSystemPref] = useState<ResolvedTheme>(() => readSystemPreference());

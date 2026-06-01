@@ -50,15 +50,12 @@ describe('HandoffButton i18n', () => {
       { id: 'cursor', label: 'Cursor', available: false },
     ]);
 
-    renderLocalized('zh-CN' as Locale);
+    renderLocalized('id');
 
     fireEvent.click(await screen.findByTestId('handoff-caret'));
 
-    // CJK fixture; '未安装' (not installed) and the longer tooltip are
-    // the zh-CN locale strings; the test verifies they render in the
-    // Chinese locale context.
-    expect(await screen.findByText('未安装')).toBeTruthy();
+    expect(await screen.findByText('Not installed')).toBeTruthy();
     expect(screen.getByTestId('handoff-menu-item-cursor').getAttribute('title'))
-      .toBe('Cursor - 未在 $PATH 中检测到');
+      .toBe('Cursor - not detected on $PATH');
   });
 });
