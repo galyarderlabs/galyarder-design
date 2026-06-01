@@ -208,7 +208,7 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder Design</span>
                     <span className='dropdown-blurb'>
-                      The agentic design surface. Scale visual product design at the speed of compute.
+                      The agentic design surface. Scale visual product engineering at the speed of compute with zero human headcount.
                     </span>
                   </a>
                 </li>
@@ -221,7 +221,7 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder Ledger</span>
                     <span className='dropdown-blurb'>
-                      Autonomous financial workspace. Deploy a sandboxed workforce of G-Agents.
+                      Autonomous financial engine. Convert business sensory inputs into cryptographically audited financial state with G-Agents.
                     </span>
                   </a>
                 </li>
@@ -234,7 +234,7 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder HQ</span>
                     <span className='dropdown-blurb'>
-                      Strategic command interface. Orchestrate autonomous organizations and complex missions.
+                      Agentic orchestration plane. Governance layer to coordinate infinite-headcount autonomous organizations.
                     </span>
                   </a>
                 </li>
@@ -247,7 +247,7 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder Agent</span>
                     <span className='dropdown-blurb'>
-                      Persistent digital identity. Build always-on sandboxed workers that don&apos;t sleep.
+                      Persistent identity substrate. Deploy always-on, sandboxed digital entities that preserve execution legacy.
                     </span>
                   </a>
                 </li>
@@ -260,7 +260,7 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder Framework</span>
                     <span className='dropdown-blurb'>
-                      The substrate for autonomous execution. High-fidelity developer protocols for infinite scale.
+                      Autonomous execution substrate. Institutional-grade developer protocols for self-reconciling systems.
                     </span>
                   </a>
                 </li>
