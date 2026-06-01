@@ -18,8 +18,6 @@
 
 <p align="center"><!-- README language switcher --><b>English</b> | <a href="README.id.md">Bahasa Indonesia</a></p>
 
-<p align="center">🇮🇩 <b><a href="README.id.md">Baca dokumentasi dalam Bahasa Indonesia</a></b></p>
-
 ---
 
 The next generation of products won't be designed in pixel-pushing click farms. They'll be built by founders and developers who describe their intent and let agent-native engines render clean, production-ready code.
