@@ -89,9 +89,8 @@ describe('ProjectDesignSystemPicker', () => {
     expect(screen.getByRole('dialog')).toBeTruthy();
     expect(screen.getAllByText('Clay').length).toBeGreaterThan(0);
 
-    // CJK fixture; '关闭全屏预览' (close fullscreen preview) is the zh-CN
-    // aria-label rendered in this locale context.
-    fireEvent.click(screen.getByLabelText('关闭全屏预览'));
+    // Close fullscreen preview
+    fireEvent.click(screen.getByLabelText('Close full-screen preview'));
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 

@@ -154,14 +154,19 @@ describe('RoutinesSection', () => {
     const row = await screen.findByText('Morning briefing');
     const card = row.closest('li')!;
 
-    fireEvent.click(within(card).getByRole('button', { name: 'Pause' }));
+    const toggle = within(card).getByRole('switch', { name: 'Pause automation' });
+    expect(toggle.getAttribute('aria-checked')).toBe('true');
+
+    fireEvent.click(toggle);
     await waitFor(() => {
-      expect(within(card).getByRole('button', { name: 'Resume' })).toBeTruthy();
+      expect(toggle.getAttribute('aria-checked')).toBe('false');
+      expect(toggle.getAttribute('aria-label')).toBe('Resume automation');
     });
 
-    fireEvent.click(within(card).getByRole('button', { name: 'Resume' }));
+    fireEvent.click(toggle);
     await waitFor(() => {
-      expect(within(card).getByRole('button', { name: 'Pause' })).toBeTruthy();
+      expect(toggle.getAttribute('aria-checked')).toBe('true');
+      expect(toggle.getAttribute('aria-label')).toBe('Pause automation');
     });
 
     expect(patchBodies).toEqual([{ enabled: false }, { enabled: true }]);
@@ -351,7 +356,7 @@ describe('RoutinesSection', () => {
     fireEvent.click(within(row).getByRole('button', { name: 'Delete' }));
 
     await waitFor(() => {
-      expect(screen.getByText('No automations yet.')).toBeTruthy();
+      expect(screen.getByText(/No automations yet/)).toBeTruthy();
     });
     expect(deletedUrls).toEqual(['/api/routines/routine-1']);
   });
@@ -750,11 +755,12 @@ describe('RoutinesSection', () => {
 
     const row = await screen.findByText('Morning briefing');
     const card = row.closest('li')!;
-    fireEvent.click(within(card).getByRole('button', { name: 'Pause' }));
+    const toggle = within(card).getByRole('switch', { name: 'Pause automation' });
+    fireEvent.click(toggle);
 
     expect((await screen.findByRole('alert')).textContent).toContain('scheduler unavailable');
-    expect(within(card).getByRole('button', { name: 'Pause' })).toBeTruthy();
-    expect(within(card).queryByRole('button', { name: 'Resume' })).toBeNull();
+    expect(toggle.getAttribute('aria-checked')).toBe('true');
+    expect(toggle.getAttribute('aria-label')).toBe('Pause automation');
   });
 
   it('edits an existing routine and PATCHes the updated fields', async () => {
