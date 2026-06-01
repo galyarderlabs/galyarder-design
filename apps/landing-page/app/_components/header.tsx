@@ -340,22 +340,13 @@ export function Header({
             </div>
           </details>
           <a
-            className='nav-cta ghost'
+            className='nav-cta'
             href={REPO_RELEASES}
             aria-label='Download Galyarder Design desktop'
             title='Download the desktop app'
             {...ext}
           >
             {copy.download}
-          </a>
-          <a
-            className='nav-cta'
-            href={REPO}
-            aria-label='Star Galyarder Design on GitHub'
-            title='Click to star us on GitHub'
-            {...ext}
-          >
-            {copy.star} · <span data-github-stars>{github?.starsLabel ?? '40K+'}</span>
           </a>
           <span className='status-dot' aria-hidden='true' />
         </div>
