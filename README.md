@@ -4,7 +4,7 @@
 
 <h1 align="center">Galyarder Design</h1>
 
-<p align="center">The aesthetic, agent-native design engine for the 1-Man Army.</p>
+<p align="center">The aesthetic, agent-native design engine for the Agentic Company.</p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="Apache 2.0 License"></a>

@@ -4,7 +4,7 @@
 
 <h1 align="center">Galyarder Design</h1>
 
-<p align="center">Mesin desain ramah agen (agent-native) berestetika premium untuk Petarung Tunggal (1-Man Army).</p>
+<p align="center">Mesin desain ramah agen (agent-native) berestetika premium untuk Perusahaan Agen (Agentic Company).</p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="Lisensi Apache 2.0"></a>
