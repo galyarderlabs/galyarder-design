@@ -208,7 +208,7 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder Design</span>
                     <span className='dropdown-blurb'>
-                      The agentic design surface — skills, systems, templates.
+                      The agentic design surface. Scale visual product design at the speed of compute.
                     </span>
                   </a>
                 </li>
@@ -221,46 +221,46 @@ export function Header({
                   >
                     <span className='dropdown-name'>Galyarder Ledger</span>
                     <span className='dropdown-blurb'>
-                      Autonomous financial workspace. Scale operational inputs with G-Agent workforce.
+                      Autonomous financial workspace. Deploy a sandboxed workforce of G-Agents.
                     </span>
                   </a>
                 </li>
                 <li role='none'>
                   <a
                     role='menuitem'
-                    href='https://hq.galyarderlabs.app'
+                    href='https://github.com/galyarderlabs/galyarder-hq'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
                     <span className='dropdown-name'>Galyarder HQ</span>
                     <span className='dropdown-blurb'>
-                      Strategic command interface. Orchestrate complex agentic missions.
+                      Strategic command interface. Orchestrate autonomous organizations and complex missions.
                     </span>
                   </a>
                 </li>
                 <li role='none'>
                   <a
                     role='menuitem'
-                    href='https://agent.galyarderlabs.app'
+                    href='https://github.com/galyarderlabs/galyarder-agent'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
                     <span className='dropdown-name'>Galyarder Agent</span>
                     <span className='dropdown-blurb'>
-                      Persistent digital identity. Build and deploy sandboxed workers.
+                      Persistent digital identity. Build always-on sandboxed workers that don&apos;t sleep.
                     </span>
                   </a>
                 </li>
                 <li role='none'>
                   <a
                     role='menuitem'
-                    href='https://os.galyarderlabs.app'
+                    href='https://github.com/galyarderlabs/galyarder-framework'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    <span className='dropdown-name'>Galyarder OS</span>
+                    <span className='dropdown-name'>Galyarder Framework</span>
                     <span className='dropdown-blurb'>
-                      Operational excellence system. Peak performance command center.
+                      The substrate for autonomous execution. High-fidelity developer protocols for infinite scale.
                     </span>
                   </a>
                 </li>
