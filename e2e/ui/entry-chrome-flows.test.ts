@@ -154,7 +154,7 @@ test('entry chrome settings dialog opens with brand header and no pet rail', asy
   await page.getByRole('button', { name: 'Open settings' }).click();
   const settingsDialog = page.getByRole('dialog');
   await expect(settingsDialog).toBeVisible();
-  await expect(settingsDialog.getByRole('heading', { name: 'Execution mode' })).toBeVisible();
+  await expect(settingsDialog.locator('#settings-dialog-title-visible')).toBeVisible();
   await expect(settingsDialog.getByRole('button', { name: /hide pet picker/i })).toHaveCount(0);
   await expect(settingsDialog.getByRole('button', { name: /show pet picker/i })).toHaveCount(0);
 });

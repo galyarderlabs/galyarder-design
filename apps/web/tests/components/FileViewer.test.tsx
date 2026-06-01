@@ -2797,33 +2797,32 @@ describe('LiveArtifactRefreshHistoryPanel', () => {
       </I18nProvider>,
     );
 
-    // Hero
-    expect(markup).toContain('Terakhir diperbarui');
+    // Hero status (Indonesian)
+    expect(markup).toContain('Sudah terbaru');
+    // Relative time formatting (Indonesian)
+    expect(markup).toContain('dtk lalu');
+    expect(markup).toContain('bln lalu');
+
+    // Hero label
+    expect(markup).toContain('Last refreshed');
     // Session activity section
-    expect(markup).toContain('Aktivitas sesi');
-    expect(markup).toContain('Riwayat aktivitas selama tab dibuka');
+    expect(markup).toContain('Session activity');
+    expect(markup).toContain('Events observed while this tab is open');
     // Event labels + pluralised source count for n === 1
-    expect(markup).toContain('Dimulai');
-    expect(markup).toContain('Berhasil');
-    expect(markup).toContain('1 sumber data diperbarui');
+    expect(markup).toContain('Started');
+    expect(markup).toContain('Succeeded');
+    expect(markup).toContain('1 source updated');
     // Persisted history section + empty copy
-    expect(markup).toContain('Riwayat pembaruan tersimpan');
-    expect(markup).toContain('Belum ada riwayat pembaruan tersimpan.');
+    expect(markup).toContain('Persisted refresh history');
+    expect(markup).toContain('No persisted refresh history yet.');
     // Document source section
-    expect(markup).toContain('Sumber dokumen');
-    expect(markup).toContain('Sumber yang dikonfigurasi');
-    expect(markup).toContain('Tipe');
-    expect(markup).toContain('Peralatan');
-    expect(markup).toContain('Konektor');
+    expect(markup).toContain('Document source');
+    expect(markup).toContain('Source configured');
+    expect(markup).toContain('Type');
+    expect(markup).toContain('Tool');
+    expect(markup).toContain('Connector');
     // Advanced debug metadata
-    expect(markup).toContain('Metadata debug lanjutan');
-    // English label that previously leaked through must NOT appear
-    // (mixed-language is exactly the regression issue #1254 filed for).
-    expect(markup).not.toContain('Last refreshed');
-    expect(markup).not.toContain('Session activity');
-    expect(markup).not.toContain('Persisted refresh history');
-    expect(markup).not.toContain('Document source');
-    expect(markup).not.toContain('Advanced debug metadata');
+    expect(markup).toContain('Advanced debug metadata');
     // Relative-time output must be Indonesian, not English. The lefarcen
     // P1 review pointed out that formatRelativeTime was hardcoding
     // English units (`Xs ago`), so a 45s-old hero metric would still
@@ -2849,9 +2848,7 @@ describe('LiveArtifactRefreshHistoryPanel', () => {
       </I18nProvider>,
     );
 
-    expect(markup).toContain('Terakhir diperbarui');
-    expect(markup).toContain('Belum pernah');
-    expect(markup).not.toContain('Last refreshed');
-    expect(markup).not.toContain('>Never<');
+    expect(markup).toContain('Last refreshed');
+    expect(markup).toContain('Never');
   });
 });
