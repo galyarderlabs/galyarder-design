@@ -207,6 +207,61 @@ function renderFooterPitch(
   return out;
 }
 
+const FAQ_DATA: Record<string, { q: string; a: string }[]> = {
+  en: [
+    {
+      q: "What exactly is Galyarder Design?",
+      a: "Galyarder Design is an open-source, local-first alternative to agentic visual design tools (like Claude Artifacts). It auto-detects your local coding agents and equips them with composable design systems, reusable templates, and interactive live previews."
+    },
+    {
+      q: "How does the local-first system work?",
+      a: "Galyarder Design runs entirely on your laptop. A local daemon automatically hooks into your active coding terminal (such as Claude Code, Devin, or custom agents) and binds it to a local web preview server. No code or design assets are ever sent to third-party clouds."
+    },
+    {
+      q: "What is the difference between Skills and Systems?",
+      a: "Skills are functional Markdown instructions (SKILL.md) that teach your agent specific tasks (e.g. building layouts, rendering diagrams, auditing color contrast). Systems are brand token libraries (DESIGN.md) that enforce your exact visual guidelines across all code iterations."
+    },
+    {
+      q: "Can I create my own design templates and visual rules?",
+      a: "Absolutely. You can define new skills or systems by simply creating markdown files in the skills/ or design-systems/ directories. Your coding agents will immediately read and adapt to these new visual guidelines during their next execution turn."
+    },
+    {
+      q: "Which coding agents are supported out of the box?",
+      a: "Galyarder Design is fully compliant with the Universal Agent Protocol and MCP. We support Claude Code, Devin, Hermes, OpenClaw, and custom bots. If your agent can execute local terminal commands, it will connect transparently."
+    },
+    {
+      q: "Why choose the BYOK (Bring Your Own Key) model?",
+      a: "We believe in developer autonomy. By bringing your own API keys, you maintain complete control over data privacy, token budgets, and LLM providers (Gemini, Claude, GPT), escaping expensive proprietary SaaS lock-ins."
+    }
+  ],
+  id: [
+    {
+      q: "Apa sebenarnya Galyarder Design?",
+      a: "Galyarder Design adalah alternatif open-source lokal untuk tools visual design agentic (seperti Claude Artifacts / Claude Design). Galyarder Design mendeteksi agen koding lokal Anda secara otomatis dan memperluas kapabilitas mereka dengan design systems, reusable templates, dan interactive previews."
+    },
+    {
+      q: "Bagaimana cara kerja sistem local-first?",
+      a: "Galyarder Design berjalan sepenuhnya di laptop Anda. Daemon lokal mendeteksi CLI koding Anda (seperti Claude Code, Devin, hermes-agent) secara otomatis, lalu menghubungkan runtime agen dengan visual rendering server lokal. Tidak ada data desain atau source code Anda yang dikirim ke cloud pihak ketiga."
+    },
+    {
+      q: "Apa perbedaan antara Skills dan Systems?",
+      a: "Skills adalah instruksi fungsional berbasis markdown (SKILL.md) yang diajarkan ke agen Anda untuk melakukan tugas tertentu (misal: membangun form, membuat diagram, mengaudit kontras). Systems adalah repositori design tokens dan aturan brand (DESIGN.md) yang memaksa agen menghasilkan visual yang sesuai dengan aturan visual brand Anda."
+    },
+    {
+      q: "Apakah saya bisa membuat template dan rules visual saya sendiri?",
+      a: "Tentu. Anda hanya perlu membuat berkas markdown baru di direktori skills/ atau design-systems/ mengikuti schema TypeScript terdefinisi. Agen Anda akan otomatis mengenali, membaca, dan menggunakan aturan visual baru Anda pada iterasi koding berikutnya."
+    },
+    {
+      q: "Agent koding apa saja yang didukung oleh Galyarder Design?",
+      a: "Galyarder Design menggunakan standar Universal Agent Protocol dan MCP. Kami mendukung Claude Code, Devin, Hermes, OpenClaw, dan custom bots. Selama agen Anda memiliki akses eksekusi terminal lokal, daemon Galyarder akan otomatis terhubung secara transparan."
+    },
+    {
+      q: "Mengapa memilih BYOK (Bring Your Own Key)?",
+      a: "Kami percaya pada kedaulatan developer. Dengan model BYOK pada tingkat model API, Anda memiliki kendali penuh atas privasi data, batas token, pilihan penyedia LLM (Gemini, Claude, GPT), dan tidak terjebak dalam biaya langganan SaaS bulanan yang mahal."
+    }
+  ]
+};
+
 export default function Page({
   counts,
   github,
@@ -310,16 +365,7 @@ export default function Page({
         <section className='hero' id='top' data-gd-id='hero'>
           <div className='container hero-grid'>
             <div className='hero-copy'>
-              <a
-                className='hero-discord-pill'
-                href={DISCORD}
-                aria-label='Join the Galyarder Design Discord'
-                {...ext}
-                data-reveal
-              >
-                <span aria-hidden='true'>●</span>
-                {home.heroJoinDiscord}
-              </a>
+
               <span className='label' data-reveal>
                 {home.heroLabel}
               </span>
@@ -1090,11 +1136,36 @@ export default function Page({
           </div>
         </section>
 
+        {/* ====== FAQ ====== */}
+        <section className='faq-section' id='faq' data-gd-id='faq'>
+          <div className='container'>
+            <div className='sec-rule'>
+              <span className='roman'>VII.</span>
+              <span className='meta-grp'>
+                <span>Frequently Asked Questions</span>
+                <span className='dot-mark'>•</span>
+                <span>Clear answers for agents</span>
+              </span>
+              <span>007 / 008</span>
+            </div>
+            <div className='faq-grid'>
+              {(FAQ_DATA[locale] ?? FAQ_DATA.en).map((item, idx) => (
+                <div key={idx} className='faq-item' data-reveal>
+                  <h4 className='faq-question'>
+                    <span className='faq-bullet'>↳</span> {item.q}
+                  </h4>
+                  <p className='faq-answer'>{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ====== CTA ====== */}
         <section className='cta' id='contact' data-gd-id='cta'>
           <div className='container'>
             <div className='sec-rule'>
-              <span className='roman'>VII.</span>
+              <span className='roman'>VIII.</span>
               <span className='meta-grp'>
                 <span>Contact / Conversation</span>
                 <span className='dot-mark'>•</span>

@@ -347,7 +347,7 @@ const en: HomeCopy = {
   ctaFootLive: '● Live',
 
   footStudio: 'Studio',
-  footLibrary: 'Library',
+  footLibrary: 'Plugins',
   footConnect: 'Connect',
   footDocs: 'Docs',
   footCapabilities: 'Capabilities',
@@ -521,7 +521,7 @@ const ja: Partial<HomeCopy> = {
   ctaFootLive: '● オンライン',
 
   footStudio: 'スタジオ',
-  footLibrary: 'ライブラリ',
+  footLibrary: 'プラグイン',
   footConnect: '接続',
   footDocs: 'ドキュメント',
   footCapabilities: '能力',
@@ -692,7 +692,7 @@ const ko: Partial<HomeCopy> = {
   ctaFootLive: '● 라이브',
 
   footStudio: '스튜디오',
-  footLibrary: '라이브러리',
+  footLibrary: '플러그인',
   footConnect: '연결',
   footDocs: '문서',
   footCapabilities: '능력',
@@ -870,7 +870,7 @@ const de: Partial<HomeCopy> = {
   ctaFootLive: '● Live',
 
   footStudio: 'Studio',
-  footLibrary: 'Bibliothek',
+  footLibrary: 'Plugins',
   footConnect: 'Verbinden',
   footDocs: 'Docs',
   footCapabilities: 'Fähigkeiten',
@@ -1042,7 +1042,7 @@ const fr: Partial<HomeCopy> = {
   ctaFootLive: '● En direct',
 
   footStudio: 'Studio',
-  footLibrary: 'Bibliothèque',
+  footLibrary: 'Plugins',
   footConnect: 'Connexion',
   footDocs: 'Docs',
   footCapabilities: 'Capacités',
@@ -1214,7 +1214,7 @@ const esES: Partial<HomeCopy> = {
   ctaFootLive: '● En vivo',
 
   footStudio: 'Estudio',
-  footLibrary: 'Biblioteca',
+  footLibrary: 'Plugins',
   footConnect: 'Conectar',
   footDocs: 'Docs',
   footCapabilities: 'Capacidades',
@@ -1385,7 +1385,7 @@ const ptBR: Partial<HomeCopy> = {
   ctaFootLive: '● Ao vivo',
 
   footStudio: 'Estúdio',
-  footLibrary: 'Biblioteca',
+  footLibrary: 'Plugins',
   footConnect: 'Conectar',
   footDocs: 'Docs',
   footCapabilities: 'Capacidades',
