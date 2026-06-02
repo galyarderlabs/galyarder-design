@@ -207,7 +207,7 @@ const en: HomeCopy = {
   heroTitleC: 'and',
   heroTitleEmphasis3: 'code',
   heroLead:
-    'The open-source alternative to Claude Design. Your existing coding agent — Claude · Codex · Cursor · Gemini · OpenCode · Qwen — becomes the design engine, driven by {skills} composable skills and {systems} brand-grade design systems.',
+    'The aesthetic, agent-native design engine for the Agentic Company. Your local coding agents become a governed design engine, driven by {skills} composable skills and {systems} on-disk design systems.',
   heroJoinDiscord: 'Join Discord',
   heroCtaStar: 'Star us on GitHub',
   heroCtaDownload: 'Download desktop',
@@ -362,7 +362,7 @@ const en: HomeCopy = {
   footDownloadDesktop: 'Download desktop',
   footDownloadMeta: 'macOS',
   footPitch:
-    'The open-source alternative to Claude Design. Built on the shoulders of huashu-design, guizang-ppt, multica-ai, and open-codesign.',
+    'The agent-native design engine for the Agentic Company. Running local-first, BYOK at every layer, built on the shoulders of open-source design lineage.',
 };
 
 /*
@@ -381,7 +381,7 @@ const ja: Partial<HomeCopy> = {
   heroTitleC: 'で、',
   heroTitleEmphasis3: '知性をデザイン',
   heroLead:
-    'Claude Design のオープンソース代替。Claude · Codex · Cursor · Gemini · OpenCode · Qwen — すでに使っているコーディング Agent をそのままデザインエンジンに。{skills} 個の組み合わせ可能なスキルと {systems} 個のブランド級デザインシステムが駆動します。',
+    'Agentic Company のためのエージェントネイティブなデザインエンジン。ローカルのコーディング Agent が統治されたデザインエンジンになり、{skills} 個のスキルと {systems} 個のオンディスクデザインシステムで駆動します。',
   heroJoinDiscord: 'Discord に参加',
   heroCtaStar: 'GitHub で Star する',
   heroCtaDownload: 'デスクトップ版をダウンロード',
@@ -536,7 +536,7 @@ const ja: Partial<HomeCopy> = {
   footDownloadDesktop: 'デスクトップ版をダウンロード',
   footDownloadMeta: 'macOS',
   footPitch:
-    'Claude Design のオープンソース代替。huashu-design、guizang-ppt、multica-ai、open-codesign の肩の上に立って構築しました。',
+    'Agentic Company のためのエージェントネイティブなデザインエンジン。ローカルファースト、すべてのレイヤーで BYOK を実行し、オープンソースデザインの系譜に基づいて構築されています。',
 };
 
 /*
@@ -552,7 +552,7 @@ const ko: Partial<HomeCopy> = {
   heroTitleC: '로',
   heroTitleEmphasis3: '지능을 디자인',
   heroLead:
-    'Claude Design 의 오픈소스 대안. 이미 사용 중인 코딩 Agent — Claude · Codex · Cursor · Gemini · OpenCode · Qwen — 이 그대로 디자인 엔진이 됩니다. {skills} 개의 조합 가능한 스킬과 {systems} 개의 브랜드급 디자인 시스템이 구동합니다.',
+    'Agentic Company를 위한 에이전트 네이티브 디자인 엔진. 로컬 코딩 에이전트가 통제된 디자인 엔진이 되어 {skills} 개의 스킬과 {systems} 개의 온디스크 디자인 시스템으로 구동합니다.',
   heroJoinDiscord: 'Discord 참여',
   heroCtaStar: 'GitHub 에서 Star',
   heroCtaDownload: '데스크톱 다운로드',
@@ -707,7 +707,7 @@ const ko: Partial<HomeCopy> = {
   footDownloadDesktop: '데스크톱 다운로드',
   footDownloadMeta: 'macOS',
   footPitch:
-    'Claude Design 의 오픈소스 대안. huashu-design, guizang-ppt, multica-ai, open-codesign 의 어깨 위에서 만들었습니다.',
+    'Agentic Company를 위한 에이전트 네이티브 디자인 엔진. 로컬 퍼스트, 모든 레이어에서의 BYOK를 지원하며 오픈소스 디자인의 유산을 기반으로 구축되었습니다.',
 };
 
 /*
@@ -729,7 +729,7 @@ const de: Partial<HomeCopy> = {
   heroTitleC: 'und',
   heroTitleEmphasis3: 'Code',
   heroLead:
-    'Die Open-Source-Alternative zu Claude Design. Dein bestehender Coding-Agent — Claude · Codex · Cursor · Gemini · OpenCode · Qwen — wird zur Design-Engine, angetrieben von {skills} kombinierbaren Skills und {systems} markengerechten Designsystemen.',
+    'Die agentennative Design-Engine für die Agentic Company. Deine lokalen Coding-Agenten werden zu einer gesteuerten Design-Engine, angetrieben von {skills} kombinierbaren Skills und {systems} On-Disk-Designsystemen.',
   heroJoinDiscord: 'Discord beitreten',
   heroCtaStar: 'Auf GitHub mit Star markieren',
   heroCtaDownload: 'Desktop herunterladen',
@@ -885,7 +885,7 @@ const de: Partial<HomeCopy> = {
   footDownloadDesktop: 'Desktop herunterladen',
   footDownloadMeta: 'macOS',
   footPitch:
-    'Die Open-Source-Alternative zu Claude Design. Aufgebaut auf den Schultern von huashu-design, guizang-ppt, multica-ai und open-codesign.',
+    'Die agentennative Design-Engine für die Agentic Company. Local-first, BYOK auf jeder Ebene, aufgebaut auf den Schultern einer Open-Source-Designlinie.',
 };
 
 /*
@@ -901,7 +901,7 @@ const fr: Partial<HomeCopy> = {
   heroTitleC: 'et',
   heroTitleEmphasis3: 'du code',
   heroLead:
-    'L\u2019alternative open-source à Claude Design. Ton agent de coding existant — Claude · Codex · Cursor · Gemini · OpenCode · Qwen — devient le moteur de design, animé par {skills} compétences composables et {systems} design systems de qualité marque.',
+    'Le moteur de design natif agent pour l’Agentic Company. Vos agents de coding locaux deviennent un moteur de design gouverné, animé par {skills} compétences composables et {systems} design systems sur disque.',
   heroJoinDiscord: 'Rejoindre Discord',
   heroCtaStar: 'Star sur GitHub',
   heroCtaDownload: 'Télécharger la version desktop',
@@ -1057,7 +1057,7 @@ const fr: Partial<HomeCopy> = {
   footDownloadDesktop: 'Télécharger la version desktop',
   footDownloadMeta: 'macOS',
   footPitch:
-    'L\u2019alternative open-source à Claude Design. Construit sur les épaules de huashu-design, guizang-ppt, multica-ai et open-codesign.',
+    'Le moteur de design natif agent pour l’Agentic Company. Fonctionnant en local-first, BYOK à chaque couche, construit sur les épaules de la lignée du design open-source.',
 };
 
 /*
@@ -1073,7 +1073,7 @@ const esES: Partial<HomeCopy> = {
   heroTitleC: 'y',
   heroTitleEmphasis3: 'código',
   heroLead:
-    'La alternativa open-source a Claude Design. Tu agente de coding actual — Claude · Codex · Cursor · Gemini · OpenCode · Qwen — se convierte en el motor de diseño, impulsado por {skills} habilidades componibles y {systems} sistemas de diseño de calidad marca.',
+    'El motor de diseño nativo de agentes para la Agentic Company. Tus agentes de coding locales se convierten en un motor de diseño gobernado, impulsado por {skills} habilidades componibles y {systems} sistemas de diseño en disco.',
   heroJoinDiscord: 'Unirse a Discord',
   heroCtaStar: 'Dar Star en GitHub',
   heroCtaDownload: 'Descargar escritorio',
@@ -1229,7 +1229,7 @@ const esES: Partial<HomeCopy> = {
   footDownloadDesktop: 'Descargar escritorio',
   footDownloadMeta: 'macOS',
   footPitch:
-    'La alternativa open-source a Claude Design. Construida sobre los hombros de huashu-design, guizang-ppt, multica-ai y open-codesign.',
+    'El motor de diseño nativo de agentes para la Agentic Company. Funcionamiento local-first, BYOK en cada capa, construido sobre los hombros de la genealogía del diseño open-source.',
 };
 
 /*
@@ -1245,7 +1245,7 @@ const ptBR: Partial<HomeCopy> = {
   heroTitleC: 'e',
   heroTitleEmphasis3: 'código',
   heroLead:
-    'A alternativa open-source ao Claude Design. Seu agente de coding atual — Claude · Codex · Cursor · Gemini · OpenCode · Qwen — vira o motor de design, movido por {skills} skills compostáveis e {systems} design systems de qualidade de marca.',
+    'O motor de design nativo de agentes para a Agentic Company. Seus agentes de coding locais se transformam em um motor de design governado, movido por {skills} skills compostáveis e {systems} design systems em disco.',
   heroJoinDiscord: 'Entrar no Discord',
   heroCtaStar: 'Dar Star no GitHub',
   heroCtaDownload: 'Baixar desktop',
@@ -1400,7 +1400,7 @@ const ptBR: Partial<HomeCopy> = {
   footDownloadDesktop: 'Baixar desktop',
   footDownloadMeta: 'macOS',
   footPitch:
-    'A alternativa open-source ao Claude Design. Construído sobre os ombros de huashu-design, guizang-ppt, multica-ai e open-codesign.',
+    'O motor de design nativo de agentes para a Agentic Company. Funcionando em local-first, BYOK em todas as camadas, construído sobre os ombros da linhagem do design open-source.',
 };
 
 const overrides: Partial<Record<Locale, Partial<HomeCopy>>> = {
