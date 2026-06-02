@@ -1446,3 +1446,80 @@ body.sub-page {
   background-size: 10px 100%;
 }
 
+/* ---------- Live Interactive Preview Styling ---------- */
+.interactive-template-viewer {
+  border-radius: 12px !important;
+  box-shadow: 0 20px 40px -24px rgba(21, 20, 15, 0.35) !important;
+  background: #0f121d !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  overflow: hidden !important;
+}
+
+.interactive-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #141829;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--sans);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.interactive-head .indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.interactive-head .dot-active {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 10px var(--coral);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px var(--coral); }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+.interactive-head .control-tip {
+  font-size: 11px;
+  opacity: 0.65;
+  font-style: italic;
+}
+
+.interactive-iframe-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 560px;
+  background: #0c0e17;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .interactive-iframe-container {
+    aspect-ratio: 16 / 9;
+    min-height: 380px;
+  }
+}
+
+.interactive-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: transparent;
+}
+
+

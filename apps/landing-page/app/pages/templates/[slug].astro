@@ -101,16 +101,21 @@ const jsonLd = {
       </div>
     </header>
 
-    {template.previewUrl && (
-      <figure class="detail-preview">
-        <LazyImg
-          src={template.previewUrl}
-          alt={`${template.name} preview`}
-          loading="priority"
-        />
-        <figcaption>Rendered from the template's seed data.</figcaption>
-      </figure>
-    )}
+    <figure class="detail-preview interactive-template-viewer">
+      <div class="interactive-head">
+        <span class="indicator"><span class="dot-active"></span> Live Interactive Preview</span>
+        <span class="control-tip">Interact with slides, videos, audio, and click-through systems</span>
+      </div>
+      <div class="interactive-iframe-container">
+        <iframe
+          src={`/templates/preview/${template.slug}/`}
+          class="interactive-iframe"
+          title={`${template.name} Preview`}
+          sandbox="allow-scripts allow-same-origin allow-popups"
+        ></iframe>
+      </div>
+      <figcaption>Real interactive template rendering of the actual example source assets.</figcaption>
+    </figure>
 
     <section class="detail-block">
       <h2>What's in this template</h2>

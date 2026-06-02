@@ -1,0 +1,67 @@
+---
+import { getTemplateRecords, type TemplateRecord } from '../../../_lib/catalog';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+  const records = await getTemplateRecords();
+  return records.map((template) => ({
+    params: { slug: template.slug },
+    props: { template },
+  }));
+}
+
+interface Props {
+  template: TemplateRecord;
+}
+
+const { template } = Astro.props as Props;
+let htmlContent = '';
+
+if (template.origin === 'design-template') {
+  const filePath = path.resolve(process.cwd(), `design-templates/${template.slug}/example.html`);
+  if (existsSync(filePath)) {
+    htmlContent = readFileSync(filePath, 'utf-8');
+  }
+} else if (template.origin === 'live-artifact') {
+  const originalSlug = template.slug.replace(/^live-/, '');
+  const filePath = path.resolve(process.cwd(), `templates/live-artifacts/${originalSlug}/index.html`);
+  if (existsSync(filePath)) {
+    htmlContent = readFileSync(filePath, 'utf-8');
+  }
+}
+
+// In case the template does not have interactive preview HTML, provide a visual fallback
+if (!htmlContent) {
+  htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <style>
+          body {
+            background: #0f121d;
+            color: #ae8b47;
+            font-family: system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+          }
+          h3 { font-size: 24px; margin-bottom: 8px; font-weight: 600; }
+          p { color: rgba(255,255,255,0.6); font-size: 14px; }
+        </style>
+      </head>
+      <body>
+        <div>
+          <h3>${template.name}</h3>
+          <p>Interactive preview is not available for this legacy resource.</p>
+        </div>
+      </body>
+    </html>
+  `;
+}
+---
+<Fragment set:html={htmlContent} />
