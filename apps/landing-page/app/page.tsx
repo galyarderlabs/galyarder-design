@@ -95,7 +95,7 @@ const ext = {
 // from GitHub at runtime. Keep coordinates rough to fit the
 // editorial register.
 const WIRE_CITIES = [
-  { name: 'Berlin', coord: '52.52°N' },
+  { name: 'Bogor', coord: '6.60°S' },
   { name: 'Tokyo', coord: '35.68°N' },
   { name: 'Shanghai', coord: '31.23°N' },
   { name: 'Beijing', coord: '39.90°N' },
@@ -1287,8 +1287,8 @@ export default function Page({
                 · 2026 / Volume 01 / Issue Nº 26
               </span>
               <span className='right'>
-                <span>Berlin / Open / Earth</span>
-                <span>52.5200° N · 13.4050° E</span>
+                <span>Bogor / Open / Earth</span>
+                <span>6.5971° S · 106.8060° E</span>
                 <span style={{ color: 'var(--coral)' }}>♥ MMXXVI</span>
               </span>
             </div>

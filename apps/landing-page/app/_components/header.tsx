@@ -149,7 +149,7 @@ export function Header({
           </span>
           <span>Galyarder Design</span>
           <span className='brand-meta'>
-            <b>Studio Nº 01</b>Berlin / Open / Earth
+            <b>Studio Nº 01</b>Bogor / Open / Earth
           </span>
         </a>
         {/*

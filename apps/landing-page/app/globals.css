@@ -555,9 +555,9 @@ body::before {
   font-variant-numeric: tabular-nums;
 }
 .nav-cta::after {
-  content: '★';
-  color: var(--mustard);
-  font-size: 11px;
+  content: '↓';
+  color: inherit;
+  font-size: 12px;
 }
 .nav-cta.ghost {
   background: transparent;
@@ -2070,13 +2070,14 @@ footer {
 .foot-mega .word {
   font-family: var(--sans);
   font-weight: 900;
-  font-size: clamp(70px, 13vw, 200px);
+  font-size: clamp(48px, 7.6vw, 120px);
   letter-spacing: -0.04em;
   line-height: 1.05;
   color: var(--ink);
   white-space: nowrap;
   margin-top: 30px;
   padding-bottom: 0.18em;
+  text-align: center;
 }
 .foot-mega .word em {
   font-family: var(--serif);
@@ -2363,7 +2364,10 @@ footer {
   .topbar-inner .right { gap: 12px; }
   .hero-actions .btn { padding: 12px 18px; font-size: 13px; }
   .work-card h3 { font-size: clamp(24px, 6vw, 30px); }
-  .foot-mega .word { font-size: clamp(54px, 18vw, 120px); }
+  .foot-mega .word {
+    font-size: clamp(38px, 11vw, 76px);
+    white-space: normal;
+  }
 }
 @media (max-width: 560px) {
   .container { padding: 0 16px; }
@@ -2396,7 +2400,10 @@ footer {
   .brand { font-size: 16px; gap: 10px; }
   .brand-mark { width: 32px; height: 32px; font-size: 16px; }
   .read-more { margin-top: 36px; }
-  .foot-mega .word { font-size: clamp(48px, 16vw, 88px); }
+  .foot-mega .word {
+    font-size: clamp(32px, 11vw, 64px);
+    white-space: normal;
+  }
 }
 @media (max-width: 420px) {
   .container { padding: 0 14px; }
@@ -2407,7 +2414,10 @@ footer {
   .hero-foot { font-size: 9.5px; }
   .sec-rule { font-size: 9.5px; gap: 6px 12px; }
   .partners { grid-template-columns: repeat(2, 1fr); }
-  .foot-mega .word { font-size: clamp(40px, 16vw, 64px); }
+  .foot-mega .word {
+    font-size: clamp(28px, 11vw, 48px);
+    white-space: normal;
+  }
   .work-card { padding: 26px 22px; }
   .work-card.alt { padding: 24px 20px; }
 }
