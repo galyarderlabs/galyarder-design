@@ -145,7 +145,7 @@ export function Header({
       <div className='container nav-inner'>
         <a href={localizedBrandHref} className='brand'>
           <span className='brand-mark'>
-            <img src='/logo.png' alt='' width={36} height={36} />
+            <img src='/logo.png' alt='' width={44} height={44} />
           </span>
           <span>Galyarder Design</span>
           <span className='brand-meta'>
@@ -266,25 +266,86 @@ export function Header({
                 </li>
               </ul>
             </li>
-            <li>
-              <a href={href('/skills/')} className={linkClass('skills')}>
-                {copy.navSkills}<span className='num'>{counts.skills}</span>
+            <li className='has-dropdown'>
+              {/*
+                Plugins menu — combining Skills, Systems, Templates, and Craft
+                into a single rich dropdown menu.
+              */}
+              <a
+                href='#'
+                className={
+                  active === 'skills' ||
+                  active === 'systems' ||
+                  active === 'templates' ||
+                  active === 'craft'
+                    ? 'is-active'
+                    : undefined
+                }
+                aria-haspopup='true'
+                aria-expanded='false'
+                onClick={(e) => e.preventDefault()}
+              >
+                Plugins
+                <span className='dropdown-caret' aria-hidden='true'>▾</span>
               </a>
-            </li>
-            <li>
-              <a href={href('/systems/')} className={linkClass('systems')}>
-                {copy.navSystems}<span className='num'>{counts.systems}</span>
-              </a>
-            </li>
-            <li>
-              <a href={href('/templates/')} className={linkClass('templates')}>
-                {copy.navTemplates}<span className='num'>{counts.templates}</span>
-              </a>
-            </li>
-            <li>
-              <a href={href('/craft/')} className={linkClass('craft')}>
-                {copy.navCraft}<span className='num'>{counts.craft}</span>
-              </a>
+              <ul className='nav-dropdown' role='menu'>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href={href('/skills/')}
+                    className={linkClass('skills')}
+                  >
+                    <span className='dropdown-name'>
+                      {copy.navSkills} <span className='dropdown-num'>{counts.skills}</span>
+                    </span>
+                    <span className='dropdown-blurb'>
+                      Functional skills the agent invokes mid-task — utilities, briefs, packagers.
+                    </span>
+                  </a>
+                </li>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href={href('/systems/')}
+                    className={linkClass('systems')}
+                  >
+                    <span className='dropdown-name'>
+                      {copy.navSystems} <span className='dropdown-num'>{counts.systems}</span>
+                    </span>
+                    <span className='dropdown-blurb'>
+                      Brand design system libraries, core styles, tokens, and visual assets.
+                    </span>
+                  </a>
+                </li>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href={href('/templates/')}
+                    className={linkClass('templates')}
+                  >
+                    <span className='dropdown-name'>
+                      {copy.navTemplates} <span className='dropdown-num'>{counts.templates}</span>
+                    </span>
+                    <span className='dropdown-blurb'>
+                      Production-ready rendering layouts, deck models, and interactive templates.
+                    </span>
+                  </a>
+                </li>
+                <li role='none'>
+                  <a
+                    role='menuitem'
+                    href={href('/craft/')}
+                    className={linkClass('craft')}
+                  >
+                    <span className='dropdown-name'>
+                      {copy.navCraft} <span className='dropdown-num'>{counts.craft}</span>
+                    </span>
+                    <span className='dropdown-blurb'>
+                      Universal brand-agnostic design craft principles and automated visual rules.
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </li>
 
             <li>

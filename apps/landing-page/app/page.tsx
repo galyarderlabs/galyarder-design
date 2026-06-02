@@ -1157,7 +1157,7 @@ export default function Page({
               <div className='foot-brand'>
                 <a href='#top' className='brand'>
                   <span className='brand-mark'>
-                    <img src='/logo.webp' alt='' width={36} height={36} />
+                    <img src='/logo.webp' alt='' width={44} height={44} />
                   </span>
                   <span>Galyarder Design</span>
                 </a>

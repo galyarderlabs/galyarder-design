@@ -349,7 +349,7 @@ body::before {
   font-size: 18px;
 }
 .brand-mark {
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -467,11 +467,23 @@ body::before {
   background: rgba(26, 26, 26, 0.04);
 }
 .nav-dropdown .dropdown-name {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 2px;
+}
+.nav-dropdown .dropdown-num {
+  font-size: 10px;
+  color: var(--coral);
+  background: rgba(255, 122, 89, 0.08);
+  padding: 1px 6px;
+  border-radius: 99px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
 }
 .nav-dropdown .dropdown-blurb {
   display: block;
@@ -2398,7 +2410,7 @@ footer {
   .cta-actions .email-pill { flex: 1 1 auto; justify-content: center; }
   .nav-inner { gap: 12px; }
   .brand { font-size: 16px; gap: 10px; }
-  .brand-mark { width: 32px; height: 32px; font-size: 16px; }
+  .brand-mark { width: 36px; height: 36px; font-size: 16px; }
   .read-more { margin-top: 36px; }
   .foot-mega .word {
     font-size: clamp(32px, 11vw, 64px);
