@@ -101,21 +101,45 @@ const jsonLd = {
       </div>
     </header>
 
-    <figure class="detail-preview interactive-template-viewer">
-      <div class="interactive-head">
-        <span class="indicator"><span class="dot-active"></span> Live Interactive Preview</span>
-        <span class="control-tip">Interact with slides, videos, audio, and click-through systems</span>
-      </div>
-      <div class="interactive-iframe-container">
-        <iframe
-          src={`/templates/preview/${template.slug}/`}
-          class="interactive-iframe"
-          title={`${template.name} Preview`}
-          sandbox="allow-scripts allow-same-origin allow-popups"
-        ></iframe>
-      </div>
-      <figcaption>Real interactive template rendering of the actual example source assets.</figcaption>
-    </figure>
+    {template.videoUrl ? (
+      <figure class="detail-preview video-detail-preview">
+        <div class="interactive-head">
+          <span class="indicator"><span class="dot-active"></span> Real Cinematic Video</span>
+          <span class="control-tip">Click controls to play the real video template asset</span>
+        </div>
+        <div class="video-player-container" style="background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; aspect-ratio: 16 / 9; max-height: 560px; border-bottom: 1px solid var(--line-soft);">
+          <video src={template.videoUrl} poster={template.previewUrl || ''} controls playsinline class="detail-video-element" style="width: 100%; height: 100%; object-fit: contain; display: block;"></video>
+        </div>
+        <figcaption>Real video template preview rendered directly from Seedance 2.0 source assets.</figcaption>
+      </figure>
+    ) : template.mediaUrl ? (
+      <figure class="detail-preview image-detail-preview">
+        <div class="interactive-head">
+          <span class="indicator"><span class="dot-active"></span> Real High-Fidelity Image</span>
+          <span class="control-tip">High-fidelity template asset loaded directly from the repository source</span>
+        </div>
+        <div class="image-viewer-container" style="display: flex; align-items: center; justify-content: center; overflow: hidden; background: #16120f; border-bottom: 1px solid var(--line-soft);">
+          <img src={template.mediaUrl} alt={`${template.name} preview`} class="detail-image-element" style="max-width: 100%; height: auto; max-height: 700px; display: block; object-fit: contain;" />
+        </div>
+        <figcaption>Real high-fidelity image output generated from the template source assets.</figcaption>
+      </figure>
+    ) : (
+      <figure class="detail-preview interactive-template-viewer">
+        <div class="interactive-head">
+          <span class="indicator"><span class="dot-active"></span> Live Interactive Preview</span>
+          <span class="control-tip">Interact with slides, videos, audio, and click-through systems</span>
+        </div>
+        <div class="interactive-iframe-container">
+          <iframe
+            src={`/templates/preview/${template.slug}/`}
+            class="interactive-iframe"
+            title={`${template.name} Preview`}
+            sandbox="allow-scripts allow-same-origin allow-popups"
+          ></iframe>
+        </div>
+        <figcaption>Real interactive template rendering of the actual example source assets.</figcaption>
+      </figure>
+    )}
 
     <section class="detail-block">
       <h2>What's in this template</h2>

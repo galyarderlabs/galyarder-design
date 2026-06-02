@@ -9,6 +9,9 @@ function getCategory(t: TemplateRecord): string {
   if (t.origin === 'live-artifact') {
     return 'live-artifact';
   }
+  if (t.origin === 'prompt-template') {
+    return t.mode === 'video' ? 'video' : 'image';
+  }
   const slug = t.slug.toLowerCase();
   const name = t.name.toLowerCase();
   const mode = (t.mode || '').toLowerCase();
@@ -92,7 +95,11 @@ const jsonLd = {
         return (
           <li class="template-card" data-category={category}>
             <a href={t.detailHref} class="template-card-click">
-              {t.previewUrl ? (
+              {t.videoUrl ? (
+                <span class="template-thumb">
+                  <video src={t.videoUrl} poster={t.previewUrl || ''} muted loop playsinline class="template-card-video" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                </span>
+              ) : t.previewUrl ? (
                 <span class="template-thumb">
                   <LazyImg src={t.previewUrl} alt="" loading={i < 4 ? 'eager' : 'precise'} />
                 </span>
@@ -249,7 +256,20 @@ const jsonLd = {
           });
         });
       });
+
+      // Autoplay videos on card hover
+      document.querySelectorAll('.template-card').forEach(card => {
+        const video = card.querySelector('.template-card-video');
+        if (video) {
+          card.addEventListener('mouseenter', () => {
+            video.play().catch(() => {});
+          });
+          card.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0;
+          });
+        }
+      });
     });
   </script>
 </Layout>
-

@@ -414,7 +414,7 @@ export interface TemplateRecord {
   slug: string;
   name: string;
   summary: string;
-  origin: 'design-template' | 'live-artifact';
+  origin: 'design-template' | 'live-artifact' | 'prompt-template';
   mode?: string;
   platform?: string;
   scenario?: string;
@@ -424,6 +424,9 @@ export interface TemplateRecord {
   /** Skill body / template README body (Markdown). */
   body: string;
   previewUrl: string | null;
+  mediaType?: 'image' | 'video';
+  mediaUrl?: string | null;
+  videoUrl?: string | null;
 }
 
 export type TemplateEntry = CollectionEntry<'templates'>;
@@ -500,6 +503,108 @@ export function shapeLiveArtifactTemplate(
   };
 }
 
+function getPromptTemplateMedia(slug: string, surface: 'image' | 'video'): { previewUrl: string | null; mediaUrl: string | null; videoUrl: string | null; mediaType: 'image' | 'video' } {
+  const root = path.resolve(process.cwd(), 'apps/landing-page/public/assets/prompt-templates');
+  
+  if (surface === 'image') {
+    const extensions = ['jpg', 'png', 'webp', 'jpeg'];
+    for (const ext of extensions) {
+      const file = path.join(root, 'image', `${slug}.${ext}`);
+      if (existsSync(file)) {
+        return {
+          previewUrl: `/assets/prompt-templates/image/${slug}.${ext}`,
+          mediaUrl: `/assets/prompt-templates/image/${slug}.${ext}`,
+          videoUrl: null,
+          mediaType: 'image'
+        };
+      }
+    }
+    const normalized = slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const dir = path.join(root, 'image');
+    if (existsSync(dir)) {
+      for (const f of readdirSync(dir)) {
+        const fn = f.toLowerCase().replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/g, '');
+        if (fn === normalized) {
+          return {
+            previewUrl: `/assets/prompt-templates/image/${f}`,
+            mediaUrl: `/assets/prompt-templates/image/${f}`,
+            videoUrl: null,
+            mediaType: 'image'
+          };
+        }
+      }
+    }
+  } else {
+    const dir = path.join(root, 'video');
+    if (existsSync(dir)) {
+      const normalized = slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+      let mp4File = '';
+      let posterFile = '';
+      for (const f of readdirSync(dir)) {
+        const fn = f.toLowerCase().replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/g, '');
+        if (f.endsWith('.mp4') && (fn === normalized || fn.includes(normalized) || normalized.includes(fn))) {
+          mp4File = f;
+        }
+        if ((f.endsWith('.jpg') || f.endsWith('.png')) && f.includes('poster') && (fn.includes(normalized) || normalized.includes(fn.replace('poster', '')))) {
+          posterFile = f;
+        }
+      }
+      if (mp4File) {
+        return {
+          previewUrl: posterFile ? `/assets/prompt-templates/video/${posterFile}` : null,
+          mediaUrl: posterFile ? `/assets/prompt-templates/video/${posterFile}` : null,
+          videoUrl: `/assets/prompt-templates/video/${mp4File}`,
+          mediaType: 'video'
+        };
+      }
+    }
+  }
+
+  return { previewUrl: null, mediaUrl: null, videoUrl: null, mediaType: surface };
+}
+
+export async function getPromptTemplates(): Promise<ReadonlyArray<TemplateRecord>> {
+  const records: TemplateRecord[] = [];
+  const rootDir = path.resolve(process.cwd(), 'prompt-templates');
+  
+  for (const surface of ['image', 'video'] as const) {
+    const dir = path.join(rootDir, surface);
+    if (!existsSync(dir)) continue;
+    
+    for (const file of readdirSync(dir)) {
+      if (!file.endsWith('.json')) continue;
+      const slug = file.replace(/\.json$/, '');
+      const filePath = path.join(dir, file);
+      try {
+        const raw = readFileSync(filePath, 'utf-8');
+        const data = JSON.parse(raw);
+        
+        const media = getPromptTemplateMedia(slug, surface);
+        
+        records.push({
+          slug,
+          name: data.title ?? slug,
+          summary: data.summary ?? '',
+          origin: 'prompt-template',
+          mode: surface,
+          scenario: data.category ?? '',
+          source: `${REPO_BLOB}/prompt-templates/${surface}/${file}`,
+          detailHref: `/templates/${slug}/`,
+          body: `### Prompt\n\n\`\`\`text\n${data.prompt}\n\`\`\`\n\n${data.model ? `* **Model**: ${data.model}\n` : ''}${data.aspect ? `* **Aspect Ratio**: ${data.aspect}\n` : ''}`,
+          previewUrl: media.previewUrl,
+          mediaType: media.mediaType,
+          mediaUrl: media.mediaUrl,
+          videoUrl: media.videoUrl
+        });
+      } catch (e) {
+        // Ignore failures
+      }
+    }
+  }
+  
+  return records;
+}
+
 export async function getTemplateRecords(): Promise<ReadonlyArray<TemplateRecord>> {
   const previews = listPreviews('templates');
   const designEntries = await getCollection('designTemplates');
@@ -508,13 +613,18 @@ export async function getTemplateRecords(): Promise<ReadonlyArray<TemplateRecord
   const liveEntries = await getCollection('templates');
   const liveRecords = liveEntries.map((entry) => shapeLiveArtifactTemplate(entry, previews));
 
-  return [...designRecords, ...liveRecords].sort((a, b) => {
-    // Keep explicitly featured templates first, then group the canonical
-    // design-template catalogue ahead of legacy live-artifact shims.
+  const promptRecords = await getPromptTemplates();
+
+  return [...designRecords, ...liveRecords, ...promptRecords].sort((a, b) => {
     const af = a.featured ?? Number.POSITIVE_INFINITY;
     const bf = b.featured ?? Number.POSITIVE_INFINITY;
     if (af !== bf) return af - bf;
-    if (a.origin !== b.origin) return a.origin === 'design-template' ? -1 : 1;
+    if (a.origin !== b.origin) {
+      if (a.origin === 'design-template') return -1;
+      if (b.origin === 'design-template') return 1;
+      if (a.origin === 'prompt-template') return -1;
+      if (b.origin === 'prompt-template') return 1;
+    }
     return a.name.localeCompare(b.name);
   });
 }
