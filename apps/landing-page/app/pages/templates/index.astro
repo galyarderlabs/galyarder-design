@@ -1,9 +1,43 @@
 ---
 import Layout from '../../_components/sub-page-layout.astro';
 import LazyImg from '../../_components/lazy-img.astro';
-import { getTemplateRecords } from '../../_lib/catalog';
+import { getTemplateRecords, type TemplateRecord } from '../../_lib/catalog';
 
 const templates = await getTemplateRecords();
+
+function getCategory(t: TemplateRecord): string {
+  if (t.origin === 'live-artifact') {
+    return 'live-artifact';
+  }
+  const slug = t.slug.toLowerCase();
+  const name = t.name.toLowerCase();
+  const mode = (t.mode || '').toLowerCase();
+
+  if (slug.includes('hyperframe') || slug.includes('motion-frames') || name.includes('hyperframe')) {
+    return 'hyperframes';
+  }
+  if (mode === 'audio' || slug.includes('audio') || slug.includes('sound') || slug.includes('jingle')) {
+    return 'audio';
+  }
+  if (mode === 'video' || slug.includes('video') || slug.includes('animation') || slug.includes('sprite')) {
+    return 'video';
+  }
+  if (mode === 'image' || slug.includes('image') || slug.includes('poster') || slug.includes('magazine') || slug.includes('invoice') || slug.includes('card') || slug.includes('thumbnail')) {
+    return 'image';
+  }
+  if (mode === 'deck' || mode === 'slides' || slug.includes('ppt') || slug.includes('deck') || slug.includes('pitch-book') || slug.includes('presentation')) {
+    return 'slides';
+  }
+  return 'prototype';
+}
+
+const countPrototype = templates.filter(t => getCategory(t) === 'prototype').length;
+const countLiveArtifact = templates.filter(t => getCategory(t) === 'live-artifact').length;
+const countSlides = templates.filter(t => getCategory(t) === 'slides').length;
+const countImage = templates.filter(t => getCategory(t) === 'image').length;
+const countVideo = templates.filter(t => getCategory(t) === 'video').length;
+const countHyperFrames = templates.filter(t => getCategory(t) === 'hyperframes').length;
+const countAudio = templates.filter(t => getCategory(t) === 'audio').length;
 
 const title = `Templates — ${templates.length} ready-to-fork artifact templates | Galyarder Design`;
 const description =
@@ -23,40 +57,199 @@ const jsonLd = {
   <header class="catalog-head">
     <span class="label">Catalog · Nº 04</span>
     <h1 class="display">
-      <em>Templates</em> — {templates.length} ready-to-fork artifacts<span class="dot">.</span>
+      <em>Templates</em><span class="dot">.</span>
     </h1>
     <p class="lead">
-      Pre-wired design-template bundles with a known-good visual language,
-      baked examples, and agent instructions. Fork the folder, adapt the
-      source data or prompt, and ship.
+      Agent-built artifacts you can fork and ship — prototypes, slides, image and video templates. Run them on your own keys with the local agent; the prompts, posters, and example HTML are all under Apache-2.0.
     </p>
   </header>
 
+  <div class="filter-toolbar">
+    <div class="filter-row-total">
+      <span>Total ·</span>
+      <span class="count">{templates.length}</span>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group">
+      <span class="filter-label">Artifact kind</span>
+      <div class="filter-pills">
+        <button class="filter-btn active" data-filter="all">All <span class="badge">{templates.length}</span></button>
+        <button class="filter-btn" data-filter="prototype">Prototype <span class="badge">{countPrototype}</span></button>
+        <button class="filter-btn" data-filter="live-artifact">Live Artifact <span class="badge">{countLiveArtifact}</span></button>
+        <button class="filter-btn" data-filter="slides">Slides <span class="badge">{countSlides}</span></button>
+        <button class="filter-btn" data-filter="image">Image <span class="badge">{countImage}</span></button>
+        <button class="filter-btn" data-filter="video">Video <span class="badge">{countVideo}</span></button>
+        <button class="filter-btn" data-filter="hyperframes">HyperFrames <span class="badge">{countHyperFrames}</span></button>
+        <button class="filter-btn" data-filter="audio">Audio <span class="badge">{countAudio}</span></button>
+      </div>
+    </div>
+  </div>
+
   <section class="template-grid" aria-label="All templates">
     <ul>
-      {templates.map((t, i) => (
-        <li class="template-card">
-          <a href={t.detailHref}>
-            {t.previewUrl ? (
-              <span class="template-thumb">
-                <LazyImg src={t.previewUrl} alt="" loading={i < 4 ? 'eager' : 'precise'} />
+      {templates.map((t, i) => {
+        const category = getCategory(t);
+        return (
+          <li class="template-card" data-category={category}>
+            <a href={t.detailHref} class="template-card-click">
+              {t.previewUrl ? (
+                <span class="template-thumb">
+                  <LazyImg src={t.previewUrl} alt="" loading={i < 4 ? 'eager' : 'precise'} />
+                </span>
+              ) : (
+                <span class={`template-thumb-mockup mockup-${category}`} aria-hidden="true">
+                  <span class="mockup-bg"></span>
+                  <span class="mockup-content">
+                    {category === 'slides' && (
+                      <span class="mockup-slides">
+                        <span class="slide-mini slide-1"></span>
+                        <span class="slide-mini slide-2"></span>
+                        <span class="slide-mini slide-3"></span>
+                      </span>
+                    )}
+                    {category === 'video' && (
+                      <span class="mockup-video">
+                        <span class="video-play-btn">
+                          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </span>
+                        <span class="video-timeline"></span>
+                      </span>
+                    )}
+                    {category === 'hyperframes' && (
+                      <span class="mockup-hyperframes">
+                        <span class="hf-frame hf-frame-1"></span>
+                        <span class="hf-frame hf-frame-2"></span>
+                        <span class="hf-badge">HYPERFRAME</span>
+                      </span>
+                    )}
+                    {category === 'image' && (
+                      <span class="mockup-image">
+                        <span class="img-poster-frame">
+                          <span class="img-poster-accent"></span>
+                          <span class="img-poster-title"></span>
+                        </span>
+                      </span>
+                    )}
+                    {category === 'audio' && (
+                      <span class="mockup-audio">
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                      </span>
+                    )}
+                    {category === 'prototype' && (
+                      <span class="mockup-proto">
+                        <span class="proto-header">
+                          <span class="dots"><span></span><span></span><span></span></span>
+                        </span>
+                        <span class="proto-body">
+                          <span class="sidebar"></span>
+                          <span class="main-content"></span>
+                        </span>
+                      </span>
+                    )}
+                    {category === 'live-artifact' && (
+                      <span class="mockup-live">
+                        <span class="live-title">LIVE</span>
+                        <span class="live-chart"></span>
+                      </span>
+                    )}
+                  </span>
+                </span>
+              )}
+              <span class={`meta-tag ${t.origin === 'live-artifact' ? 'coral' : ''}`}>
+                {t.origin === 'live-artifact' ? 'Live Artifact' : (t.mode ?? 'Design template')}
               </span>
-            ) : (
-              <span class="template-thumb template-thumb-empty" aria-hidden="true" />
-            )}
-            <span class={`meta-tag ${t.origin === 'live-artifact' ? 'coral' : ''}`}>
-              {t.origin === 'live-artifact' ? 'Live Artifact' : (t.mode ?? 'Design template')}
-            </span>
-            <span class="template-name">{t.name}</span>
-            <p class="template-summary">{t.summary}</p>
-            {(t.platform || t.scenario) && (
-              <span class="template-meta-line">
-                {[t.platform, t.scenario].filter(Boolean).join(' · ')}
-              </span>
-            )}
-          </a>
-        </li>
-      ))}
+              <span class="template-name">{t.name}</span>
+              <p class="template-summary">{t.summary}</p>
+              {(t.platform || t.scenario) && (
+                <span class="template-meta-line">
+                  {[t.platform, t.scenario].filter(Boolean).join(' · ')}
+                </span>
+              )}
+            </a>
+            <div class="template-card-actions">
+              <button class="card-action-btn use-btn" data-cmd={`gd project create --skill ${t.slug}`}>
+                Use Template
+              </button>
+              <button class="card-action-btn share-btn" data-url={t.detailHref}>
+                Share
+              </button>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   </section>
+
+  <div id="toast" class="toast-notification" aria-live="polite"></div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Filtering logic
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.template-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filter = btn.getAttribute('data-filter');
+          cards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+              card.classList.remove('is-hidden');
+            } else {
+              card.classList.add('is-hidden');
+            }
+          });
+        });
+      });
+
+      // Toast functionality
+      const toast = document.getElementById('toast');
+      let toastTimeout;
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2200);
+      }
+
+      // Copying logic
+      document.querySelectorAll('.card-action-btn.use-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const cmd = btn.getAttribute('data-cmd');
+          navigator.clipboard.writeText(cmd).then(() => {
+            showToast('CLI command copied to clipboard!');
+          }).catch(() => {
+            showToast('Failed to copy command');
+          });
+        });
+      });
+
+      document.querySelectorAll('.card-action-btn.share-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const relUrl = btn.getAttribute('data-url');
+          const fullUrl = window.location.origin + relUrl;
+          navigator.clipboard.writeText(fullUrl).then(() => {
+            showToast('Detail page link copied!');
+          }).catch(() => {
+            showToast('Failed to copy link');
+          });
+        });
+      });
+    });
+  </script>
 </Layout>
+
