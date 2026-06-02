@@ -12,8 +12,8 @@ export function r2Asset(name: string): string {
 }
 
 export function imageAsset(name: string, { width, quality = 85 }: ImageOptions): string {
-  const options = `width=${width},quality=${quality},format=auto`;
-  return `${IMAGE_RESIZING_ORIGIN}/cdn-cgi/image/${options}/${r2Asset(name)}`;
+  // Return local relative path for robust local-first rendering
+  return `/landing/assets/${name}`;
 }
 
 /**
