@@ -1,0 +1,26 @@
+Galyarder Design
+Copyright (c) 2026 Galyarder Labs
+
+This product includes software developed by third parties.
+
+---
+
+## open-design
+
+- Source: https://github.com/nexu-io/open-design
+- License: Apache License 2.0
+- Usage: Galyarder Design is a modified derivative of open-design. Substantial
+  portions of the daemon, web runtime, skill catalog, design systems, design
+  templates, and plugin surface originate from that project.
+
+### Statement of changes (Apache License 2.0, section 4(b))
+
+Modifications made by Galyarder Labs include, without limitation:
+
+- Renamed the product, package scopes, and CLI binary (`od` to `gd`).
+- Replaced the bundled plugin manifest identifier (`open-design.json`) and the
+  runtime plugin registry with the Galyarder equivalents.
+- Rebranded user-facing documentation, screenshots, and the desktop shell.
+- Removed or replaced upstream analytics and release-infrastructure wiring.
+
+The full license text is reproduced in `LICENSE`.
