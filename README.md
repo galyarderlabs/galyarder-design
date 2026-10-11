@@ -4,7 +4,7 @@
 
 <h1 align="center">Galyarder Design</h1>
 
-<p align="center">The aesthetic, agent-native design engine for the Agentic Company.</p>
+<p align="center">A local-first design engine for AI coding agents.</p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="Apache 2.0 License"></a>
@@ -57,7 +57,7 @@ A live, interactive UI that showcases todos, tool calls, and execution plans in 
 Auto-detects Claude Code, Codex, Cursor, Devin, Gemini, Hermes, Kimi, OpenCode, Qwen, Qoder, GitHub Copilot CLI, Mistral Vibe, Pi, and others on your `PATH`. Swap your engine with one click.
 
 **150+ design systems built-in**  
-Starters, atoms, and comprehensive tokens from world-class systems (Linear, Stripe, Supabase, Apple, Airbnb, Tesla, Notion, and more) to keep all generated work aligned with premium product language.
+Starters, atoms, and comprehensive tokens from widely used systems (Linear, Stripe, Supabase, Apple, Airbnb, Tesla, Notion, and more) to keep all generated work aligned with premium product language.
 
 **130+ production-ready design skills**  
 Ready-to-use skills in prototype mode (landings, dashboards, SaaS layouts, iPhone 15 Pro mobile prototypes) and horizontal presentation decks.
@@ -150,7 +150,7 @@ Apache-2.0 © 2026 Galyarder Labs
 ---
 
 <p align="center">
-  The future of design isn't pushing pixels. It's building infrastructure.<br>
+  Open source. Local-first. Runs on your machine.<br>
   <br>
-  Open source. Local-first. Built for founders who think in systems.
+  Derived from <a href="https://github.com/nexu-io/open-design">open-design</a> (Apache-2.0).
 </p>
