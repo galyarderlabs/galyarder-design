@@ -129,6 +129,20 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
+## Lineage and attribution
+
+Galyarder Design is a modified derivative of [open-design](https://github.com/nexu-io/open-design),
+licensed under Apache-2.0. Substantial portions of the daemon, web runtime, skill
+catalog, design systems, design templates, and plugin surface originate from that
+project and have been renamed, rebranded, and extended here.
+
+Modifications made by Galyarder Labs include the product and package rename, the
+CLI binary rename (`od` to `gd`), replacement of the bundled plugin manifest, and
+rebranded documentation and desktop shell. See [`NOTICE`](NOTICE) for the full
+statement of changes.
+
+Upstream copyright and license are retained; see [`LICENSE`](LICENSE).
+
 ## License
 
 Apache-2.0 © 2026 Galyarder Labs
